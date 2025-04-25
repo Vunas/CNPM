@@ -4,6 +4,7 @@ import {
   Column,
   CreateDateColumn,
   ManyToOne,
+  JoinColumn,
 } from 'typeorm';
 import { Restaurant } from '../restaurant/restaurant.entity';
 
@@ -36,5 +37,6 @@ export class Account {
   @ManyToOne(() => Restaurant, (restaurant) => restaurant.restaurantId, {
     nullable: true,
   })
+  @JoinColumn({ name: 'restaurantId' }) // Đặt tên cột là 'restaurantId'
   restaurant: Restaurant;
 }
