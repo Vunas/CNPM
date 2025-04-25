@@ -31,6 +31,12 @@ export class ProductService {
     return product;
   }
 
+  async findByCategory(categoryId: string): Promise<Product[]> {
+    return await this.productRepository.find({
+      where: { category: { categoryId } },
+    });
+  }
+
   async update(
     id: string,
     updateProductDto: UpdateProductDto,

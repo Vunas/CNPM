@@ -1,7 +1,8 @@
 import { Home } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
 import React, { useState, useEffect } from "react";
-import { API_ENDPOINTS, fetchGet } from "../api/api";
+import productApi from "../api/productapi";
+import categoryApi from "../api/categoryApi";
 
 const Order = () => {
   const [cart, setCart] = useState([
@@ -26,10 +27,10 @@ const Order = () => {
   // ];
 
   useEffect(() => {
-    const fetchProducts = async () => {
+    const fetchData = async () => {
       try {
-        const dataProduct = await fetchGet(API_ENDPOINTS.getProduct); 
-        const dataCategory = await fetchGet(API_ENDPOINTS.getCategory); 
+        const dataProduct = await productApi.getProducts();
+        const dataCategory = await categoryApi.getCategories();
         setProducts(dataProduct);
         setCategory(dataCategory);
         setLoading(false);
@@ -40,7 +41,7 @@ const Order = () => {
       }
     };
 
-    fetchProducts();
+    fetchData();
   }, []); // [] có nghĩa là useEffect chỉ chạy một lần sau lần render đầu tiên
 
   const addToCart = (item) => {

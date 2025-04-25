@@ -30,6 +30,11 @@ export class ProductController {
     return this.productService.findOne(id);
   }
 
+  @Get('/by-category/:categoryID')
+  findByCategory(@Param('categoryID') categoryID: string) {
+    return this.productService.findByCategory(categoryID);
+  }
+
   @Put(':id')
   update(@Param('id') id: string, @Body() updateProductDto: UpdateProductDto) {
     return this.productService.update(id, updateProductDto);
