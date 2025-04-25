@@ -1,0 +1,136 @@
+-- 1. Bảng Restaurant: Thông tin cửa hàng đồ ăn nhanh
+CREATE TABLE Restaurant (
+  RestaurantID CHAR(36) DEFAULT UUID() PRIMARY KEY,
+  Name VARCHAR(100) NOT NULL,
+  Address VARCHAR(255) NOT NULL,
+  Phone VARCHAR(15),
+  CreatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  Status INT DEFAULT 1
+);
+
+INSERT INTO Restaurant (RestaurantID, Name, Address, Phone, Status)
+VALUES
+('r-001', 'Burger Express', '12 Lê Lợi, Q.1, TP.HCM', '0901122334', 1),
+('r-002', 'Pizza Hub', '88 Trần Phú, Q.5, TP.HCM', '0912233445', 1);
+
+-- 2. Bảng Account: Tài khoản người dùng
+CREATE TABLE Account (
+  AccountID CHAR(36) DEFAULT UUID() PRIMARY KEY,
+  Username VARCHAR(50) UNIQUE NOT NULL,
+  PasswordHash VARCHAR(255) NOT NULL,
+  Role ENUM('Admin', 'Employee', 'Kitchen') NOT NULL,
+  Email VARCHAR(100) UNIQUE,
+  Phone VARCHAR(15) UNIQUE,
+  CreatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  RestaurantID CHAR(36),
+  FOREIGN KEY (RestaurantID) REFERENCES Restaurant(RestaurantID),
+  Status INT DEFAULT 1
+);
+
+INSERT INTO Account (AccountID, Username, PasswordHash, Role, Email, Phone, RestaurantID, Status)
+VALUES
+('a-001', 'admin_burger', 'admin_pass_hash', 'Admin', 'admin@burger.com', '0901122334', 'r-001', 1),
+('a-002', 'staff_pizza', 'staff_pass_hash', 'Employee', 'staff@pizza.com', NULL, 'r-002', 1);
+
+-- 3. Bảng Category: Danh mục món ăn
+CREATE TABLE Category (
+  CategoryID CHAR(36) DEFAULT UUID() PRIMARY KEY,
+  Name VARCHAR(50) UNIQUE NOT NULL,
+  ImageURL TEXT,
+  Status INT DEFAULT 1
+);
+
+INSERT INTO Category (CategoryID, Name, Status, ImageURL)
+VALUES
+('c-001', 'Burger', 1, 'src/assets/coca.jpg'),
+('c-002', 'Pizza', 1, 'src/assets/coca.jpg'),
+('c-003', 'Đồ uống', 1, 'src/assets/coca.jpg');
+
+-- 4. Bảng Product: Món ăn
+CREATE TABLE Product (
+  ProductID CHAR(36) DEFAULT UUID() PRIMARY KEY,
+  Name VARCHAR(100) NOT NULL,
+  Description TEXT,
+  Price DECIMAL(10,2) NOT NULL,
+  CategoryID CHAR(36),
+  Status ENUM('Available', 'Out of Stock') DEFAULT 'Available',
+  ImageURL TEXT,
+  RestaurantID CHAR(36),
+  FOREIGN KEY (CategoryID) REFERENCES Category(CategoryID),
+  FOREIGN KEY (RestaurantID) REFERENCES Restaurant(RestaurantID),
+  -- Thêm cột Status cho xóa mềm (INT, default 1)
+  IsActive INT DEFAULT 1
+);
+
+INSERT INTO Product (ProductID, Name, Description, Price, CategoryID, Status, ImageURL, RestaurantID, IsActive)
+VALUES
+('p-001', 'Burger Bò Nướng', 'Burger bò nướng phô mai', 60000.00, 'c-001', 'Available', 'src/assets/coca.jpg', 'r-001', 1),
+('p-002', 'Pizza Hải Sản', 'Pizza hải sản thập cẩm', 120000.00, 'c-002', 'Available', 'src/assets/cupcake.jpg', 'r-002', 1),
+('p-003', 'Pepsi', 'Nước ngọt có ga', 15000.00, 'c-003', 'Available', 'src/assets/coca.jpg', 'r-001', 1),
+('p-004', 'Gà Rán Giòn', 'Gà rán tẩm bột giòn tan', 45000.00, 'c-001', 'Available', 'src/assets/squid.jpg', 'r-001', 1),
+('p-005', 'Mỳ Ý Spaghetti', 'Mỳ Ý sốt bò bằm truyền thống', 75000.00, 'c-002', 'Available', 'src/assets/hamburger.jpg', 'r-002', 1),
+('p-006', 'Coca-Cola', 'Nước ngọt có ga', 15000.00, 'c-003', 'Available', 'src/assets/cupcake.jpg', 'r-002', 1),
+('p-007', 'Burger Gà', 'Burger gà chiên xù', 55000.00, 'c-001', 'Available', 'src/assets/cupcake.jpg', 'r-001', 1),
+('p-008', 'Pizza Bò', 'Pizza bò và nấm', 110000.00, 'c-002', 'Available', '/images/beef_pizza.jpg', 'r-001', 1),
+('p-009', 'Sprite', 'Nước ngọt có ga vị chanh', 15000.00, 'c-003', 'Available', '/images/sprite.jpg', 'r-002', 1),
+('p-010', 'Khoai Tây Chiên', 'Khoai tây chiên giòn rụm', 25000.00, 'c-001', 'Available', '/images/french_fries.jpg', 'r-001', 1);
+
+-- 5. Bảng RestaurantTable: Bàn ăn
+CREATE TABLE RestaurantTable (
+  TableID CHAR(36) DEFAULT UUID() PRIMARY KEY,
+  TableNumber INT NOT NULL,
+  QRCode VARCHAR(255) NOT NULL,
+  RestaurantID CHAR(36) NOT NULL,
+  FOREIGN KEY (RestaurantID) REFERENCES Restaurant(RestaurantID),
+  Status INT DEFAULT 1
+);
+
+INSERT INTO RestaurantTable (TableID, TableNumber, QRCode, RestaurantID, Status)
+VALUES
+('t-001', 1, 'qr_burger_1', 'r-001', 1),
+('t-002', 2, 'qr_burger_2', 'r-001', 1),
+('t-003', 1, 'qr_pizza_1', 'r-002', 1);
+
+-- 6. Bảng Order: Đơn hàng
+CREATE TABLE `Order` (
+    OrderID CHAR(36) DEFAULT UUID() PRIMARY KEY,
+    OrderDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    TotalPrice DECIMAL(10,2) NOT NULL,
+    OrderStatus ENUM('Pending', 'Confirmed', 'Finished', 'Cancelled') DEFAULT 'Pending',
+    OrderType ENUM('Dine-in', 'Takeaway', 'Delivery') DEFAULT 'Takeaway',
+    PaymentMethod ENUM('Cash', 'Credit Card', 'E-wallet') NULL,
+    TableID CHAR(36),
+    CustomerContact VARCHAR(50),
+    AccountID CHAR(36) NULL,
+    RestaurantID CHAR(36) NOT NULL,
+    FOREIGN KEY (AccountID) REFERENCES Account(AccountID),
+    FOREIGN KEY (RestaurantID) REFERENCES Restaurant(RestaurantID),
+    FOREIGN KEY (TableID) REFERENCES RestaurantTable(TableID),
+    Status INT DEFAULT 1
+);
+
+INSERT INTO `Order` (OrderID, TotalPrice, OrderStatus, OrderType, PaymentMethod, TableID, CustomerContact, AccountID, RestaurantID, Status)
+VALUES
+('o-001', 75000.00, 'Confirmed', 'Takeaway', 'Cash', NULL, '0123456789', 'a-001', 'r-001', 1),
+('o-002', 135000.00, 'Pending', 'Dine-in', NULL, NULL, '0987654321', 'a-002', 'r-002', 1);
+
+-- 7. Bảng OrderDetail: Chi tiết đơn hàng
+CREATE TABLE OrderDetail (
+  OrderDetailID CHAR(36) DEFAULT UUID() PRIMARY KEY,
+  OrderID CHAR(36) NOT NULL,
+  ProductID CHAR(36) NOT NULL,
+  Quantity INT NOT NULL,
+  Price DECIMAL(10,2) NOT NULL,
+  Discount DECIMAL(10,2) DEFAULT 0,
+  Notes TEXT,
+  FOREIGN KEY (OrderID) REFERENCES `Order`(OrderID),
+  FOREIGN KEY (ProductID) REFERENCES Product(ProductID),
+  Status INT DEFAULT 1
+);
+
+INSERT INTO OrderDetail (OrderDetailID, OrderID, ProductID, Quantity, Price, Discount, Notes, Status)
+VALUES
+('od-001', 'o-001', 'p-001', 1, 60000.00, 0.00, NULL, 1),
+('od-002', 'o-001', 'p-003', 1, 15000.00, 0.00, 'Không đá', 1),
+('od-003', 'o-002', 'p-002', 1, 120000.00, 0.00, NULL, 1),
+('od-004', 'o-002', 'p-003', 1, 15000.00, 0.00, NULL, 1);

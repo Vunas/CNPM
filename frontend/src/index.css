@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Chelsea+Market&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.chelsea-market-regular {
+   font-family: "Chelsea Market", system-ui;
+   font-weight: 400;
+   font-style: normal;
+}
+
+::-webkit-scrollbar{
+   display: none;
+   
+}
+ 
+@media (max-width:640px){
+   a.active{
+      background-color: black;
+      color: white;
+   }
+}
+
+a.active hr{
+   display: block;
+}

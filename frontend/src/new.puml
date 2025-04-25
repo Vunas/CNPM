@@ -1,0 +1,100 @@
+@startuml
+' Định nghĩa enum
+enum OrderStatus {
+  Ordered
+  Processing
+  Confirmed
+  Shipped
+}
+
+enum CustomerStatus {
+  Active
+  Blocked
+}
+
+class User {
+  - loginID: string
+  - password: string
+  - email: string
+  + GetUserDetails(userID): User
+}
+
+class Customer {
+  + wishlist: Product[]
+}
+
+class Administrator {
+  + AddProduct()
+  + EditProducts()
+}
+
+class Guest
+
+User <|-- Customer
+User <|-- Administrator
+Guest --|> User : Does not inherit
+
+class Product {
+  - productID: int
+  - productName: string
+  - description: string
+  - price: decimal
+  - quantity: int
+  - image: image
+  - category: Category
+  - brand: Brand
+  - seller: Seller
+  - rating: decimal
+  + GetImage(productID): image
+  + GetPrice(productID): decimal
+}
+
+class ShoppingCart {
+  + GetCartItems(customerID): Product[]
+}
+
+Customer *-- ShoppingCart
+ShoppingCart o-- Product
+
+class Order {
+  - orderID: bigint
+  - order_date: datetime
+  - shipped_date: datetime
+  - ship_to: Address
+  - total: decimal
+  - products: Product[]
+  + GetOrderDetails(orderID): Order
+}
+
+Order *-- Product
+Order --> OrderStatus
+
+class PaymentClass {
+  + CapturePayment()
+  + ProcessPayment()
+}
+
+class Paypal
+class CreditCard
+
+Paypal ..|> PaymentClass
+CreditCard ..|> PaymentClass
+
+class UserAccount {
+  - id: string
+  - address: Address[]
+  - phone: Phone[]
+  - email: string
+  - orders: Order[]
+  + GetCustomer2Address(customerID): Address
+}
+
+class Address {
+  - HouseNo: string
+  - Road: string
+  - City: string
+  - State: string
+}
+
+UserAccount *-- Address
+@enduml
