@@ -4,6 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Account } from './account.entity';
 import { CreateAccountDto } from './dto/create-account.dto';
 import { UpdateAccountDto } from './dto/update-account.dto';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class AccountService {
@@ -28,7 +29,7 @@ export class AccountService {
   }
 
   async create(createAccountDto: CreateAccountDto): Promise<Account> {
-    const { username, email, phone } = createAccountDto;
+    const { username, email, phone, passwordHash } = createAccountDto;
 
     if (await this.isUsernameTaken(username)) {
       throw new Error(`Username "${username}" is already taken.`);
@@ -40,6 +41,14 @@ export class AccountService {
 
     if (phone && (await this.isPhoneTaken(phone))) {
       throw new Error(`Phone number "${phone}" is already registered.`);
+    }
+
+    if (passwordHash) {
+      const saltOrRounds = 10;
+      createAccountDto.passwordHash = await bcrypt.hash(
+        passwordHash,
+        saltOrRounds,
+      );
     }
 
     const account = this.accountRepository.create(createAccountDto);
@@ -62,7 +71,7 @@ export class AccountService {
     id: string,
     updateAccountDto: UpdateAccountDto,
   ): Promise<Account> {
-    const { username, email, phone } = updateAccountDto;
+    const { username, email, phone, passwordHash } = updateAccountDto;
 
     if (username && (await this.isUsernameTaken(username))) {
       const existingAccount = await this.accountRepository.findOneBy({
@@ -85,6 +94,14 @@ export class AccountService {
       if (existingAccount && existingAccount.accountId !== id) {
         throw new Error(`Phone number "${phone}" is already registered.`);
       }
+    }
+
+    if (passwordHash) {
+      const saltOrRounds = 10;
+      updateAccountDto.passwordHash = await bcrypt.hash(
+        passwordHash,
+        saltOrRounds,
+      );
     }
 
     await this.accountRepository.update(id, updateAccountDto);

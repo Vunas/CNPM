@@ -2,15 +2,10 @@ import { Controller, Post, Body, Get, UseGuards, Req } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { LoginDto } from './dto/login.dto';
 import { JwtAuthGuard } from './guard/jwt-auth.guard';
-
-interface JwtUser {
-  sub: string;
-  username: string;
-  role?: string;
-}
+import { JwtPayload } from './types/jwt-payload.type';
 
 interface JwtRequest extends Request {
-  user: JwtUser;
+  user: JwtPayload;
 }
 
 @Controller('auth')
@@ -27,5 +22,10 @@ export class AuthController {
   @UseGuards(JwtAuthGuard)
   async getProfile(@Req() req: JwtRequest) {
     return this.authService.getAccountByID(req.user.sub);
+  }
+
+  @Post('refresh-token')
+  async refreshToken(@Body('refreshToken') refreshToken: string) {
+    return this.authService.refreshToken(refreshToken);
   }
 }

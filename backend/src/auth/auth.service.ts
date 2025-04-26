@@ -6,6 +6,7 @@ import { Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 import { LoginDto } from './dto/login.dto';
 import { AccountService } from 'src/modules/account/account.service';
+import { JwtPayload } from './types/jwt-payload.type';
 
 @Injectable()
 export class AuthService {
@@ -49,6 +50,24 @@ export class AuthService {
     return {
       accessToken: await this.jwtService.signAsync(payload),
     };
+  }
+
+  async refreshToken(refreshToken: string): Promise<{ accessToken: string }> {
+    try {
+      const payload =
+        await this.jwtService.verifyAsync<JwtPayload>(refreshToken);
+
+      const newAccessToken = await this.jwtService.signAsync(
+        { username: payload.username, sub: payload.sub, role: payload.role },
+        { expiresIn: '1h' },
+      );
+      return { accessToken: newAccessToken };
+    } catch (error) {
+      console.log(error);
+      throw new UnauthorizedException({
+        message: 'Invalid or expired refresh token',
+      });
+    }
   }
 
   async getAccountByID(accountId: string) {
