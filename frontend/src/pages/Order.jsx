@@ -3,7 +3,6 @@ import { IconButton } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import productApi from "../api/productapi";
 import categoryApi from "../api/categoryApi";
-import Loading from "../utils/Loading/Loading";
 
 const Order = () => {
   const [cart, setCart] = useState([
@@ -38,23 +37,12 @@ const Order = () => {
       } catch (e) {
         setError(e);
       } finally {
-        setLoading(false);
+        setLoading(false); // Dừng trạng thái loading sau khi fetch
       }
     };
 
     fetchData();
-  }, []);
-
-  const handleGetProductByCategory = async (id) => {
-    try {
-      const dataProduct = await productApi.getProductsByCategory(id);
-      setProducts(dataProduct);
-    } catch (e) {
-      setError(e);
-    } finally {
-      setLoading(false);
-    }
-  };
+  }, []); // [] có nghĩa là useEffect chỉ chạy một lần sau lần render đầu tiên
 
   const addToCart = (item) => {
     const existingItem = cart.find((cartItem) => cartItem.name === item.name);
@@ -91,7 +79,7 @@ const Order = () => {
   const totalWithTax = total + tax;
 
   if (loading) {
-    return <Loading/>;
+    return <div>Đang tải dữ liệu sản phẩm...</div>;
   }
 
   if (error) {
@@ -123,15 +111,17 @@ const Order = () => {
         <div className="flex space-x-4 mb-6 p-2 h-25">
           {category.map((category) => (
             <button
-              onClick={() => {handleGetProductByCategory(category.categoryId)}}
               key={category.name}
               className="flex flex-col min-w-20 items-center px-2 py-1 rounded-lg shadow-md transition duration-300 bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold"
             >
+              {/* Hình ảnh ở trên */}
               <img
                 src={category.imageUrl}
                 alt={category.name}
                 className="w-12 h-12 rounded-full"
               />
+
+              {/* Tên danh mục phía dưới */}
               <span className="text-lg">{category.name}</span>
             </button>
           ))}
@@ -139,7 +129,7 @@ const Order = () => {
 
         {/* Menu Items */}
         <div className="grid gap-5 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-          {products.map((item) => (
+          {products.map((item,index) => (
             <div
               key={item.productID}
               className="bg-white p-4 rounded-xl shadow-lg flex flex-col items-center w-74 h-65"
@@ -153,32 +143,25 @@ const Order = () => {
 
               {/* Tên món ăn ngay dưới hình ảnh */}
               <p className="text-lg font-semibold text-center mt-2">
+                <span className="text-xl font-bold text-red-600">{index+1}. </span>
                 {item.name}
               </p>
 
               {/* Giá và nút giỏ hàng trên cùng một hàng */}
               <div className="w-full flex justify-between items-center mt-2 px-4">
                 <p className="text-gray-800 text-lg font-bold">
-                  Kr {Number(item.price)?.toFixed(2)}
+                  Giá: {Number(item.price)?.toFixed(2)+" Kr"}
                   {/* Sử dụng optional chaining để tránh lỗi nếu price là undefined */}
                 </p>
                 <button
                   onClick={() => addToCart(item)}
                   className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg flex items-center transition duration-300"
                 >
-                  <svg
+                  <img
+                    src="src/assets/cart.png"
+                    alt="Cart"
                     className="w-5 h-5"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M3 3h18l-2 13H5L3 3zm5 0v2m4-2v2m4-2v2"
-                    />
-                  </svg>
+                  />
                 </button>
               </div>
             </div>
@@ -191,7 +174,7 @@ const Order = () => {
         {/* Tiêu đề + nút DINE IN */}
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-2xl font-bold text-red-600 tracking-wide">
-            Your Cart ({cart.length})
+            Your Cart: ({cart.length})
           </h2>
           <button className="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition duration-300">
             DINE IN
@@ -245,16 +228,14 @@ const Order = () => {
               </div>
 
               {/* Giá + thuế nằm trên cùng */}
-              <div className="text-right">
-                <p className="text-gray-700 font-medium text-md">
+              <div className="text-right font-bold">
+                <p className="text-red-600 font-medium text-md">
                   Kr {(item.price * item.quantity).toFixed(2)}
                 </p>
-                {item.price === 123.0 && (
-                  <p className="text-gray-500 text-sm">
-                    (Incl. tax 10% = Kr{" "}
+                <p className="text-gray-500 text-sm">
+                    (Incl. tax 10% = {" "}
                     {(item.price * item.quantity * 0.1).toFixed(2)})
-                  </p>
-                )}
+                </p>
               </div>
             </div>
           ))}
@@ -265,11 +246,13 @@ const Order = () => {
           <div className="flex justify-between items-center">
             <p className="text-xl font-bold text-gray-900">Total:</p>
             <p className="text-xl font-bold text-red-600">
-              Kr{" "}
-              {cart
-                .reduce((total, item) => total + item.price * item.quantity, 0)
-                .toFixed(2)}
+              {" "}
+              {(cart
+                .reduce((total, item) => total + item.price * item.quantity, 0)*1.1).toFixed(2) +" Kr"}
             </p>
+          </div>
+          <div className="text-m font-bold text-gray-500 text-right">
+            (Incl. tax 10% = {(cart.reduce((total, item) => total + item.price * item.quantity, 0) * 0.1).toFixed(2)} )
           </div>
           <button className="w-full bg-red-500 hover:bg-red-600 text-white py-3 rounded-lg mt-6 text-lg font-bold uppercase transition duration-300">
             PAYMENT
