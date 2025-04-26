@@ -3,6 +3,7 @@ import { IconButton } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import productApi from "../api/productapi";
 import categoryApi from "../api/categoryApi";
+import Loading from "../utils/Loading/Loading";
 
 const Order = () => {
   const [cart, setCart] = useState([
@@ -37,12 +38,23 @@ const Order = () => {
       } catch (e) {
         setError(e);
       } finally {
-        setLoading(false); // Dừng trạng thái loading sau khi fetch
+        setLoading(false);
       }
     };
 
     fetchData();
-  }, []); // [] có nghĩa là useEffect chỉ chạy một lần sau lần render đầu tiên
+  }, []);
+
+  const handleGetProductByCategory = async (id) => {
+    try {
+      const dataProduct = await productApi.getProductsByCategory(id);
+      setProducts(dataProduct);
+    } catch (e) {
+      setError(e);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const addToCart = (item) => {
     const existingItem = cart.find((cartItem) => cartItem.name === item.name);
@@ -79,7 +91,7 @@ const Order = () => {
   const totalWithTax = total + tax;
 
   if (loading) {
-    return <div>Đang tải dữ liệu sản phẩm...</div>;
+    return <Loading/>;
   }
 
   if (error) {
@@ -111,17 +123,15 @@ const Order = () => {
         <div className="flex space-x-4 mb-6 p-2 h-25">
           {category.map((category) => (
             <button
+              onClick={() => {handleGetProductByCategory(category.categoryId)}}
               key={category.name}
               className="flex flex-col min-w-20 items-center px-2 py-1 rounded-lg shadow-md transition duration-300 bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold"
             >
-              {/* Hình ảnh ở trên */}
               <img
                 src={category.imageUrl}
                 alt={category.name}
                 className="w-12 h-12 rounded-full"
               />
-
-              {/* Tên danh mục phía dưới */}
               <span className="text-lg">{category.name}</span>
             </button>
           ))}
