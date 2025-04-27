@@ -2,9 +2,9 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh; /* Chiều cao màn hình */
-  margin: 0; /* Loại bỏ khoảng trắng mặc định */
-  background-color: #f9f9f9; /* Màu nền (tuỳ chỉnh) */
+  height: 100vh;
+  margin: 0;
+  background-color: #f9f9f9;
 }
 .pl {
   width: 6em;
