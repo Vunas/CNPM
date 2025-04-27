@@ -11,14 +11,21 @@ const Order = () => {
   const [category, setCategory] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const maxCate = 5;
+  let totalPages = 1;
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const dataProduct = await productApi.getProducts();
         const dataCategory = await categoryApi.getCategories();
+        totalPages = Math.ceil(dataCategory.length / maxCate);
+        var LastElement = currentPage * maxCate;
+        var firstElement = LastElement - maxCate;
+        
+        setCategory(dataCategory.slice(firstElement,LastElement));
         setProducts(dataProduct);
-        setCategory(dataCategory);
         setLoading(false);
       } catch (e) {
         setError(e);
@@ -29,6 +36,20 @@ const Order = () => {
 
     fetchData();
   }, []);
+
+  const handlePage = async (page) =>{
+    try {
+      const dataCate = await categoryApi.getCategories();
+      setCurrentPage(page);
+      var LastElement = currentPage * maxCate;
+      var firstElement = LastElement - maxCate;
+      setCategory(dataCate.slice(firstElement,LastElement));
+    } catch (e) {
+      setError(e);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleGetProductByCategory = async (id) => {
     try {
@@ -41,7 +62,7 @@ const Order = () => {
     }
   };
 
-  const handleGetProduct = async (id) =>{
+  const handleGetProduct = async () =>{
     try{
       const dataProduct = await productApi.getProducts();
       setProducts(dataProduct);
@@ -120,11 +141,16 @@ const Order = () => {
         <div className = "py-2 px-6">
           {/* Categories */}
           <div className="flex items-center justify-center space-x-8 mb-6 p-2 h-25">
-            <img
-                src="src/assets/leftArrow.png"
-                alt="Cart"
-                className="w-8 h-full hover:scale-105"
-              />
+            <button
+              onClick={() => {handlePage(currentPage-1)}}
+              disabled = {currentPage === 1}
+            >
+              <img
+                  src="src/assets/leftArrow.png"
+                  alt="Cart"
+                  className="w-8 h-full hover:scale-105"
+                />
+            </button>
             {category.map((category) => (
               <button
                 onClick={() => {handleGetProductByCategory(category.categoryId)}}
@@ -139,11 +165,16 @@ const Order = () => {
                 <span className="text-lg font-bold">{category.name}</span>
               </button>
             ))}
-              <img
-                src="src/assets/rightArrow.png"
-                alt="Cart"
-                className="w-8 h-full hover:scale-105"
-              />
+              <button
+                onClick={() => {handlePage(currentPage+1)}}
+                disabled = {currentPage === totalPages}
+              >
+                <img
+                  src="src/assets/rightArrow.png"
+                  alt="Cart"
+                  className="w-8 h-full hover:scale-105"
+                />
+              </button>
           </div>
 
           {/* Menu Items */}
@@ -161,7 +192,7 @@ const Order = () => {
                 />
 
                 {/* Tên món ăn ngay dưới hình ảnh */}
-                <p className="text-lg font-semibold mt-2 border-t-2 w-full text-left pl-5">
+                <p className="text-lg font-semibold mt-2 border-t-2 w-full text-left pl-5 pr-5">
                   <span className="text-xl font-bold text-red-600">{index+1}. </span>
                   {item.name}
                 </p>
@@ -254,7 +285,7 @@ const Order = () => {
                     {/* Giá + thuế nằm kế bên nút tăng giảm */}
                     <div className="text-right">
                       <p className="text-red-600 font-bold text-lg ">
-                        Kr {(item.price * item.quantity).toFixed(2).replace('.', ',')}
+                        Kr {(item.price * item.quantity * 1.1).toFixed(2).replace('.', ',')}
                       </p>
                       <p className="text-gray-500 text-xs">
                           (Incl. tax 10% = Kr {" "}
