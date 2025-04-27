@@ -127,6 +127,7 @@ const Order = () => {
           </div>
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
         {/* Categories */}
         <div className="flex space-x-4 mb-6 p-2 h-25">
           {category.map((category) => (
@@ -203,6 +204,27 @@ const Order = () => {
                   <span className="text-xl font-bold text-red-600">{index+1}. </span>
                   {item.name}
                 </p>
+=======
+          {/* Menu Items */}
+          <div className="grid gap-5 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+            {products.map((item, index) => (
+              <div
+                key={item.productID}
+                className="bg-white rounded-xl shadow-lg flex flex-col items-center w-74 h-65 hover:scale-105 transition duration-200"
+              >
+                {/* Hình ảnh món ăn ở trên cùng */}
+                <img
+                  src={item.imageUrl || "placeholder_image_url"} // Sử dụng imageUrl từ API
+                  alt={item.name}
+                  className="w-48 h-48 object-cover rounded-lg"
+                />
+
+                {/* Tên món ăn ngay dưới hình ảnh */}
+                <p className="text-lg font-semibold mt-2 border-t-2 w-full text-left pl-5">
+                  <span className="text-xl font-bold text-red-600">{index+1}. </span>
+                  {item.name}
+                </p>
+>>>>>>> Stashed changes
 
                 {/* Giá và nút giỏ hàng trên cùng một hàng */}
                 <div className="flex justify-between items-center mt-2 pb-4 pt-4 border-t-2 w-5/6">
@@ -221,6 +243,9 @@ const Order = () => {
                     />
                   </button>
                 </div>
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
               </div>
             ))}
@@ -299,6 +324,7 @@ const Order = () => {
                 </div>
               </div>
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 
               {/* Giá + thuế nằm trên cùng */}
               <div className="text-right font-bold">
@@ -310,6 +336,8 @@ const Order = () => {
                     {(item.price * item.quantity * 0.1).toFixed(2)})
                 </p>
               </div>
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
             </div>
@@ -329,6 +357,9 @@ const Order = () => {
               Kr{" "}
               {(cart
                 .reduce((total, item) => total + item.price * item.quantity, 0)*1.1).toFixed(2).replace('.', ',')}
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
             </p>
           </div>
