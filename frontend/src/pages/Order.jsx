@@ -3,6 +3,7 @@ import { IconButton } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import productApi from "../api/productapi";
 import categoryApi from "../api/categoryApi";
+import Loading from "../utils/Loading/Loading";
 
 const Order = () => {
   const [cart, setCart] = useState([
@@ -37,12 +38,23 @@ const Order = () => {
       } catch (e) {
         setError(e);
       } finally {
-        setLoading(false); // Dừng trạng thái loading sau khi fetch
+        setLoading(false);
       }
     };
 
     fetchData();
-  }, []); // [] có nghĩa là useEffect chỉ chạy một lần sau lần render đầu tiên
+  }, []);
+
+  const handleGetProductByCategory = async (id) => {
+    try {
+      const dataProduct = await productApi.getProductsByCategory(id);
+      setProducts(dataProduct);
+    } catch (e) {
+      setError(e);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const addToCart = (item) => {
     const existingItem = cart.find((cartItem) => cartItem.name === item.name);
@@ -79,7 +91,7 @@ const Order = () => {
   const totalWithTax = total + tax;
 
   if (loading) {
-    return <div>Đang tải dữ liệu sản phẩm...</div>;
+    return <Loading/>;
   }
 
   if (error) {
@@ -87,94 +99,94 @@ const Order = () => {
   }
 
   return (
-    <div className="flex h-screen bg-gray-100 font-sans">
+    <div className="flex h-screen bg-gray-100 font-sans w-screen">
       {/* Menu Section */}
-      <div className="w-3/4 py-2 px-6 overflow-y-auto">
-        <div className="flex items-center mb-4">
-          <button className="flex items-center space-x- bg-gray-100 text-blue-600 px-2 py-1 hover:bg-gray-400 transition duration-300">
+      <div className="w-3/4 overflow-y-auto">
+        <div className="flex items-center mb-4 bg-white w-full p-2 shadow-md">
+          <button className="flex items-center space-x-2 text-blue-600 px-2 py-1 hover:scale-105 transition duration-300">
             <div
               style={{ backgroundColor: "rgb(47, 58, 85)" }}
-              className="p-1 mx-1 rounded-md flex items-center justify-center"
+              className="p-1 mx-1 rounded-lg flex items-center justify-center"
             >
-              <Home style={{ color: "white", width: "18px", height: "18px" }} />
+            <Home style={{ color: "white", width: "55px", height: "55px" }} />
             </div>
             <span
-              className="text-lg font-semibold"
+              className="text-lg font-bold"
               style={{ color: "rgb(47, 58, 85)" }}
             >
               Back to Home
             </span>
           </button>
         </div>
+      
+        <div className = "py-2 px-6">
+          {/* Categories */}
+          <div className="flex items-center justify-center space-x-8 mb-6 p-2 h-25">
+            {category.map((category) => (
+              <button
+                onClick={() => {handleGetProductByCategory(category.categoryId)}}
+                key={category.name}
+                className="flex flex-col min-w-30 items-center px-2 py-2 rounded-lg shadow-md transition duration-200 bg-white hover:scale-105 text-gray-700 font-semibold"
+              >
+                <img
+                  src={category.imageUrl}
+                  alt={category.name}
+                  className="w-32 h-32 rounded-full"
+                />
+                <span className="text-lg font-bold">{category.name}</span>
+              </button>
+            ))}
+          </div>
 
-        {/* Categories */}
-        <div className="flex space-x-4 mb-6 p-2 h-25">
-          {category.map((category) => (
-            <button
-              key={category.name}
-              className="flex flex-col min-w-20 items-center px-2 py-1 rounded-lg shadow-md transition duration-300 bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold"
-            >
-              {/* Hình ảnh ở trên */}
-              <img
-                src={category.imageUrl}
-                alt={category.name}
-                className="w-12 h-12 rounded-full"
-              />
+          {/* Menu Items */}
+          <div className="grid gap-5 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+            {products.map((item, index) => (
+              <div
+                key={item.productID}
+                className="bg-white rounded-xl shadow-lg flex flex-col items-center w-74 h-65 hover:scale-105 transition duration-200"
+              >
+                {/* Hình ảnh món ăn ở trên cùng */}
+                <img
+                  src={item.imageUrl || "placeholder_image_url"} // Sử dụng imageUrl từ API
+                  alt={item.name}
+                  className="w-48 h-48 object-cover rounded-lg"
+                />
 
-              {/* Tên danh mục phía dưới */}
-              <span className="text-lg">{category.name}</span>
-            </button>
-          ))}
-        </div>
-
-        {/* Menu Items */}
-        <div className="grid gap-5 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-          {products.map((item,index) => (
-            <div
-              key={item.productID}
-              className="bg-white p-4 rounded-xl shadow-lg flex flex-col items-center w-74 h-65"
-            >
-              {/* Hình ảnh món ăn ở trên cùng */}
-              <img
-                src={item.imageUrl || "placeholder_image_url"} // Sử dụng imageUrl từ API
-                alt={item.name}
-                className="w-48 h-48 object-cover rounded-lg"
-              />
-
-              {/* Tên món ăn ngay dưới hình ảnh */}
-              <p className="text-lg font-semibold text-center mt-2">
-                <span className="text-xl font-bold text-red-600">{index+1}. </span>
-                {item.name}
-              </p>
-
-              {/* Giá và nút giỏ hàng trên cùng một hàng */}
-              <div className="w-full flex justify-between items-center mt-2 px-4">
-                <p className="text-gray-800 text-lg font-bold">
-                  Giá: {Number(item.price)?.toFixed(2)+" Kr"}
-                  {/* Sử dụng optional chaining để tránh lỗi nếu price là undefined */}
+                {/* Tên món ăn ngay dưới hình ảnh */}
+                <p className="text-lg font-semibold mt-2 border-t-2 w-full text-left pl-5">
+                  <span className="text-xl font-bold text-red-600">{index+1}. </span>
+                  {item.name}
                 </p>
-                <button
-                  onClick={() => addToCart(item)}
-                  className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg flex items-center transition duration-300"
-                >
-                  <img
-                    src="src/assets/cart.png"
-                    alt="Cart"
-                    className="w-5 h-5"
-                  />
-                </button>
+
+                {/* Giá và nút giỏ hàng trên cùng một hàng */}
+                <div className="flex justify-between items-center mt-2 pb-4 pt-4 border-t-2 w-5/6">
+                  <p className="text-red-600 text-lg font-bold">
+                    Kr {Number(item.price)?.toFixed(2).replace('.', ',')}
+                    {/* Sử dụng optional chaining để tránh lỗi nếu price là undefined */}
+                  </p>
+                  <button
+                    onClick={() => addToCart(item)}
+                    className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg flex items-center transition duration-300"
+                  >
+                    <img
+                      src="src/assets/cart.png"
+                      alt="Cart"
+                      className="w-5 h-5"
+                    />
+                  </button>
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
 
       {/* Cart Section */}
-      <div className="w-1/4 min-w-60 bg-white p-6 border-l border-gray-200 flex flex-col shadow-lg">
+      <div className="w-1/3 min-w-60 bg-white p-6 border-l border-gray-200 flex flex-col shadow-lg">
         {/* Tiêu đề + nút DINE IN */}
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-2xl font-bold text-red-600 tracking-wide">
-            Your Cart: ({cart.length})
+            Your Cart ({cart.length})
           </h2>
           <button className="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition duration-300">
             DINE IN
@@ -184,7 +196,7 @@ const Order = () => {
         {/* Danh sách sản phẩm trong giỏ hàng */}
         <div className="space-y-6 flex-1 overflow-y-auto">
           {cart.map((item, index) => (
-            <div
+          <div
               key={item.id}
               className="flex justify-between items-center border-b border-gray-300 pb-4"
             >
@@ -193,49 +205,51 @@ const Order = () => {
                 <img
                   src={item.imageUrl || "placeholder_image_url"} // Cố gắng sử dụng imageUrl từ cart nếu có
                   alt={item.name}
-                  className="w-12 h-12 object-cover rounded-lg shadow-md"
+                  className="w-24 h-24 object-cover rounded-lg shadow-md"
                 />
                 <div>
                   {/* Tên món ăn */}
                   <p className="font-semibold text-lg">
-                    {index + 1}. {item.name}
+                    <span className="text-red-600 font-bold">{index + 1}. </span> {item.name}
                   </p>
 
-                  {/* Nút tăng giảm nằm dưới */}
-                  <div className="flex items-center justify-between p-2 rounded-lg w-28 mt-2 shadow-md">
-                    {/* Nút giảm số lượng */}
-                    <button
-                      onClick={() => updateQuantity(item.id, -1)}
-                      className="w-8 h-8 text-gray-600 border-2 border-gray-400 rounded-lg flex items-center justify-center font-bold text-xl hover:bg-gray-300 hover:text-white transition duration-300"
-                    >
-                      -
-                    </button>
+                  {/* Nút tăng giảm và giá nằm dưới */}
+                  <div className="flex">
+                    <div className="flex items-center justify-between p-1 rounded-lg w-28 mt-2">
+                      {/* Nút giảm số lượng */}
+                      <button
+                        onClick={() => updateQuantity(item.id, -1)}
+                        className="w-8 h-8 text-gray-600 border-2 border-gray-400 rounded-lg flex items-center justify-center font-bold text-xl hover:bg-gray-300 hover:text-white transition duration-300"
+                      >
+                        -
+                      </button>
 
-                    {/* Số lượng sản phẩm */}
-                    <span className="text-lg font-bold text-gray-800">
-                      {item.quantity}
-                    </span>
+                      {/* Số lượng sản phẩm */}
+                      <span className="text-lg font-bold text-gray-800">
+                        {item.quantity}
+                      </span>
 
-                    {/* Nút tăng số lượng */}
-                    <button
-                      onClick={() => updateQuantity(item.id, 1)}
-                      className="w-8 h-8 text-red-600 border-2 border-red-500 rounded-lg flex items-center justify-center font-bold text-xl hover:bg-red-500 hover:text-white transition duration-300"
-                    >
-                      +
-                    </button>
+                      {/* Nút tăng số lượng */}
+                      <button
+                        onClick={() => updateQuantity(item.id, 1)}
+                        className="w-8 h-8 text-red-600 border-2 border-red-500 rounded-lg flex items-center justify-center font-bold text-xl hover:bg-red-500 hover:text-white transition duration-300"
+                      >
+                        +
+                      </button>
+                    </div>
+                    
+                    {/* Giá + thuế nằm kế bên nút tăng giảm */}
+                    <div className="flex-right text-right pl-8">
+                      <p className="text-red-600 font-bold text-md ">
+                        Kr {(item.price * item.quantity).toFixed(2).replace('.', ',')}
+                      </p>
+                      <p className="text-gray-500 text-xs">
+                          (Incl. tax 10% = Kr {" "}
+                          {(item.price * item.quantity * 0.1).toFixed(2).replace('.', ',')})
+                      </p>
+                    </div>
                   </div>
                 </div>
-              </div>
-
-              {/* Giá + thuế nằm trên cùng */}
-              <div className="text-right font-bold">
-                <p className="text-red-600 font-medium text-md">
-                  Kr {(item.price * item.quantity).toFixed(2)}
-                </p>
-                <p className="text-gray-500 text-sm">
-                    (Incl. tax 10% = {" "}
-                    {(item.price * item.quantity * 0.1).toFixed(2)})
-                </p>
               </div>
             </div>
           ))}
@@ -246,9 +260,9 @@ const Order = () => {
           <div className="flex justify-between items-center">
             <p className="text-xl font-bold text-gray-900">Total:</p>
             <p className="text-xl font-bold text-red-600">
-              {" "}
+              Kr{" "}
               {(cart
-                .reduce((total, item) => total + item.price * item.quantity, 0)*1.1).toFixed(2) +" Kr"}
+                .reduce((total, item) => total + item.price * item.quantity, 0)*1.1).toFixed(2).replace('.', ',')}
             </p>
           </div>
           <div className="text-m font-bold text-gray-500 text-right">
