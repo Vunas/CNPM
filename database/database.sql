@@ -40,11 +40,12 @@ CREATE TABLE Category (
   Status INT DEFAULT 1
 );
 
-INSERT INTO Category (CategoryID, Name, Status, ImageURL)
-VALUES
-('c-001', 'Burger', 1, 'src/assets/coca.jpg'),
-('c-002', 'Pizza', 1, 'src/assets/coca.jpg'),
-('c-003', 'Đồ uống', 1, 'src/assets/coca.jpg');
+INSERT INTO `category` (`CategoryID`, `Name`, `ImageURL`, `Status`) VALUES
+('c-001', 'Burger', 'src/assets/BurgerBoNuong.jpg', 1),
+('c-002', 'Pizza', 'src/assets/PizzaHaiSan.png', 1),
+('c-003', 'Coca', 'src/assets/Coca.jpg', 1),
+('c-004', 'Juice', 'src/assets/NuocChanh.jpg', 1),
+('c-005', 'Fried', 'src/assets/KhoaiChien.jpg', 1);
 
 -- 4. Bảng Product: Món ăn
 CREATE TABLE Product (
@@ -62,18 +63,19 @@ CREATE TABLE Product (
   IsActive INT DEFAULT 1
 );
 
-INSERT INTO Product (ProductID, Name, Description, Price, CategoryID, Status, ImageURL, RestaurantID, IsActive)
-VALUES
-('p-001', 'Burger Bò Nướng', 'Burger bò nướng phô mai', 60000.00, 'c-001', 'Available', 'src/assets/coca.jpg', 'r-001', 1),
-('p-002', 'Pizza Hải Sản', 'Pizza hải sản thập cẩm', 120000.00, 'c-002', 'Available', 'src/assets/cupcake.jpg', 'r-002', 1),
-('p-003', 'Pepsi', 'Nước ngọt có ga', 15000.00, 'c-003', 'Available', 'src/assets/coca.jpg', 'r-001', 1),
-('p-004', 'Gà Rán Giòn', 'Gà rán tẩm bột giòn tan', 45000.00, 'c-001', 'Available', 'src/assets/squid.jpg', 'r-001', 1),
-('p-005', 'Mỳ Ý Spaghetti', 'Mỳ Ý sốt bò bằm truyền thống', 75000.00, 'c-002', 'Available', 'src/assets/hamburger.jpg', 'r-002', 1),
-('p-006', 'Coca-Cola', 'Nước ngọt có ga', 15000.00, 'c-003', 'Available', 'src/assets/cupcake.jpg', 'r-002', 1),
-('p-007', 'Burger Gà', 'Burger gà chiên xù', 55000.00, 'c-001', 'Available', 'src/assets/cupcake.jpg', 'r-001', 1),
-('p-008', 'Pizza Bò', 'Pizza bò và nấm', 110000.00, 'c-002', 'Available', '/images/beef_pizza.jpg', 'r-001', 1),
-('p-009', 'Sprite', 'Nước ngọt có ga vị chanh', 15000.00, 'c-003', 'Available', '/images/sprite.jpg', 'r-002', 1),
-('p-010', 'Khoai Tây Chiên', 'Khoai tây chiên giòn rụm', 25000.00, 'c-001', 'Available', '/images/french_fries.jpg', 'r-001', 1);
+INSERT INTO `product` (`ProductID`, `Name`, `Description`, `Price`, `CategoryID`, `Status`, `ImageURL`, `RestaurantID`, `IsActive`) VALUES
+('p-001', 'Burger Bò Nướng', 'Burger bò nướng phô mai', 75.00, 'c-001', 'Available', 'src/assets/BurgerBoNuong.jpg', 'r-001', 1),
+('p-002', 'Pizza Hải Sản', 'Pizza hải sản thập cẩm', 100.00, 'c-002', 'Available', 'src/assets/PizzaHaiSan.png', 'r-002', 1),
+('p-003', 'Pepsi', 'Nước ngọt có ga', 15.00, 'c-003', 'Available', 'src/assets/Pepsi.jpg', 'r-001', 1),
+('p-004', 'Gà Rán Giòn', 'Gà rán tẩm bột giòn tan', 87.00, 'c-001', 'Available', 'src/assets/GaRanGion.jpg', 'r-001', 1),
+('p-005', 'Mỳ Ý Spaghetti', 'Mỳ Ý sốt bò bằm truyền thống', 68.00, 'c-002', 'Available', 'src/assets/MiY.jpg', 'r-002', 1),
+('p-006', 'Coca-Cola', 'Nước ngọt có ga', 15.00, 'c-003', 'Available', 'src/assets/Coca.jpg', 'r-002', 1),
+('p-007', 'Burger Gà', 'Burger gà chiên xù', 65.00, 'c-001', 'Available', 'src/assets/BurgerGa.jpg', 'r-001', 1),
+('p-008', 'Pizza Bò', 'Pizza bò và nấm', 110.00, 'c-002', 'Available', 'src/assets/PizzaBoNam.jpg', 'r-001', 1),
+('p-009', 'Sprite', 'Nước ngọt có ga vị chanh', 10.00, 'c-003', 'Available', 'src/assets/Sprite.jpg', 'r-002', 1),
+('p-010', 'Khoai Tây Chiên', 'Khoai tây chiên giòn rụm', 45.00, 'c-001', 'Available', 'src/assets/KhoaiChien.jpg', 'r-001', 1),
+('p-011', 'Nước Cam', 'Nước cam nguyên chất siêu ngon', 16.00, 'c-004', 'Available', 'src/assets/NuocCam.jpg', 'r-001', 1),
+('p-012', 'Nước Chanh', 'Chanh tươi siêu mát', 10.00, 'c-004', 'Available', 'src/assets/NuocChanh.jpg', 'r-001', 1);
 
 -- 5. Bảng RestaurantTable: Bàn ăn
 CREATE TABLE RestaurantTable (
