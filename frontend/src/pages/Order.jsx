@@ -6,26 +6,11 @@ import categoryApi from "../api/categoryApi";
 import Loading from "../utils/Loading/Loading";
 
 const Order = () => {
-  const [cart, setCart] = useState([
-    // { id: 1, name: "Grilled squid satay", quantity: 1, price: 123.0 },
-    // { id: 2, name: "Grilled squid satay", quantity: 1, price: 123.0 },
-    // { id: 3, name: "Grilled squid satay", quantity: 1, price: 123.0 },
-    // { id: 4, name: "Bổ ăn kèm: Rau thơm", quantity: 1, price: 5.5 },
-    // { id: 5, name: "Bổ ăn kèm: Sốt cay, Muối ớt", quantity: 1, price: 2.0 },
-    // { id: 6, name: "Grilled squid satay", quantity: 1, price: 123.0 },
-  ]);
+  const [cart, setCart] = useState([]);
   const [products, setProducts] = useState([]);
   const [category, setCategory] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
-  // const categories = [
-  //   { name: "Cupcake", image: "src/assets/cupcake.jpg" },
-  //   { name: "Sea food", image: "src/assets/seafood.jpg" },
-  //   { name: "Juice", image: "src/assets/orange_juice.jpg" },
-  //   { name: "Coca", image: "src/assets/coca.jpg" },
-  //   { name: "Orange juice", image: "src/assets/orange_juice.jpg" },
-  // ];
 
   useEffect(() => {
     const fetchData = async () => {
@@ -55,6 +40,17 @@ const Order = () => {
       setLoading(false);
     }
   };
+
+  const handleGetProduct = async (id) =>{
+    try{
+      const dataProduct = await productApi.getProducts();
+      setProducts(dataProduct);
+    } catch(e){
+      setError(e);
+    } finally{
+      setLoading(false);
+    }
+  }
 
   const addToCart = (item) => {
     const existingItem = cart.find((cartItem) => cartItem.name === item.name);
@@ -103,7 +99,9 @@ const Order = () => {
       {/* Menu Section */}
       <div className="w-3/4 overflow-y-auto">
         <div className="flex items-center mb-4 bg-white w-full p-2 shadow-md">
-          <button className="flex items-center space-x-2 text-blue-600 px-2 py-1 hover:scale-105 transition duration-300">
+          <button className="flex items-center space-x-2 text-blue-600 px-2 py-1 hover:scale-105 transition duration-300"
+            onClick={()=>{handleGetProduct()}}
+          >
             <div
               style={{ backgroundColor: "rgb(47, 58, 85)" }}
               className="p-1 mx-1 rounded-lg flex items-center justify-center"
@@ -122,6 +120,11 @@ const Order = () => {
         <div className = "py-2 px-6">
           {/* Categories */}
           <div className="flex items-center justify-center space-x-8 mb-6 p-2 h-25">
+            <img
+                src="src/assets/leftArrow.png"
+                alt="Cart"
+                className="w-8 h-full hover:scale-105"
+              />
             {category.map((category) => (
               <button
                 onClick={() => {handleGetProductByCategory(category.categoryId)}}
@@ -136,6 +139,11 @@ const Order = () => {
                 <span className="text-lg font-bold">{category.name}</span>
               </button>
             ))}
+              <img
+                src="src/assets/rightArrow.png"
+                alt="Cart"
+                className="w-8 h-full hover:scale-105"
+              />
           </div>
 
           {/* Menu Items */}
@@ -185,37 +193,42 @@ const Order = () => {
       <div className="w-1/3 min-w-60 bg-white p-6 border-l border-gray-200 flex flex-col shadow-lg">
         {/* Tiêu đề + nút DINE IN */}
         <div className="flex justify-between items-center mb-6">
-          <h2 className="text-2xl font-bold text-red-600 tracking-wide">
+          <h2 className="text-2xl font-bold text-red-600 tracking-wide flex">
+            <img
+              src="src/assets/cart.png"
+              alt="Cart"
+              className="w-9 h-9 mr-4"
+            />
             Your Cart ({cart.length})
           </h2>
-          <button className="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition duration-300">
+          <button className="bg-blue-400 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition duration-300 font-bold">
             DINE IN
           </button>
         </div>
 
         {/* Danh sách sản phẩm trong giỏ hàng */}
-        <div className="space-y-6 flex-1 overflow-y-auto">
+        <div className="space-y-5 flex-1 overflow-y-auto">
           {cart.map((item, index) => (
           <div
               key={item.id}
-              className="flex justify-between items-center border-b border-gray-300 pb-4"
+              className="flex justify-between items-center border border-gray-300 rounded-lg shadow-md p-2"
             >
-              <div className="flex items-center space-x-4">
+              <div className="flex items-center w-full space-x-4">
                 {/* Hình ảnh món ăn */}
                 <img
                   src={item.imageUrl || "placeholder_image_url"} // Cố gắng sử dụng imageUrl từ cart nếu có
                   alt={item.name}
-                  className="w-24 h-24 object-cover rounded-lg shadow-md"
+                  className="w-24 h-24 object-cover rounded-lg"
                 />
-                <div>
+                <div className="w-full">
                   {/* Tên món ăn */}
                   <p className="font-semibold text-lg">
                     <span className="text-red-600 font-bold">{index + 1}. </span> {item.name}
                   </p>
 
                   {/* Nút tăng giảm và giá nằm dưới */}
-                  <div className="flex">
-                    <div className="flex items-center justify-between p-1 rounded-lg w-28 mt-2">
+                  <div className="flex w-full items-center justify-between">
+                    <div className="flex flex-left items-center justify-between p-1 rounded-lg w-28 mt-2">
                       {/* Nút giảm số lượng */}
                       <button
                         onClick={() => updateQuantity(item.id, -1)}
@@ -239,8 +252,8 @@ const Order = () => {
                     </div>
                     
                     {/* Giá + thuế nằm kế bên nút tăng giảm */}
-                    <div className="flex-right text-right pl-8">
-                      <p className="text-red-600 font-bold text-md ">
+                    <div className="text-right">
+                      <p className="text-red-600 font-bold text-lg ">
                         Kr {(item.price * item.quantity).toFixed(2).replace('.', ',')}
                       </p>
                       <p className="text-gray-500 text-xs">
@@ -259,7 +272,7 @@ const Order = () => {
         <div className="mt-6 border-t border-gray-300 pt-4">
           <div className="flex justify-between items-center">
             <p className="text-xl font-bold text-gray-900">Total:</p>
-            <p className="text-xl font-bold text-red-600">
+            <p className="text-2xl font-bold text-red-600">
               Kr{" "}
               {(cart
                 .reduce((total, item) => total + item.price * item.quantity, 0)*1.1).toFixed(2).replace('.', ',')}
