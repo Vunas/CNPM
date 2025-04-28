@@ -12,19 +12,19 @@ const Order = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
+  const [totalPage, setTotalPage] = useState(1);
+  const [lastClick, setLastClick] = useState("");
   const maxCate = 5;
-  let totalPages = 1;
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const dataProduct = await productApi.getProducts();
         const dataCategory = await categoryApi.getCategories();
-        totalPages = Math.ceil(dataCategory.length / maxCate);
-        var LastElement = currentPage * maxCate;
-        var firstElement = LastElement - maxCate;
+        const catePages = Math.ceil(dataCategory.length / maxCate);
         
-        setCategory(dataCategory.slice(firstElement,LastElement));
+        handleCatePage(1)
+        setTotalPage(catePages);
         setProducts(dataProduct);
         setLoading(false);
       } catch (e) {
@@ -37,12 +37,13 @@ const Order = () => {
     fetchData();
   }, []);
 
-  const handlePage = async (page) =>{
+  const handleCatePage = async (page) =>{
     try {
       const dataCate = await categoryApi.getCategories();
       setCurrentPage(page);
-      var LastElement = currentPage * maxCate;
+      var LastElement = page * maxCate;
       var firstElement = LastElement - maxCate;
+
       setCategory(dataCate.slice(firstElement,LastElement));
     } catch (e) {
       setError(e);
@@ -51,9 +52,19 @@ const Order = () => {
     }
   };
 
+  const getButtonStyle = (isDisabled) => ({ //Làm mờ khi bị tắt
+    opacity: isDisabled ? 0.5 : 1,
+    cursor: isDisabled ? 'default' : 'pointer',
+  });
+
+  const getCateStyle = (isSelect) => ({ // Đổi background khi chọn
+    backgroundColor: isSelect ? "gray" : "",  
+  });
+
   const handleGetProductByCategory = async (id) => {
     try {
       const dataProduct = await productApi.getProductsByCategory(id);
+      setLastClick(id);
       setProducts(dataProduct);
     } catch (e) {
       setError(e);
@@ -65,6 +76,7 @@ const Order = () => {
   const handleGetProduct = async () =>{
     try{
       const dataProduct = await productApi.getProducts();
+      setLastClick("");
       setProducts(dataProduct);
     } catch(e){
       setError(e);
@@ -127,7 +139,7 @@ const Order = () => {
               style={{ backgroundColor: "rgb(47, 58, 85)" }}
               className="p-1 mx-1 rounded-lg flex items-center justify-center"
             >
-            <Home style={{ color: "white", width: "55px", height: "55px" }} />
+            <Home style={{ color: "white", width: "30px", height: "30px" }} />
             </div>
             <span
               className="text-lg font-bold"
@@ -138,41 +150,44 @@ const Order = () => {
           </button>
         </div>
       
-        <div className = "py-2 px-6">
+        <div className = "py-4 px-6">
           {/* Categories */}
-          <div className="flex items-center justify-center space-x-8 mb-6 p-2 h-25">
+          <div className="flex items-center justify-center space-x-10 mb-6 p-2 h-25">
             <button
-              onClick={() => {handlePage(currentPage-1)}}
-              disabled = {currentPage === 1}
+              onClick={() => {handleCatePage(currentPage - 1)}}
+              disabled = {currentPage === 1}//Tắt mũi tên khi đến cuối trang
+              style={getButtonStyle(currentPage === 1)}//Chỉnh style mũi tên khi đến cuối trang
             >
               <img
                   src="src/assets/leftArrow.png"
                   alt="Cart"
-                  className="w-8 h-full hover:scale-105"
+                  className="w-8 h-full hover:scale-105 disabled:opacity-50"
                 />
             </button>
             {category.map((category) => (
               <button
-                onClick={() => {handleGetProductByCategory(category.categoryId)}}
+                onClick={() => {category.categoryId === lastClick ? handleGetProduct() : handleGetProductByCategory(category.categoryId)}}
                 key={category.name}
-                className="flex flex-col min-w-30 items-center px-2 py-2 rounded-lg shadow-md transition duration-200 bg-white hover:scale-105 text-gray-700 font-semibold"
+                className="flex flex-col min-w-30 items-center px-2 py-2 rounded-lg shadow-md transition duration-200 bg-gray-300 hover:scale-105 text-gray-700 font-semibold"
+                style={getCateStyle(category.categoryId === lastClick)}
               >
                 <img
                   src={category.imageUrl}
                   alt={category.name}
-                  className="w-32 h-32 rounded-full"
+                  className="w-24 h-24 rounded-full"
                 />
                 <span className="text-lg font-bold">{category.name}</span>
               </button>
             ))}
               <button
-                onClick={() => {handlePage(currentPage+1)}}
-                disabled = {currentPage === totalPages}
+                onClick={() => {handleCatePage(currentPage + 1)}}
+                disabled = {currentPage === totalPage}//Tắt mũi tên khi đến cuối trang
+                style={getButtonStyle(currentPage === totalPage)}//Chỉnh style mũi tên khi đến cuối trang
               >
                 <img
                   src="src/assets/rightArrow.png"
                   alt="Cart"
-                  className="w-8 h-full hover:scale-105"
+                  className="w-8 h-full hover:scale-105 disabled:opacity-50"
                 />
               </button>
           </div>
@@ -193,7 +208,7 @@ const Order = () => {
 
                 {/* Tên món ăn ngay dưới hình ảnh */}
                 <p className="text-lg font-semibold mt-2 border-t-2 w-full text-left pl-5 pr-5">
-                  <span className="text-xl font-bold text-red-600">{index+1}. </span>
+                  <span className="text-lg font-bold text-red-600">{index+1}. </span>
                   {item.name}
                 </p>
 
