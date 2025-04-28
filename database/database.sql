@@ -45,7 +45,9 @@ INSERT INTO `category` (`CategoryID`, `Name`, `ImageURL`, `Status`) VALUES
 ('c-002', 'Pizza', 'src/assets/PizzaHaiSan.png', 1),
 ('c-003', 'Coca', 'src/assets/Coca.jpg', 1),
 ('c-004', 'Juice', 'src/assets/NuocChanh.jpg', 1),
-('c-005', 'Fried', 'src/assets/KhoaiChien.jpg', 1);
+('c-005', 'Fried', 'src/assets/KhoaiChien.jpg', 1),
+('c-006', 'Rice', 'src/assets/ComChienDuongChau.jpg', 1),
+('c-007', 'Noodles', 'src/assets/BlackBeanNoodles.jpg', 1);
 
 -- 4. Bảng Product: Món ăn
 CREATE TABLE Product (
@@ -67,15 +69,17 @@ INSERT INTO `product` (`ProductID`, `Name`, `Description`, `Price`, `CategoryID`
 ('p-001', 'Burger Bò Nướng', 'Burger bò nướng phô mai', 75.00, 'c-001', 'Available', 'src/assets/BurgerBoNuong.jpg', 'r-001', 1),
 ('p-002', 'Pizza Hải Sản', 'Pizza hải sản thập cẩm', 100.00, 'c-002', 'Available', 'src/assets/PizzaHaiSan.png', 'r-002', 1),
 ('p-003', 'Pepsi', 'Nước ngọt có ga', 15.00, 'c-003', 'Available', 'src/assets/Pepsi.jpg', 'r-001', 1),
-('p-004', 'Gà Rán Giòn', 'Gà rán tẩm bột giòn tan', 87.00, 'c-001', 'Available', 'src/assets/GaRanGion.jpg', 'r-001', 1),
+('p-004', 'Gà Rán Giòn', 'Gà rán tẩm bột giòn tan', 87.00, 'c-005', 'Available', 'src/assets/GaRanGion.jpg', 'r-001', 1),
 ('p-005', 'Mỳ Ý Spaghetti', 'Mỳ Ý sốt bò bằm truyền thống', 68.00, 'c-002', 'Available', 'src/assets/MiY.jpg', 'r-002', 1),
 ('p-006', 'Coca-Cola', 'Nước ngọt có ga', 15.00, 'c-003', 'Available', 'src/assets/Coca.jpg', 'r-002', 1),
 ('p-007', 'Burger Gà', 'Burger gà chiên xù', 65.00, 'c-001', 'Available', 'src/assets/BurgerGa.jpg', 'r-001', 1),
 ('p-008', 'Pizza Bò', 'Pizza bò và nấm', 110.00, 'c-002', 'Available', 'src/assets/PizzaBoNam.jpg', 'r-001', 1),
 ('p-009', 'Sprite', 'Nước ngọt có ga vị chanh', 10.00, 'c-003', 'Available', 'src/assets/Sprite.jpg', 'r-002', 1),
-('p-010', 'Khoai Tây Chiên', 'Khoai tây chiên giòn rụm', 45.00, 'c-001', 'Available', 'src/assets/KhoaiChien.jpg', 'r-001', 1),
+('p-010', 'Khoai Tây Chiên', 'Khoai tây chiên giòn rụm', 45.00, 'c-005', 'Available', 'src/assets/KhoaiChien.jpg', 'r-001', 1),
 ('p-011', 'Nước Cam', 'Nước cam nguyên chất siêu ngon', 16.00, 'c-004', 'Available', 'src/assets/NuocCam.jpg', 'r-001', 1),
-('p-012', 'Nước Chanh', 'Chanh tươi siêu mát', 10.00, 'c-004', 'Available', 'src/assets/NuocChanh.jpg', 'r-001', 1);
+('p-012', 'Nước Chanh', 'Chanh tươi siêu mát', 10.00, 'c-004', 'Available', 'src/assets/NuocChanh.jpg', 'r-001', 1),
+('p-013', 'Cơm chiên dương châu', 'Ăn 3 tô cơm', 62.00, 'c-006', 'Available', 'src/assets/ComChienDuongChau.jpg', 'r-001', 1),
+('p-014', 'Black Bean Noodles', 'My tuong den', 72.00, 'c-007', 'Available', 'src/assets/BlackBeanNoodles.jpg', 'r-001', 1);
 
 -- 5. Bảng RestaurantTable: Bàn ăn
 CREATE TABLE RestaurantTable (
