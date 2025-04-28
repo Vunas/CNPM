@@ -41,8 +41,8 @@ export class Order {
   })
   paymentMethod: 'Cash' | 'Credit Card' | 'E-wallet' | null;
 
-  @Column({ type: 'uuid', nullable: true })
-  tableId: string;
+  // @Column({ type: 'uuid', nullable: true })
+  // tableId: string;
 
   @ManyToOne(() => RestaurantTable, { nullable: true, onDelete: 'SET NULL' })
   @JoinColumn({ name: 'TableID' })
@@ -51,15 +51,15 @@ export class Order {
   @Column({ type: 'varchar', length: 50, nullable: false })
   customerContact: string;
 
-  @Column({ type: 'uuid', nullable: true })
-  accountId: string;
+  // @Column({ type: 'uuid', nullable: true })
+  // accountId: string;
 
   @ManyToOne(() => Account, { nullable: true, onDelete: 'SET NULL' })
   @JoinColumn({ name: 'AccountID' })
   account: Account | null;
 
-  @Column({ type: 'uuid', nullable: false })
-  restaurantId: string;
+  // @Column({ type: 'uuid', nullable: false, insertable: false })
+  // restaurantId: string;
 
   @ManyToOne(() => Restaurant, { nullable: false, onDelete: 'CASCADE' })
   @JoinColumn({ name: 'RestaurantID' })

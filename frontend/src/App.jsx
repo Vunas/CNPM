@@ -1,13 +1,21 @@
 import React, { useState } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import OrderListPage from "./pages/OrderListPage";
 import Order from "./pages/Order";
 import { getProfile } from "./api/auth";
 import LoginAdmin from "./pages/admin/LoginAdmin";
+import Payment from "./pages/customer/payment";
+import QRCodePage from "./pages/customer/QRCodePage";
+import CustomerRouter from "./router/CustomerRouter";
 
 export default function App() {
   const [token, setToken] = useState(null);
   const [user, setUser] = useState(null);
+  const [snackBarLogin, setSnackbarLogin] = useState({
+    open: false,
+    message: "",
+    type: "success",
+  });
   const handleLoginSuccess = async (token) => {
     setToken(token);
     try {
@@ -29,8 +37,9 @@ export default function App() {
         )}
       </div> */}
       <Routes>
-        <Route path="/" element={<OrderListPage />} />
-        <Route path="/order" element={<Order />} />
+        <Route path="/orderlistpage" element={<OrderListPage />} />
+        <Route path="/" element={<Navigate to="/qrcodepage" />} />
+        <Route path="/*" element={<CustomerRouter snackBar={snackBarLogin} setSnackbar={setSnackbarLogin}/>} />
       </Routes>
     </Router>
   );

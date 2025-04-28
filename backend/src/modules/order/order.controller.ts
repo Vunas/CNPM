@@ -10,15 +10,32 @@ import {
 import { OrderService } from './order.service';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
+import { CreateOrderDetailDto } from '../orderdetail/dto/create-orderDetail.dto';
+import { Logger } from '@nestjs/common';
 
 @Controller('order')
 export class OrderController {
+  private readonly logger = new Logger(OrderController.name);
   constructor(private readonly orderService: OrderService) {}
 
-  // Create a new order
+  // Create a new order with order details
   @Post()
-  create(@Body() createOrderDto: CreateOrderDto) {
-    return this.orderService.create(createOrderDto);
+  async createOrderWithDetails(
+    @Body()
+    {
+      order,
+      orderDetails,
+    }: {
+      order: CreateOrderDto;
+      orderDetails: CreateOrderDetailDto[];
+    },
+  ) {
+    this.logger.log('createOrderDto received:', JSON.stringify(order));
+    this.logger.log(
+      'createOrderDetailDtos received:',
+      JSON.stringify(orderDetails),
+    );
+    return this.orderService.createOrderWithDetails(order, orderDetails);
   }
 
   // Get all orders

@@ -13,15 +13,15 @@ export class OrderDetail {
   @PrimaryGeneratedColumn('uuid')
   orderDetailId: string;
 
-  @Column({ type: 'uuid', nullable: false })
-  orderId: string;
+  // @Column({ type: 'uuid', nullable: false })
+  // orderId: string;
 
   @ManyToOne(() => Order, { nullable: false, onDelete: 'CASCADE' })
   @JoinColumn({ name: 'OrderID' })
   order: Order;
 
-  @Column({ type: 'uuid', nullable: false })
-  productId: string;
+  // @Column({ type: 'uuid', nullable: false })
+  // productId: string;
 
   @ManyToOne(() => Product, { nullable: false, onDelete: 'CASCADE' })
   @JoinColumn({ name: 'ProductID' })

@@ -1,5 +1,5 @@
 {
-  "name": "restaurant",
+  "name": "frontend",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -16,6 +16,8 @@
     "@mui/material": "^7.0.2",
     "@react-oauth/google": "^0.12.1",
     "axios": "^1.9.0",
+    "qrcode": "^1.5.4",
+    "qrcode.react": "^4.2.0",
     "query-string": "^9.1.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
