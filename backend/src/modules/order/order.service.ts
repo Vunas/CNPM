@@ -1,4 +1,6 @@
-import { Injectable } from '@nestjs/common';
+// src/order/order.service.ts
+
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Order } from './order.entity';
@@ -12,39 +14,38 @@ export class OrderService {
     private readonly orderRepository: Repository<Order>,
   ) {}
 
-  // Create a new order
   async create(createOrderDto: CreateOrderDto): Promise<Order> {
     const order = this.orderRepository.create(createOrderDto);
     return await this.orderRepository.save(order);
   }
 
-  // Get all orders
   async findAll(): Promise<Order[]> {
     return await this.orderRepository.find({
-      relations: ['restaurantTable', 'restaurant', 'account'], // Load relationships if necessary
+      relations: ['restaurantTable', 'account', 'restaurant'],
     });
   }
 
-  // Get an order by ID
   async findOne(id: string): Promise<Order> {
     const order = await this.orderRepository.findOne({
       where: { orderId: id },
-      relations: ['restaurantTable', 'restaurant', 'account'], // Include related entities
+      relations: ['restaurantTable', 'account', 'restaurant'],
     });
     if (!order) {
-      throw new Error(`Order with ID ${id} not found`);
+      throw new NotFoundException(`Order with ID ${id} not found`);
     }
     return order;
   }
 
-  // Update an existing order
   async update(id: string, updateOrderDto: UpdateOrderDto): Promise<Order> {
-    await this.orderRepository.update(id, updateOrderDto);
-    return this.findOne(id);
+    const order = await this.findOne(id);
+    // Cập nhật từng field cần thiết
+    Object.assign(order, updateOrderDto);
+    return await this.orderRepository.save(order);
   }
 
-  // Soft-delete an order (set status to inactive)
   async softDelete(id: string): Promise<void> {
-    await this.orderRepository.update(id, { status: 0 });
+    const order = await this.findOne(id);
+    order.status = 0; // Soft delete: set status = 0
+    await this.orderRepository.save(order);
   }
 }
