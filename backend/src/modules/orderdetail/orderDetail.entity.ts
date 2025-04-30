@@ -6,7 +6,7 @@ import {
   JoinColumn,
 } from 'typeorm';
 import { Order } from '../order/order.entity';
-import { Product } from '../product/product.entity'; 
+import { Product } from '../product/product.entity'; // Assuming Product entity exists
 
 @Entity('OrderDetail')
 export class OrderDetail {
