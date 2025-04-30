@@ -195,7 +195,7 @@ const Order = () => {
               className="text-lg font-bold"
               style={{ color: "rgb(47, 58, 85)" }}
             >
-              Back to Homa
+              Back to Home
             </span>
           </button>
         </div>
