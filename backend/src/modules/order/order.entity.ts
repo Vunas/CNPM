@@ -22,7 +22,7 @@ export class Order {
 
   @Column({
     type: 'enum',
-    enum: ['Pending', 'Confirmed','Processing','Finished', 'Cancelled'],
+    enum: ['Pending', 'Confirmed', 'Finished', 'Cancelled'],
     default: 'Pending',
   })
   orderStatus: 'Pending' | 'Confirmed' | 'Finished' | 'Cancelled';
@@ -41,29 +41,28 @@ export class Order {
   })
   paymentMethod: 'Cash' | 'Credit Card' | 'E-wallet' | null;
 
-  // Tạo khóa ngoại tableId riêng biệt
-  @Column({ type: 'uuid', nullable: true })
-  tableId: string | null;
+  // @Column({ type: 'uuid', nullable: true })
+  // tableId: string;
 
   @ManyToOne(() => RestaurantTable, { nullable: true, onDelete: 'SET NULL' })
-  @JoinColumn({ name: 'tableId', referencedColumnName: 'tableId' }) 
+  @JoinColumn({ name: 'TableID' })
   restaurantTable: RestaurantTable | null;
 
   @Column({ type: 'varchar', length: 50, nullable: false })
   customerContact: string;
 
-  @Column({ type: 'uuid', nullable: true })
-  accountId: string | null;
+  // @Column({ type: 'uuid', nullable: true })
+  // accountId: string;
 
   @ManyToOne(() => Account, { nullable: true, onDelete: 'SET NULL' })
-  @JoinColumn({ name: 'accountId', referencedColumnName: 'accountId' })
+  @JoinColumn({ name: 'AccountID' })
   account: Account | null;
 
   // @Column({ type: 'uuid', nullable: false, insertable: false })
   // restaurantId: string;
 
   @ManyToOne(() => Restaurant, { nullable: false, onDelete: 'CASCADE' })
-  @JoinColumn({ name: 'restaurantId', referencedColumnName: 'restaurantId' })
+  @JoinColumn({ name: 'RestaurantID' })
   restaurant: Restaurant;
 
   @Column({ type: 'int', default: 1 })

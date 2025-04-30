@@ -102,7 +102,7 @@ CREATE TABLE `Order` (
     OrderID CHAR(36) DEFAULT UUID() PRIMARY KEY,
     OrderDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     TotalPrice DECIMAL(10,2) NOT NULL,
-    OrderStatus ENUM('Pending', 'Confirmed', 'Finished','Processing', 'Cancelled') DEFAULT 'Pending',
+    OrderStatus ENUM('Pending', 'Confirmed', 'Finished', 'Cancelled') DEFAULT 'Pending',
     OrderType ENUM('Dine-in', 'Takeaway', 'Delivery') DEFAULT 'Takeaway',
     PaymentMethod ENUM('Cash', 'Credit Card', 'E-wallet') NULL,
     TableID CHAR(36),

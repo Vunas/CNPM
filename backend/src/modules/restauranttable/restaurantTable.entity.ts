@@ -1,9 +1,9 @@
 import {
-  Entity,
   PrimaryGeneratedColumn,
   Column,
   ManyToOne,
   JoinColumn,
+  Entity,
 } from 'typeorm';
 import { Restaurant } from '../restaurant/restaurant.entity';
 
@@ -12,18 +12,18 @@ export class RestaurantTable {
   @PrimaryGeneratedColumn('uuid')
   tableId: string;
 
-  @Column({ type: 'int' })
+  @Column({ type: 'int', nullable: false })
   tableNumber: number;
 
-  @Column({ length: 255, nullable: true })
+  @Column({ type: 'varchar', length: 255, nullable: false })
   qrCode: string;
 
-  @Column({ type: 'uuid' })
-  restaurantId: string; 
+  @Column({ type: 'uuid', nullable: false })
+  restaurantId: string;
 
-  @ManyToOne(() => Restaurant, { nullable: false, onDelete: 'CASCADE' })
-  @JoinColumn({ name: 'restaurantId', referencedColumnName: 'restaurantId' })
-  restaurant: Restaurant;
+  @ManyToOne(() => Restaurant, { nullable: true, onDelete: 'SET NULL' })
+  @JoinColumn({ name: 'RestaurantID' })
+  restaurant: Restaurant | null;
 
   @Column({ type: 'int', default: 1 })
   status: number;
