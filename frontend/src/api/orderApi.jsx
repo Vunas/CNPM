@@ -10,7 +10,8 @@ const orderApi = {
   deleteOrder: (orderId) => axiosClient.delete(`/order/${orderId}`),
   getOrdersByCustomer: (customerId) =>
     axiosClient.get(`/order/customer/${customerId}`),
-  getOrderDetails: (orderId) => axiosClient.get(`/order/${orderId}/details`),
+  getOrderDetails: (orderId) => axiosClient.get(`/order-detail/order/${orderId}`),
+
 };
 
 export default orderApi;

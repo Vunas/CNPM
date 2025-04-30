@@ -102,8 +102,13 @@ CREATE TABLE `Order` (
     OrderID CHAR(36) DEFAULT UUID() PRIMARY KEY,
     OrderDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     TotalPrice DECIMAL(10,2) NOT NULL,
+<<<<<<< HEAD
     OrderStatus ENUM('Pending', 'Confirmed','Cooking', 'Finished', 'Cancelled') DEFAULT 'Pending',
     OrderType ENUM('Dine-in', 'Takeaway') DEFAULT 'Takeaway',
+=======
+    OrderStatus ENUM('Pending', 'Confirmed', 'Finished','Processing', 'Cancelled') DEFAULT 'Pending',
+    OrderType ENUM('Dine-in', 'Takeaway', 'Delivery') DEFAULT 'Takeaway',
+>>>>>>> parent of ae52e1a (Revert "Merge branch 'skibidi_Bon'")
     PaymentMethod ENUM('Cash', 'Credit Card', 'E-wallet') NULL,
     TableID CHAR(36),
     CustomerContact VARCHAR(50),
