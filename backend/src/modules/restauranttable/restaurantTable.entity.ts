@@ -12,18 +12,18 @@ export class RestaurantTable {
   @PrimaryGeneratedColumn('uuid')
   tableId: string;
 
-  @Column({ type: 'int', nullable: false })
+  @Column({ type: 'int' })
   tableNumber: number;
 
-  @Column({ type: 'varchar', length: 255, nullable: false })
+  @Column({ length: 255, nullable: true })
   qrCode: string;
 
   @Column({ type: 'uuid', nullable: false })
   restaurantId: string;
 
-  @ManyToOne(() => Restaurant, { nullable: true, onDelete: 'SET NULL' })
-  @JoinColumn({ name: 'RestaurantID' })
-  restaurant: Restaurant | null;
+  @ManyToOne(() => Restaurant, { nullable: false, onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'restaurantId', referencedColumnName: 'restaurantId' })
+  restaurant: Restaurant;
 
   @Column({ type: 'int', default: 1 })
   status: number;

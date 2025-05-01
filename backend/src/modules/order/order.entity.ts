@@ -22,7 +22,7 @@ export class Order {
 
   @Column({
     type: 'enum',
-    enum: ['Pending', 'Confirmed', 'Finished', 'Cancelled'],
+    enum: ['Pending', 'Confirmed','Processing','Finished', 'Cancelled'],
     default: 'Pending',
   })
   orderStatus: 'Pending' | 'Confirmed' | 'Finished' | 'Cancelled';
@@ -41,28 +41,28 @@ export class Order {
   })
   paymentMethod: 'Cash' | 'Credit Card' | 'E-wallet' | null;
 
-  @Column({ type: 'uuid', nullable: true })
-  tableId: string;
+ @Column({ type: 'uuid', nullable: true })
+  tableId: string | null;
 
   @ManyToOne(() => RestaurantTable, { nullable: true, onDelete: 'SET NULL' })
-  @JoinColumn({ name: 'TableID' })
+  @JoinColumn({ name: 'tableId', referencedColumnName: 'tableId' }) 
   restaurantTable: RestaurantTable | null;
 
   @Column({ type: 'varchar', length: 50, nullable: false })
   customerContact: string;
 
   @Column({ type: 'uuid', nullable: true })
-  accountId: string;
+  accountId: string | null;
 
   @ManyToOne(() => Account, { nullable: true, onDelete: 'SET NULL' })
-  @JoinColumn({ name: 'AccountID' })
+  @JoinColumn({ name: 'accountId', referencedColumnName: 'accountId' })
   account: Account | null;
 
   // @Column({ type: 'uuid', nullable: false, insertable: false })
   // restaurantId: string;
 
   @ManyToOne(() => Restaurant, { nullable: false, onDelete: 'CASCADE' })
-  @JoinColumn({ name: 'RestaurantID' })
+  @JoinColumn({ name: 'restaurantId', referencedColumnName: 'restaurantId' })
   restaurant: Restaurant;
 
   @Column({ type: 'int', default: 1 })
