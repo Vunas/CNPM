@@ -38,7 +38,11 @@ export default function OrderDetailPageButForEmployees({ order, onStatusChange }
         orderType: order.orderType,
         status: order.status,
       });
-      onStatusChange();
+      alert("Thao tác thành công!");
+      setDetails([]);
+      if (typeof onStatusChange === "function") {
+        onStatusChange(null); 
+      }
     } catch (err) {
       alert("Cập nhật trạng thái thất bại!");
     }

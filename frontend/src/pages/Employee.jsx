@@ -66,9 +66,12 @@ export default function Employee() {
         {selectedOrder ? (
           selectedFromPending ? (
             <OrderDetailPageButForEmployees
-              order={selectedOrder}
-              onStatusChange={loadOrders}
-            />
+            order={selectedOrder}
+            onStatusChange={(value) => {
+              if (value === null) setSelectedOrder(null); 
+              loadOrders(); 
+            }}
+          />
           ) : (
             <OrderDetailPageButWithoutOptions
               order={selectedOrder}
