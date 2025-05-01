@@ -26,11 +26,75 @@ export class OrderService {
   ) {}
 
   // Create a new order
-  async create(createOrderDto: CreateOrderDto): Promise<Order> {
-    const order = this.orderRepository.create(createOrderDto);
-    return await this.orderRepository.save(order);
-  }
+  async createOrderWithDetails(
+    createOrderDto: CreateOrderDto,
+    createOrderDetailDtos: CreateOrderDetailDto[],
+  ): Promise<{ success: boolean; data: Order | null; error?: string }> {
+    try {
+      const restaurant = await this.restaurantRepository.findOneBy({
+        restaurantId: createOrderDto.restaurantId,
+      });
 
+      if (!restaurant) {
+        return {
+          success: false,
+          data: null,
+          error: `Restaurant with ID ${createOrderDto.restaurantId} not found`,
+        };
+      }
+
+      const restaurantTable = await this.restaurantTableRepository.findOneBy({
+        tableId: createOrderDto.tableId,
+      });
+
+      if (!restaurantTable) {
+        return {
+          success: false,
+          data: null,
+          error: `RestaurantTable with ID ${createOrderDto.tableId} not found`,
+        };
+      }
+
+      const order = this.orderRepository.create({
+        ...createOrderDto,
+        restaurant: restaurant,
+        restaurantTable: restaurantTable,
+      });
+
+      const savedOrder = await this.orderRepository.save(order);
+
+      const orderDetails: OrderDetail[] = [];
+      for (const dto of createOrderDetailDtos) {
+        const product = await this.productRepository.findOneBy({
+          productID: dto.productId,
+        });
+        if (!product) {
+          return {
+            success: false,
+            data: null,
+            error: `Product with ID ${dto.productId} not found`,
+          };
+        }
+        const orderDetail = this.orderDetailRepository.create({
+          ...dto,
+          order: savedOrder,
+          product: product,
+        });
+        orderDetails.push(orderDetail);
+      }
+      await this.orderDetailRepository.save(orderDetails);
+
+      return { success: true, data: savedOrder };
+    } catch (error) {
+      console.error('Error creating order with details:', error);
+      return {
+        success: false,
+        data: null,
+        error:
+          (error as Error).message || 'Failed to create order with details',
+      };
+    }
+  }
   // Get all orders
   async findAll(): Promise<Order[]> {
     return await this.orderRepository.find({
