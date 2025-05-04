@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
 import { Paper } from "@mui/material";
-import OrderDetailPage from "../components/OrderDetailPageButWithoutOption";
+import OrderDetailPage from "../components/OrderDetailForKitchen";
 import orderApi from "../api/orderApi";
 
 export default function OrderListPage() {
@@ -59,7 +59,13 @@ export default function OrderListPage() {
       {/* Hiển thị chi tiết đơn hàng nếu có đơn được chọn */}
       <div className="w-3/4 bg-white p-6 shadow-md overflow-y-auto">
         {selectedOrder ? (
-          <OrderDetailPage order={selectedOrder} onStatusChange={loadOrders} />
+          <OrderDetailPage
+          order={selectedOrder}
+          onStatusChange={(value) => {
+            if (value === null) setSelectedOrder(null); 
+            loadOrders(); 
+          }}
+        />
         ) : (
           <p className="text-gray-500">Chọn một đơn hàng để xem chi tiết</p>
         )}
