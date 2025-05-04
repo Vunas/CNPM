@@ -181,22 +181,22 @@ function Payment({setSnackbar}) {
           <div className="mb-2">
             <input
               type="radio"
-              id="paypal"
+              id="vnpay"
               name="paymentMethod"
-              value="paypal"
+              value="vnpay"
               className="mr-2"
-              checked={paymentMethod === "paypal"}
+              checked={paymentMethod === "vnpay"}
               onChange={handlePaymentMethodChange}
             />
             <label
-              htmlFor="paypal"
+              htmlFor="vnpay"
               className="flex items-center cursor-pointer"
             >
-              <span className="mr-2">PayPal</span>
+              <span className="mr-2">VNPay</span>
               <img
-                src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg"
-                alt="PayPal"
-                className="w-16 h-auto ml-2"
+                src="src/assets/VNPAY.png"
+                alt="vnpay"
+                className="w-8 h-auto ml-1"
               />
             </label>
           </div>
@@ -283,21 +283,21 @@ function Payment({setSnackbar}) {
           </div>
         )}
 
-        {/* PayPal Instructions (Conditional Rendering) */}
-        {paymentMethod === "paypal" && (
+        {/* vnpay Instructions (Conditional Rendering) */}
+        {paymentMethod === "vnpay" && (
           <div className="mb-4 p-4 bg-white rounded-md border">
             <p className="mb-2">
-              You will be redirected to PayPal to complete your payment.
+              You will be redirected to vnpay to complete your payment.
             </p>
             <button
               onClick={() => {
-                // Logic chuyển hướng đến trang PayPal
-                console.log("Redirecting to PayPal...");
+                // Logic chuyển hướng đến trang vnpay
+                console.log("Redirecting to vnpay...");
                 // Trong thực tế, bạn sẽ mở một cửa sổ mới hoặc thay đổi window.location.href
               }}
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             >
-              Proceed to PayPal
+              Proceed to VNPay
             </button>
           </div>
         )}
