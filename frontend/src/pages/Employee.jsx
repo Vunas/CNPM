@@ -6,7 +6,7 @@ import OrderDetailPageButWithoutOptions from "../components/OrderDetailPageButWi
 
 export default function Employee() {
   const [selectedOrder, setSelectedOrder] = useState(null);
-  const [selectedFromPending, setSelectedFromPending] = useState(false);
+  const [selectedFromPending, setSelectedFromPending] = useState(false); // <== Ghi nhớ bạn click từ Pending hay All
   const [ordersData, setOrdersData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -29,46 +29,49 @@ export default function Employee() {
 
   const handleSelectOrder = (order, fromPending) => {
     setSelectedOrder(order);
-    setSelectedFromPending(fromPending);
+    setSelectedFromPending(fromPending); // true nếu click từ Pending
   };
 
   return (
-    <div className="p-6 bg-gray-50 min-h-screen flex gap-6">
-      {/* Cột trái - Đơn hàng Pending */}
-      <div className="w-1/3 space-y-4 overflow-y-auto bg-white p-4 rounded shadow">
-        <h1 className="text-xl font-bold border-b pb-2 mb-4 text-green-700">🕒 Đơn Cần Xác Nhận</h1>
+    <div className="p-6 bg-gray-100 h-screen flex gap-6">
+      {/* Cột 1: Đơn hàng Pending */}
+      <div className="w-1/3 space-y-4 overflow-y-auto">
+        <h1 className="text-2xl font-bold mb-4">Đơn Cần Xác Nhận (Pending)</h1>
         {loading && <p>Đang tải đơn hàng...</p>}
         {error && <p className="text-red-500">{error}</p>}
-        {ordersData.filter(o => o.orderStatus === "Pending").map((order) => (
-          <Paper
-            key={order.orderId}
-            className="p-4 hover:bg-green-50 transition cursor-pointer border"
-            onClick={() => handleSelectOrder(order, true)}
-          >
-            <p className="font-semibold text-gray-800">🆔 {order.orderId}</p>
-            <p>Trạng thái: <b>{order.orderStatus}</b></p>
-            <p>
-              Tổng Tiền:{" "}
-              <span className="text-green-600 font-medium">
-                {order.totalPrice ? parseFloat(order.totalPrice).toLocaleString() : "?"} đ
-              </span>
-            </p>
-            <p>Loại đơn: {order.orderType || "Không rõ"}</p>
-          </Paper>
-        ))}
+        {ordersData
+          .filter((order) => order.orderStatus === "Pending")
+          .map((order) => (
+            <Paper
+              key={order.orderId}
+              className="p-4 cursor-pointer hover:bg-gray-200"
+              onClick={() => handleSelectOrder(order, true)}
+            >
+              <p className="text-lg font-semibold">ID: {order.orderId}</p>
+              <p>Trạng thái: {order.orderStatus}</p>
+              <p>
+                Tổng Tiền:{" "}
+                {order.totalPrice
+                  ? parseFloat(order.totalPrice).toLocaleString()
+                  : "?"}{" "}
+                đ
+              </p>
+              <p>Loại đơn: {order.orderType || "Không rõ"}</p>
+            </Paper>
+          ))}
       </div>
 
-      {/* Cột giữa - Chi tiết đơn hàng */}
-      <div className="w-1/3 bg-white p-6 rounded shadow overflow-y-auto">
+      {/* Cột 2: Chi tiết đơn hàng */}
+      <div className="w-1/3 bg-white p-6 shadow-md overflow-y-auto">
         {selectedOrder ? (
           selectedFromPending ? (
             <OrderDetailPageButForEmployees
-              order={selectedOrder}
-              onStatusChange={(val) => {
-                if (val === null) setSelectedOrder(null);
-                loadOrders();
-              }}
-            />
+            order={selectedOrder}
+            onStatusChange={(value) => {
+              if (value === null) setSelectedOrder(null); 
+              loadOrders(); 
+            }}
+          />
           ) : (
             <OrderDetailPageButWithoutOptions
               order={selectedOrder}
@@ -76,26 +79,27 @@ export default function Employee() {
             />
           )
         ) : (
-          <p className="text-gray-500 italic text-center">Hãy chọn đơn hàng để xem chi tiết</p>
+          <p className="text-gray-500">Chọn một đơn hàng để xem chi tiết</p>
         )}
       </div>
 
-      {/* Cột phải - Tất cả đơn */}
-      <div className="w-1/3 space-y-4 overflow-y-auto bg-white p-4 rounded shadow">
-        <h1 className="text-xl font-bold border-b pb-2 mb-4 text-blue-700">📋 Tất Cả Đơn Hàng</h1>
+      {/* Cột 3: Tất cả đơn */}
+      <div className="w-1/3 space-y-4 overflow-y-auto">
+        <h1 className="text-2xl font-bold mb-4">Tất Cả Đơn Hàng</h1>
         {ordersData.map((order) => (
           <Paper
             key={order.orderId}
-            className="p-4 hover:bg-blue-50 transition cursor-pointer border"
+            className="p-4 cursor-pointer hover:bg-gray-200"
             onClick={() => handleSelectOrder(order, false)}
           >
-            <p className="font-semibold text-gray-800">🆔 {order.orderId}</p>
-            <p>Trạng thái: <b>{order.orderStatus}</b></p>
+            <p className="text-lg font-semibold">ID: {order.orderId}</p>
+            <p>Trạng thái: {order.orderStatus}</p>
             <p>
               Tổng Tiền:{" "}
-              <span className="text-blue-600 font-medium">
-                {order.totalPrice ? parseFloat(order.totalPrice).toLocaleString() : "?"} đ
-              </span>
+              {order.totalPrice
+                ? parseFloat(order.totalPrice).toLocaleString()
+                : "?"}{" "}
+              đ
             </p>
             <p>Loại đơn: {order.orderType || "Không rõ"}</p>
           </Paper>

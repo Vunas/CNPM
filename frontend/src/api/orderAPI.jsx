@@ -1,4 +1,4 @@
-import axiosClient from "./axiosClient"; // Adjust the path if needed
+import axiosClient from "./axiosClient";
 
 const orderApi = {
   getOrders: () => axiosClient.get("/order"),

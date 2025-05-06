@@ -22,7 +22,7 @@ export class Order {
 
   @Column({
     type: 'enum',
-    enum: ['Pending', 'Confirmed','Processing','Finished', 'Cancelled'],
+    enum: ['Pending', 'Confirmed', 'Processing', 'Finished', 'Cancelled'],
     default: 'Pending',
   })
   orderStatus: 'Pending' | 'Confirmed' | 'Finished' | 'Cancelled';
@@ -41,11 +41,11 @@ export class Order {
   })
   paymentMethod: 'Cash' | 'Credit Card' | 'E-wallet' | null;
 
- @Column({ type: 'uuid', nullable: true })
+  @Column({ type: 'uuid', nullable: true })
   tableId: string | null;
 
   @ManyToOne(() => RestaurantTable, { nullable: true, onDelete: 'SET NULL' })
-  @JoinColumn({ name: 'tableId', referencedColumnName: 'tableId' }) 
+  @JoinColumn({ name: 'tableId', referencedColumnName: 'tableId' })
   restaurantTable: RestaurantTable | null;
 
   @Column({ type: 'varchar', length: 50, nullable: false })
