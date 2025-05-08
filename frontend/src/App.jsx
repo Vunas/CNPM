@@ -7,6 +7,7 @@ import LoginAdmin from "./pages/admin/LoginAdmin";
 import Payment from "./pages/customer/payment";
 import QRCodePage from "./pages/customer/QRCodePage";
 import CustomerRouter from "./router/CustomerRouter";
+import Employee from "./pages/Employee"
 
 export default function App() {
   const [token, setToken] = useState(null);
@@ -37,9 +38,14 @@ export default function App() {
         )}
       </div> */}
       <Routes>
+
         <Route path="/orderlistpage" element={<OrderListPage />} />
         <Route path="/" element={<Navigate to="/qrcodepage" />} />
         <Route path="/*" element={<CustomerRouter snackBar={snackBarLogin} setSnackbar={setSnackbarLogin}/>} />
+                
+        <Route path="/order" element={<Order />} />
+        <Route path="/employee" element={<Employee />} />
+
       </Routes>
     </Router>
   );

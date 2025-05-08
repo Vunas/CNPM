@@ -12,7 +12,7 @@ import { RestaurantTableModule } from './modules/restauranttable/restaurantTable
 import { OrderModule } from './modules/order/order.module';
 import { OrderDetailModule } from './modules/orderdetail/orderDetail.module';
 import { AuthModule } from './auth/auth.module';
-
+import { VnPayModule } from './modules/vnpay/vnpay.module';
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
@@ -27,6 +27,7 @@ import { AuthModule } from './auth/auth.module';
     OrderModule,
     OrderDetailModule,
     AuthModule,
+    VnPayModule,
   ],
   controllers: [AppController],
   providers: [AppService, DatabaseConfigService],

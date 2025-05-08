@@ -30,6 +30,12 @@ export class OrderDetailController {
     return this.orderDetailService.findOne(id);
   }
 
+    // 🟢 CHUYỂN LÊN TRƯỚC
+  @Get('order/:orderId')
+  findByOrderId(@Param('orderId') orderId: string) {
+    return this.orderDetailService.findByOrderId(orderId);
+  }
+
   @Put(':id')
   update(
     @Param('id') id: string,

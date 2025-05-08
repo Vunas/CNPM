@@ -102,7 +102,7 @@ CREATE TABLE `Order` (
     OrderID CHAR(36) DEFAULT UUID() PRIMARY KEY,
     OrderDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     TotalPrice DECIMAL(10,2) NOT NULL,
-    OrderStatus ENUM('Pending', 'Confirmed', 'Finished', 'Cancelled') DEFAULT 'Pending',
+    OrderStatus ENUM('Pending', 'Confirmed', 'Finished','Processing', 'Cancelled') DEFAULT 'Pending',
     OrderType ENUM('Dine-in', 'Takeaway', 'Delivery') DEFAULT 'Takeaway',
     PaymentMethod ENUM('Cash', 'Credit Card', 'E-wallet') NULL,
     TableID CHAR(36),
@@ -140,3 +140,29 @@ VALUES
 ('od-002', 'o-001', 'p-003', 1, 15000.00, 0.00, 'Không đá', 1),
 ('od-003', 'o-002', 'p-002', 1, 120000.00, 0.00, NULL, 1),
 ('od-004', 'o-002', 'p-003', 1, 15000.00, 0.00, NULL, 1);
+
+-- 8. Bảng SideDish: món ăn kèm
+CREATE TABLE SideDish (
+  SideDishID CHAR(36) DEFAULT UUID() PRIMARY KEY,
+  Name VARCHAR(100) NOT NULL,
+  Price DECIMAL(10,2) NOT NULL,
+  -- Thêm cột Status cho xóa mềm (INT, default 1)
+  IsActive INT DEFAULT 1
+);
+
+INSERT INTO `sidedish` (`SideDishID`, `Name`, `Price`, `IsActive`) VALUES
+('e-001', 'Rau thơm', 3.00, 1),
+('e-002', 'Sốt cay, muối ớt', 2.00, 1);
+
+-- 9. Bảng ExtraPair: ghép món ăn với đồ ăn kèm
+CREATE TABLE ExtraPair (
+  SideDishID CHAR(36) NOT NULL,
+  ProductID CHAR(36) NOT NULL,
+  FOREIGN KEY (ProductID) REFERENCES Product(ProductID),
+  FOREIGN KEY (SideDishID) REFERENCES SideDish(SideDishID),
+  -- Thêm cột Status cho xóa mềm (INT, default 1)
+  IsActive INT DEFAULT 1
+);
+
+INSERT INTO `extrapair` (`SideDishID`, `ProductID`, `IsActive`) VALUES
+('e-001', 'p-001', 1);

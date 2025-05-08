@@ -52,4 +52,21 @@ export class OrderDetailService {
   async softDelete(id: string): Promise<void> {
     await this.orderDetailRepository.update(id, { status: 0 });
   }
+
+  async findByOrderId(orderId: string) {
+    return this.orderDetailRepository
+      .createQueryBuilder('detail')
+      .leftJoin('detail.product', 'product')
+      .select([
+        'detail.orderDetailId AS "orderDetailId"',  
+        'detail.quantity AS "quantity"',
+        'detail.price AS "price"',
+        'product.name AS "productName"',             
+        'product.price AS "productPrice"',
+      ])
+      .where('detail.orderId = :orderId', { orderId })
+      .getRawMany();
+  }
 }
+
+
