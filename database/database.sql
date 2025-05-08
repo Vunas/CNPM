@@ -166,3 +166,16 @@ CREATE TABLE ExtraPair (
 
 INSERT INTO `extrapair` (`SideDishID`, `ProductID`, `IsActive`) VALUES
 ('e-001', 'p-001', 1);
+
+-- 10. Bảng Feedback: Đánh giá của khách hàng
+CREATE TABLE Feedback (
+  FeedbackID CHAR(36) DEFAULT UUID() PRIMARY KEY,
+  OrderID CHAR(36) NOT NULL,
+  CustomerName VARCHAR(100) NOT NULL,
+  Email VARCHAR(255) NOT NULL,
+  Message TEXT NOT NULL,
+  CreatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  Status INT DEFAULT 1,
+  FOREIGN KEY (OrderID) REFERENCES `Order`(OrderID)
+);
+

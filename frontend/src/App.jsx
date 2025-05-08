@@ -8,7 +8,7 @@ import Payment from "./pages/customer/payment";
 import QRCodePage from "./pages/customer/QRCodePage";
 import CustomerRouter from "./router/CustomerRouter";
 import Employee from "./pages/Employee"
-
+import Feedback from "./pages/Feedback"
 export default function App() {
   const [token, setToken] = useState(null);
   const [user, setUser] = useState(null);
@@ -45,7 +45,7 @@ export default function App() {
                 
         <Route path="/order" element={<Order />} />
         <Route path="/employee" element={<Employee />} />
-
+        <Route path="/feedback" element={<Feedback/>} />
       </Routes>
     </Router>
   );

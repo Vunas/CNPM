@@ -13,6 +13,7 @@ import { OrderModule } from './modules/order/order.module';
 import { OrderDetailModule } from './modules/orderdetail/orderDetail.module';
 import { AuthModule } from './auth/auth.module';
 import { VnPayModule } from './modules/vnpay/vnpay.module';
+import { FeedbackModule } from './modules/feedback/feedback.module';
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
@@ -28,6 +29,7 @@ import { VnPayModule } from './modules/vnpay/vnpay.module';
     OrderDetailModule,
     AuthModule,
     VnPayModule,
+    FeedbackModule,
   ],
   controllers: [AppController],
   providers: [AppService, DatabaseConfigService],
