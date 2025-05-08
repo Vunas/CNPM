@@ -4,6 +4,7 @@ import orderApi from "../../api/orderApi";
 import CreditCardForm from "../../components/payment/CreditCardForm";
 import VNPayInfo from "../../components/payment/VNPayInfor";
 import CashOnDeliveryInfo from "../../components/payment/CashOnDeliveryInfo";
+import { Block } from "@mui/icons-material";
 
 function Payment({ setSnackbar }) {
   const navigate = useNavigate();
@@ -25,6 +26,11 @@ function Payment({ setSnackbar }) {
       </div>
     );
   }
+
+  const getButtonStyle = (method) => ({
+    display: method === "vnpay" ? "none" : "block",
+  });
+
 
   const handlePay = async () => {
     if (isSubmitting) return;
@@ -167,7 +173,16 @@ function Payment({ setSnackbar }) {
             onChange={handleInputChange}
           />
         )}
-        {paymentMethod === "vnpay" && <VNPayInfo />}
+        {paymentMethod === "vnpay" && (
+          <VNPayInfo 
+            cart={cart} 
+            returnUrl={`/order?restaurantid=${restaurantId}&restauranttableid=${restaurantTableId}`} 
+            resId = {restaurantId}
+            TableId = {restaurantId}
+            setSnackbar={setSnackbar}
+          />
+        )}
+
         {paymentMethod === "cashOnDelivery" && <CashOnDeliveryInfo />}
 
         <button
@@ -176,6 +191,7 @@ function Payment({ setSnackbar }) {
           className={`w-full py-3 mt-2 text-white rounded ${
             isSubmitting ? "bg-green-300" : "bg-green-500 hover:bg-green-600"
           }`}
+          style={getButtonStyle(paymentMethod)}
         >
           {isSubmitting ? "Processing..." : "Confirm & Pay"}
         </button>
