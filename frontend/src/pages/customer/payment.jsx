@@ -48,7 +48,7 @@ function Payment({setSnackbar}) {
       console.log(response)
 
       if (response && response.success) {
-        console.log("Order created successfully:", response.orderId);
+        console.log("Order created successfully:", response);
         setSnackbar({ open: true, message: "Order created successfully:!", type: "success" });
         navigate(`/order?restaurantid=${restaurantId}&restauranttableid=${restaurantTableId}`, {
           state: { orderId: response.orderId },

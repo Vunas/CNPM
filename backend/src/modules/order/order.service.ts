@@ -46,10 +46,20 @@ export class OrderService {
     createOrderDto: CreateOrderDto,
     createOrderDetailDtos: CreateOrderDetailDto[],
   ): Promise<{ success: boolean; data: Order | null; error?: string }> {
+    if(createOrderDto.restaurantId === null){
+      return {
+        success: false,
+        data: null,
+        error: `Restaurant with ID ${createOrderDto.restaurantId} not found`,
+      };
+    }
     try {
       const restaurant = await this.restaurantRepository.findOneBy({
         restaurantId: createOrderDto.restaurantId,
       });
+
+      console.log(restaurant)
+      console.log(createOrderDto.restaurantId)
 
       if (!restaurant) {
         return {
