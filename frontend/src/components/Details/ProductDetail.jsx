@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   IconButton,
   Typography,
@@ -19,7 +19,10 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
 const ProductDetail = ({ open, onClose, product, onAddToCart }) => {
   const [detailQuantity, setDetailQuantity] = useState(1);
-  const [selectedVegetables, setSelectedVegetables] = useState(false);
+
+  useEffect(() => {
+    setDetailQuantity(1); 
+  }, [product]);
 
   const handleAddToCart = () => {
     if (product) {
@@ -39,114 +42,109 @@ const ProductDetail = ({ open, onClose, product, onAddToCart }) => {
           justifyContent: "space-between",
         }}
       >
-        <Typography variant="h6" component="div">
+        <Typography variant="h6" component="div" fontWeight="bold">
           ADD TO CART
         </Typography>
         <IconButton aria-label="close" onClick={onClose} sx={{ p: 0 }}>
           <CloseIcon />
         </IconButton>
       </DialogTitle>
-      <DialogContent dividers sx={{ py: 2 }}>
-        <Box sx={{ display: "flex", alignItems: "center", mb: 3 }}>
+      <DialogContent dividers sx={{ py: 4 }}>
+        <Box sx={{ display: "flex", width: "100%" }}>
           <img
             src={product?.imageUrl || "placeholder_image_url"}
             alt={product?.name}
-            className="w-24 h-24 object-cover rounded mr-3"
+            className="w-32 h-32 object-cover rounded mr-3 border"
           />
-          <Box>
-            <Typography variant="body2" color="text.secondary">
-              SKU {product?.productID}
-            </Typography>
-            <Typography variant="h6" fontWeight="bold">
-              {product?.name}
-            </Typography>
-          </Box>
+          <div className="w-[90%]">
+            <Box sx={{ display: "flex", justifyContent: "space-between", width: "100%" , alignItems: "center"}}
+              className="h-16  border-b-2 pb-4">
+              <div>
+                <Typography variant="h5" fontWeight="bold">
+                  SKU
+                </Typography>
+                <Typography variant="h6" color="text.secondary">
+                  {product?.productID}
+                </Typography>
+              </div>
+    
+              <div style={{ flexGrow: 1, textAlign: "center" }}>
+                <Typography variant="h5" fontWeight="bold">
+                  Name
+                </Typography>
+                <Typography variant="h6" fontWeight="bold">
+                  {product?.name}
+                </Typography>
+              </div>
+
+              <div style={{ textAlign: "right" }}>
+                <Typography variant="h6" fontWeight="bold">
+                  Unit Price
+                </Typography>
+                <Typography variant="h5" color="error" fontWeight="bold">
+                  Kr {Number(product?.price)?.toFixed(2).replace(".", ",")}
+                </Typography>
+              </div>
+            </Box>
+            <div className="mt-2">
+              <Box sx={{ display: "flex", alignItems: "center", mb: 3 , width: "100%"}}>
+                <Typography variant="subtitle1" mr={2} fontWeight="bold">
+                  Quantity:
+                </Typography>
+                <Box
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    borderRadius: "4px",
+                    overflow: "hidden",
+                    width: "100%",
+                    justifyContent: "flex-end",
+                  }}
+                >
+                  <IconButton
+                    onClick={() => setDetailQuantity(Math.max(1, detailQuantity - 1))}
+                    size="small"
+                  >
+                    <RemoveIcon />
+                  </IconButton>
+                  <TextField
+                    type="number"
+                    value={detailQuantity}
+                    onChange={(e) => setDetailQuantity(parseInt(e.target.value) || 1)}
+                    inputProps={{ min: 1 }}
+                    sx={{
+                      textAlign: "center",
+                      "& input": { textAlign: "center" },
+                      '& input[type=number]::-webkit-outer-spin-button': {
+                        WebkitAppearance: 'none',
+                        margin: 0,
+                      },
+                      '& input[type=number]::-webkit-inner-spin-button': {
+                        WebkitAppearance: 'none',
+                        margin: 0,
+                      },
+                      '& input[type=number]': {
+                        MozAppearance: 'textfield', // For Firefox
+                      },
+                    }}
+                    className="w-12"
+                  />
+                  <IconButton
+                    onClick={() => setDetailQuantity(detailQuantity + 1)}
+                    size="small"
+                  >
+                    <AddIcon />
+                  </IconButton>
+                </Box>
+              </Box>
+            </div>
+          </div>
         </Box>
-
-        <Typography variant="h5" color="error" fontWeight="bold" mb={3}>
-          kr {Number(product?.price)?.toFixed(2).replace(".", ",")}
-        </Typography>
-
-        <Box sx={{ display: "flex", alignItems: "center", mb: 3 }}>
-          <Typography variant="subtitle1" mr={2}>
-            Quantity:
-          </Typography>
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              border: "1px solid #ccc",
-              borderRadius: "4px",
-              overflow: "hidden",
-            }}
-          >
-            <IconButton
-              onClick={() => setDetailQuantity(Math.max(1, detailQuantity - 1))}
-              size="small"
-            >
-              <RemoveIcon />
-            </IconButton>
-            <TextField
-              type="number"
-              value={detailQuantity}
-              onChange={(e) => setDetailQuantity(parseInt(e.target.value) || 1)}
-              inputProps={{ min: 1 }}
-              sx={{
-                width: 60,
-                textAlign: "center",
-                "& input": { textAlign: "center" },
-              }}
-            />
-            <IconButton
-              onClick={() => setDetailQuantity(detailQuantity + 1)}
-              size="small"
-            >
-              <AddIcon />
-            </IconButton>
-          </Box>
-        </Box>
-
-        <Box sx={{ mb: 3, color: "text.secondary", fontSize: "0.875rem" }}>
-          <Typography>
-            Protein:{" "}
-            <Typography component="span" color="text.primary">
-              {product?.protein || "What is Lorem ipsum?"}
+        <Box sx={{ mb: 3}}
+        className="text-2xl border-t-2 h-32 pt-2">
+            <Typography component="span">
+              {product?.description || "..."}
             </Typography>
-          </Typography>
-          <Typography>
-            Additives:{" "}
-            <Typography component="span" color="text.primary">
-              {product?.additives || "03"}
-            </Typography>
-          </Typography>
-          <Typography>
-            Baking material:{" "}
-            <Typography component="span" color="text.primary">
-              {product?.bakingMaterial || "040"}
-            </Typography>
-          </Typography>
-          <Typography>
-            Food decoration:{" "}
-            <Typography component="span" color="text.primary">
-              {product?.foodDecoration || "04"}
-            </Typography>
-          </Typography>
-        </Box>
-
-        <Box sx={{ mb: 3, color: "text.secondary", fontSize: "0.875rem" }}>
-          <Typography fontWeight="bold">Side dishes (*)</Typography>
-          <Typography>Please select on of the properties below</Typography>
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={selectedVegetables}
-                onChange={(e) => setSelectedVegetables(e.target.checked)}
-                color="error"
-              />
-            }
-            label="Vegetables"
-          />
-          {/* Thêm các tùy chọn side dishes khác nếu cần */}
         </Box>
       </DialogContent>
       <DialogActions sx={{ p: 2 }}>
@@ -157,7 +155,7 @@ const ProductDetail = ({ open, onClose, product, onAddToCart }) => {
           fullWidth
           startIcon={<ShoppingCartIcon />}
         >
-          kr{" "}
+          Kr{" "}
           {Number(product?.price * detailQuantity || 0)
             ?.toFixed(2)
             .replace(".", ",")}

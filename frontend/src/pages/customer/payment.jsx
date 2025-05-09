@@ -57,6 +57,7 @@ function Payment({ setSnackbar }) {
         0
       ),
       paymentMethod,
+      orderType: "Dine-in",
       customerContact: "user@example.com",
       restaurantId,
       tableId: restaurantTableId,
@@ -100,7 +101,9 @@ function Payment({ setSnackbar }) {
     <div className="mx-auto mt-8 p-6 w-full max-w-[500px] min-h-[450px] bg-white shadow rounded">
       <div className="flex items-center mb-4">
         <button
-          onClick={() => navigate("/order")}
+          onClick={() => navigate(
+            `/order?restaurantid=${restaurantId}&restauranttableid=${restaurantTableId}`,
+          )}
           className="text-gray-700 hover:text-black mr-2"
         >
           ← Back
@@ -160,7 +163,7 @@ function Payment({ setSnackbar }) {
               onChange={(e) => setPaymentMethod(e.target.value)}
               className="mr-2"
             />
-            Cash on Delivery
+            Cash
           </label>
         </div>
 

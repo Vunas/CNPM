@@ -43,7 +43,7 @@ CREATE TABLE Category (
 INSERT INTO `category` (`CategoryID`, `Name`, `ImageURL`, `Status`) VALUES
 ('c-001', 'Burger', 'src/assets/BurgerBoNuong.jpg', 1),
 ('c-002', 'Pizza', 'src/assets/PizzaHaiSan.png', 1),
-('c-003', 'Coca', 'src/assets/Coca.jpg', 1),
+('c-003', 'Soda', 'src/assets/Coca.jpg', 1),
 ('c-004', 'Juice', 'src/assets/NuocChanh.jpg', 1),
 ('c-005', 'Fried', 'src/assets/KhoaiChien.jpg', 1),
 ('c-006', 'Rice', 'src/assets/ComChienDuongChau.jpg', 1),
@@ -66,20 +66,20 @@ CREATE TABLE Product (
 );
 
 INSERT INTO `product` (`ProductID`, `Name`, `Description`, `Price`, `CategoryID`, `Status`, `ImageURL`, `RestaurantID`, `IsActive`) VALUES
-('p-001', 'Burger Bò Nướng', 'Burger bò nướng phô mai', 75.00, 'c-001', 'Available', 'src/assets/BurgerBoNuong.jpg', 'r-001', 1),
-('p-002', 'Pizza Hải Sản', 'Pizza hải sản thập cẩm', 100.00, 'c-002', 'Available', 'src/assets/PizzaHaiSan.png', 'r-002', 1),
-('p-003', 'Pepsi', 'Nước ngọt có ga', 15.00, 'c-003', 'Available', 'src/assets/Pepsi.jpg', 'r-001', 1),
-('p-004', 'Gà Rán Giòn', 'Gà rán tẩm bột giòn tan', 87.00, 'c-005', 'Available', 'src/assets/GaRanGion.jpg', 'r-001', 1),
-('p-005', 'Mỳ Ý Spaghetti', 'Mỳ Ý sốt bò bằm truyền thống', 68.00, 'c-002', 'Available', 'src/assets/MiY.jpg', 'r-002', 1),
-('p-006', 'Coca-Cola', 'Nước ngọt có ga', 15.00, 'c-003', 'Available', 'src/assets/Coca.jpg', 'r-002', 1),
-('p-007', 'Burger Gà', 'Burger gà chiên xù', 65.00, 'c-001', 'Available', 'src/assets/BurgerGa.jpg', 'r-001', 1),
-('p-008', 'Pizza Bò', 'Pizza bò và nấm', 110.00, 'c-002', 'Available', 'src/assets/PizzaBoNam.jpg', 'r-001', 1),
-('p-009', 'Sprite', 'Nước ngọt có ga vị chanh', 10.00, 'c-003', 'Available', 'src/assets/Sprite.jpg', 'r-002', 1),
-('p-010', 'Khoai Tây Chiên', 'Khoai tây chiên giòn rụm', 45.00, 'c-005', 'Available', 'src/assets/KhoaiChien.jpg', 'r-001', 1),
-('p-011', 'Nước Cam', 'Nước cam nguyên chất siêu ngon', 16.00, 'c-004', 'Available', 'src/assets/NuocCam.jpg', 'r-001', 1),
-('p-012', 'Nước Chanh', 'Chanh tươi siêu mát', 10.00, 'c-004', 'Available', 'src/assets/NuocChanh.jpg', 'r-001', 1),
-('p-013', 'Cơm chiên dương châu', 'Ăn 3 tô cơm', 62.00, 'c-006', 'Available', 'src/assets/ComChienDuongChau.jpg', 'r-001', 1),
-('p-014', 'Black Bean Noodles', 'My tuong den', 72.00, 'c-007', 'Available', 'src/assets/BlackBeanNoodles.jpg', 'r-001', 1);
+('p-001', 'Grilled Beef Burger', 'Savor our juicy grilled beef patty, seasoned to perfection and flame-grilled for a smoky flavor. Served on a freshly toasted bun with crisp lettuce, ripe tomatoes, onions, pickles, and our special house sauce. A hearty and satisfying choice for true burger lovers.', 75.00, 'c-001', 'Available', 'src/assets/BurgerBoNuong.jpg', 'r-001', 1),
+('p-002', 'Seafood Pizza', 'A delightful mixed seafood pizza topped with shrimp, squid, and melted cheese — perfect for seafood lovers.', 100.00, 'c-002', 'Available', 'src/assets/PizzaHaiSan.png', 'r-002', 1),
+('p-003', 'Pepsi', 'Refreshing carbonated soft drink to quench your thirst and complement any meal.', 15.00, 'c-003', 'Available', 'src/assets/Pepsi.jpg', 'r-001', 1),
+('p-004', 'Crispy Fried Chicken', 'Golden-brown, crispy battered chicken, juicy on the inside and perfectly seasoned.', 87.00, 'c-005', 'Available', 'src/assets/GaRanGion.jpg', 'r-001', 1),
+('p-005', 'Spaghetti Bolognese', 'Classic Italian pasta served with rich, savory minced beef sauce and herbs.', 68.00, 'c-007', 'Available', 'src/assets/MiY.jpg', 'r-002', 1),
+('p-006', 'Coca-Cola', 'Iconic fizzy cola drink with a bold, refreshing taste.', 15.00, 'c-003', 'Available', 'src/assets/Coca.jpg', 'r-002', 1),
+('p-007', 'Crispy Chicken Burger', 'Crispy fried chicken filet served in a soft burger bun with lettuce, pickles, and tangy mayo sauce.', 65.00, 'c-001', 'Available', 'src/assets/BurgerGa.jpg', 'r-001', 1),
+('p-008', 'Beef & Mushroom Pizza', 'Savory beef and fresh mushrooms layered over mozzarella and rich tomato sauce on a crispy crust.', 110.00, 'c-002', 'Available', 'src/assets/PizzaBoNam.jpg', 'r-001', 1),
+('p-009', 'Sprite', 'Light and lemon-lime flavored soft drink — a perfect choice for a refreshing break.', 10.00, 'c-003', 'Available', 'src/assets/Sprite.jpg', 'r-002', 1),
+('p-010', 'French Fries', 'Crispy golden fries, fried to perfection — ideal as a side or snack.', 45.00, 'c-005', 'Available', 'src/assets/KhoaiChien.jpg', 'r-001', 1),
+('p-011', 'Orange Juice', 'Freshly squeezed orange juice, naturally sweet and full of vitamin C.', 16.00, 'c-004', 'Available', 'src/assets/NuocCam.jpg', 'r-001', 1),
+('p-012', 'Lemonade', 'Cool and zesty lemonade made from fresh lemons — light, tangy, and refreshing.', 10.00, 'c-004', 'Available', 'src/assets/NuocChanh.jpg', 'r-001', 1),
+('p-013', 'Yangzhou Fried Rice', 'Classic Chinese-style fried rice with a colorful mix of vegetables, egg, and meat — satisfying and flavorful.', 62.00, 'c-006', 'Available', 'src/assets/ComChienDuongChau.jpg', 'r-001', 1),
+('p-014', 'Black Bean Noodles', 'Black Bean Noodles, also known as Jajangmyeon, are a Korean dish made with thick, savory black bean sauce and diced pork or vegetables.', 72.00, 'c-007', 'Available', 'src/assets/BlackBeanNoodles.jpg', 'r-001', 1);
 
 -- 5. Bảng RestaurantTable: Bàn ăn
 CREATE TABLE RestaurantTable (
@@ -141,7 +141,7 @@ VALUES
 ('od-003', 'o-002', 'p-002', 1, 120000.00, 0.00, NULL, 1),
 ('od-004', 'o-002', 'p-003', 1, 15000.00, 0.00, NULL, 1);
 
--- 8. Bảng SideDish: món ăn kèm
+/*-- 8. Bảng SideDish: món ăn kèm
 CREATE TABLE SideDish (
   SideDishID CHAR(36) DEFAULT UUID() PRIMARY KEY,
   Name VARCHAR(100) NOT NULL,
@@ -165,9 +165,9 @@ CREATE TABLE ExtraPair (
 );
 
 INSERT INTO `extrapair` (`SideDishID`, `ProductID`, `IsActive`) VALUES
-('e-001', 'p-001', 1);
+('e-001', 'p-001', 1);*/
 
--- 10. Bảng Feedback: Đánh giá của khách hàng
+-- 8. Bảng Feedback: Đánh giá của khách hàng
 CREATE TABLE Feedback (
   FeedbackID CHAR(36) DEFAULT UUID() PRIMARY KEY,
   OrderID CHAR(36) NOT NULL,

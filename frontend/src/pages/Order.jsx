@@ -78,13 +78,15 @@ const Order = () => {
 
   const handlePaymentClick = () => {
     console.log(cart);
-    navigate("/payment", {
-      state: {
-        cart: cart,
-        restaurantId: restaurantId,
-        restaurantTableId: restaurantTableId,
-      },
-    });
+    if(cart.length!=0){
+      navigate("/payment", {
+        state: {
+          cart: cart,
+          restaurantId: restaurantId,
+          restaurantTableId: restaurantTableId,
+        },
+      });
+    }
   };
 
   const getButtonStyle = (isDisabled) => ({
@@ -158,7 +160,9 @@ const Order = () => {
 
   const handleCloseProductDetail = () => {
     setIsProductDetailOpen(false);
-    setSelectedProduct(null);
+    setTimeout(() => {
+      setSelectedProduct(null);
+    }, 100);
   };
 
   const addToCartFromDetail = (product, quantity) => {
@@ -168,6 +172,9 @@ const Order = () => {
     }
   };
 
+  function homepageNavigate(){
+    navigate(`/homepage?restaurantid=${restaurantId}&restauranttableid=${restaurantTableId}`)
+  }
   if (loading) {
     return <Loading />;
   }
@@ -183,7 +190,7 @@ const Order = () => {
         <div className="flex items-center mb-4 bg-white w-full p-2 shadow-md">
           <button
             className="flex items-center space-x-2 text-blue-600 px-2 py-1 hover:scale-105 transition duration-300"
-            onClick={() => handleGetProduct()}
+            onClick={() => homepageNavigate()}
           >
             <div
               style={{ backgroundColor: "rgb(47, 58, 85)" }}
@@ -259,7 +266,7 @@ const Order = () => {
                   alt={item.name}
                   className="w-48 h-48 object-cover rounded-lg"
                 />
-                <p className="text-lg font-semibold mt-2 border-t-2 w-full text-left pl-5 pr-5">
+                <p className="text-lg font-semibold mt-2 border-t-2 w-64 text-left pl-5 pr-5">
                   <span className="text-lg font-bold text-red-600">
                     {index + 1}.{" "}
                   </span>

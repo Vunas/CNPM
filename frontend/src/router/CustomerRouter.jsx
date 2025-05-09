@@ -5,6 +5,7 @@ import Alert from "@mui/material/Alert";
 import Order from "../pages/Order";
 import Payment from "../pages/customer/payment";
 import QRCodePage from "../pages/customer/QRCodePage";
+import Homepage from "../pages/customer/homepage";
 
 const CustomerRouter = ({ snackBar, setSnackbar }) => {
   const handleSnackbarClose = () => setSnackbar({ ...snackBar, open: false });
@@ -17,6 +18,7 @@ const CustomerRouter = ({ snackBar, setSnackbar }) => {
           <Route path="order" element={<Order replace />} />
           <Route path="payment" element={<Payment setSnackbar={setSnackbar}/>} />
           <Route path="qrcodepage" element={<QRCodePage />} />
+          <Route path="/homepage" element={<Homepage />} />
         </Routes>
       </div>
 

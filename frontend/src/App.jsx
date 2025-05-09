@@ -9,6 +9,7 @@ import QRCodePage from "./pages/customer/QRCodePage";
 import CustomerRouter from "./router/CustomerRouter";
 import Employee from "./pages/Employee"
 import Feedback from "./pages/Feedback"
+import Homepage from "./pages/customer/homepage";
 export default function App() {
   const [token, setToken] = useState(null);
   const [user, setUser] = useState(null);
