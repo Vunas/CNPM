@@ -11,6 +11,7 @@ import {
   Code,
   ExpandLess,
   Logout,
+  Face,
 } from "@mui/icons-material";
 import "./NavBar.scss";
 import { Link } from "react-router-dom";
@@ -52,6 +53,16 @@ const Navbar = () => {
           <Link className="absolute w-full inset-0" to="/admin/category" />
           <PushPin />
           <span>Category</span>
+        </div>
+        <div className="nav-button">
+          <Link className="absolute w-full inset-0" to="/admin/restaurant" />
+          <Face />
+          <span>Restaurant</span>
+        </div>
+        <div className="nav-button">
+          <Link className="absolute w-full inset-0" to="/admin/restauranttable" />
+          <Face />
+          <span>Restaurant Table</span>
         </div>
 
         <hr />

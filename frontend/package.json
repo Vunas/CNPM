@@ -15,6 +15,7 @@
     "@mui/icons-material": "^7.0.2",
     "@mui/material": "^7.0.2",
     "@react-oauth/google": "^0.12.1",
+    "aos": "^3.0.0-beta.6",
     "axios": "^1.9.0",
     "exceljs": "^4.4.0",
     "qrcode": "^1.5.4",

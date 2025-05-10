@@ -9,6 +9,8 @@ import { getProfile } from "../api/auth";
 import Product from "../pages/admin/Product";
 import Category from "../pages/admin/Category";
 import Page404 from "../pages/Page404";
+import Restaurant from "../pages/admin/Restaurant";
+import RestaurantTablePage from "../pages/admin/RestaurantTablePage";
 
 const AdminRoutes = () => {
   const handleSnackbarClose = () =>
@@ -49,6 +51,8 @@ const AdminRoutes = () => {
           <Route path="account" element={<Account replace />} />
           <Route path="product" element={<Product />} />
           <Route path="category" element={<Category />} />
+          <Route path="restaurant" element={<Restaurant />} />
+          <Route path="restaurantTable" element={<RestaurantTablePage />} />
           <Route path="*" element={<Page404 href={"/admin"} />} />
         </Routes>
       </div>
