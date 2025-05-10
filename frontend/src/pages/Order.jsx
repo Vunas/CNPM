@@ -209,7 +209,7 @@ const Order = () => {
 
         <div className="py-4 px-6">
           {/* Categories */}
-          <div className="flex items-center justify-center space-x-10 mb-6 p-2 h-25">
+          <div className="flex items-center justify-center space-x-5 mb-6 p-2 h-25">
             <button
               onClick={() => handleCatePage(currentPage - 1)}
               disabled={currentPage === 1}
