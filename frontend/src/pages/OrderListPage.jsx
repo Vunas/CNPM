@@ -26,7 +26,7 @@ export default function OrderListPage() {
   }, []);
 
   return (
-    <div className="p-6 bg-gray-50 min-h-screen flex gap-6">
+    <div className="p-6 bg-gray-50 min-h-screen flex gap-6 w-[70vw]">
       {/* Cột trái - Đơn Đang Chế Biến chiếm 40% */}
       <div className="w-2/5 space-y-4 overflow-y-auto bg-white p-4 rounded shadow">
         <h1 className="text-xl font-bold border-b pb-2 mb-4 text-orange-700">⏳ Đơn Đang Chế Biến</h1>

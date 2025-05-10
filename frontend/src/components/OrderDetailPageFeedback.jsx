@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "@mui/material";
 import orderApi from "../api/orderApi";
+import FeedbackSender from "../pages/Feedback";
+import { useNavigate } from "react-router-dom";
 
 export default function OrderDetailPageFeedback({ order, onStatusChange }) {
   const [details, setDetails] = useState([]);
-
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!order?.orderId) return;
@@ -44,7 +46,9 @@ export default function OrderDetailPageFeedback({ order, onStatusChange }) {
     }
   };
   
-  
+  function feedbackNavigate(){
+     navigate(`/feedback?orderid=${order.orderId}&restauranttableid=${order.tableId}`)
+  }
   
 
   return (
@@ -85,7 +89,24 @@ export default function OrderDetailPageFeedback({ order, onStatusChange }) {
     <li>Không có chi tiết đơn hàng</li>
   )}
 </ul>
-
+      <div className="mt-4 space-x-2">
+            <Button
+              variant="contained"
+              color="success"
+              onClick={() => feedbackNavigate()}
+              disabled={order.orderStatus !== "Finished"}
+            >
+              Đánh giá
+            </Button>
+            <Button
+              variant="contained"
+              color="error"
+              onClick={() => handleUpdateStatus("Cancelled")}
+              disabled={order.orderStatus !== "Pending"}
+            >
+              Hủy Đơn
+            </Button>
+        </div>
     </div>
   );
 }
