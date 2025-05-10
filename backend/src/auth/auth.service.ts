@@ -47,20 +47,33 @@ export class AuthService {
       restaurantID: account.restaurant?.restaurantId,
     };
 
+    console.log(payload);
+
     return {
-      accessToken: await this.jwtService.signAsync(payload),
+      accessToken: await this.jwtService.signAsync(payload, {
+        secret: process.env.JWT_SECRET || 'UltraSecureKey_2025!@#xyz123',
+        expiresIn: process.env.JWT_EXPIRES_IN || '1h',
+      }),
     };
   }
 
   async refreshToken(refreshToken: string): Promise<{ accessToken: string }> {
     try {
-      const payload =
-        await this.jwtService.verifyAsync<JwtPayload>(refreshToken);
+      const payload = await this.jwtService.verifyAsync<JwtPayload>(
+        refreshToken,
+        {
+          secret: process.env.JWT_SECRET || 'UltraSecureKey_2025!@#xyz123',
+        },
+      );
 
       const newAccessToken = await this.jwtService.signAsync(
         { username: payload.username, sub: payload.sub, role: payload.role },
-        { expiresIn: '1h' },
+        {
+          secret: process.env.JWT_SECRET || 'UltraSecureKey_2025!@#xyz123',
+          expiresIn: '1h',
+        },
       );
+
       return { accessToken: newAccessToken };
     } catch (error) {
       console.log(error);
@@ -71,10 +84,8 @@ export class AuthService {
   }
 
   async getAccountByID(accountId: string) {
-    // Use the accountService to find the account by ID
     const account = await this.accountService.findOne(accountId);
 
-    // Handle case where account is not found
     if (!account) {
       throw new UnauthorizedException({
         message: 'Account not found',
@@ -82,7 +93,6 @@ export class AuthService {
       });
     }
 
-    // Return the account details in a proper structure
     return {
       status: 'success',
       data: account,

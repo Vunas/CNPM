@@ -27,12 +27,9 @@ export class CreateProductDto {
   restaurantId?: string;
 
   @IsOptional()
-  status?: 'Available' | 'Out of Stock';
-
-  @IsOptional()
   @IsString()
   imageUrl?: string;
 
   @IsOptional()
-  isActive?: number;
+  status?: number;
 }

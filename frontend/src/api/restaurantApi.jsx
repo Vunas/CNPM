@@ -1,11 +1,11 @@
 import axiosClient from "./axiosClient";
 
 const restaurantApi = {
-  getRestaurants: () => axiosClient.get("/restaurants"),
-  createRestaurant: (data) => axiosClient.post("/restaurants/create", data),
+  getRestaurants: () => axiosClient.get("/restaurant"),
+  createRestaurant: (data) => axiosClient.post("/restaurant/create", data),
   updateRestaurant: (id, data) =>
-    axiosClient.put(`/restaurants/update/${id}`, data),
-  deleteRestaurant: (id) => axiosClient.delete(`/restaurants/delete/${id}`),
+    axiosClient.put(`/restaurant/update/${id}`, data),
+  deleteRestaurant: (id) => axiosClient.delete(`/restaurant/delete/${id}`),
 };
 
 export default restaurantApi;

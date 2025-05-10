@@ -12,6 +12,16 @@ export class CategoryService {
     private readonly categoryRepository: Repository<Category>,
   ) {}
 
+  async findAllImagePaths(): Promise<string[]> {
+    const products = await this.categoryRepository.find({
+      select: ['imageUrl'],
+    });
+
+    return products
+      .map((product) => product.imageUrl)
+      .filter((url): url is string => url !== null);
+  }
+
   async create(createCategoryDto: CreateCategoryDto): Promise<Category> {
     const category = this.categoryRepository.create(createCategoryDto);
     return await this.categoryRepository.save(category);

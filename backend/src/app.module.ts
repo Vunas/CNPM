@@ -13,6 +13,8 @@ import { OrderModule } from './modules/order/order.module';
 import { OrderDetailModule } from './modules/orderdetail/orderDetail.module';
 import { AuthModule } from './auth/auth.module';
 import { VnPayModule } from './modules/vnpay/vnpay.module';
+import { UploadModule } from './uploads/upload.module';
+import { FileCleanupModule } from './utils/FileCleanUp.module';
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
@@ -28,6 +30,8 @@ import { VnPayModule } from './modules/vnpay/vnpay.module';
     OrderDetailModule,
     AuthModule,
     VnPayModule,
+    UploadModule,
+    FileCleanupModule,
   ],
   controllers: [AppController],
   providers: [AppService, DatabaseConfigService],

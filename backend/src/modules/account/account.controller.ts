@@ -10,11 +10,8 @@ import {
 import { AccountService } from './account.service';
 import { CreateAccountDto } from './dto/create-account.dto';
 import { UpdateAccountDto } from './dto/update-account.dto';
-import { UseGuards } from '@nestjs/common';
-import { JwtAuthGuard } from 'src/auth/guard/jwt-auth.guard';
 
 @Controller('account')
-@UseGuards(JwtAuthGuard)
 export class AccountController {
   constructor(private readonly accountService: AccountService) {}
 
@@ -36,6 +33,11 @@ export class AccountController {
   @Put(':id')
   update(@Param('id') id: string, @Body() updateAccountDto: UpdateAccountDto) {
     return this.accountService.update(id, updateAccountDto);
+  }
+
+  @Put('/lock/:id')
+  Lock(@Param('id') id: string) {
+    return this.accountService.lock(id);
   }
 
   @Delete(':id')

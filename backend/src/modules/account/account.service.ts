@@ -1,16 +1,19 @@
-import { Injectable } from '@nestjs/common';
-import { Repository } from 'typeorm';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { Not, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Account } from './account.entity';
 import { CreateAccountDto } from './dto/create-account.dto';
 import { UpdateAccountDto } from './dto/update-account.dto';
 import * as bcrypt from 'bcrypt';
+import { Restaurant } from '../restaurant/restaurant.entity';
 
 @Injectable()
 export class AccountService {
   constructor(
     @InjectRepository(Account)
     private readonly accountRepository: Repository<Account>,
+    @InjectRepository(Restaurant)
+    private readonly restaurantRepository: Repository<Restaurant>,
   ) {}
 
   async isUsernameTaken(username: string): Promise<boolean> {
@@ -29,7 +32,16 @@ export class AccountService {
   }
 
   async create(createAccountDto: CreateAccountDto): Promise<Account> {
-    const { username, email, phone, passwordHash } = createAccountDto;
+    const { username, email, phone, passwordHash, restaurantId } =
+      createAccountDto;
+    const restaurant = await this.restaurantRepository.findOneBy({
+      restaurantId: restaurantId,
+    });
+    if (!restaurant) {
+      throw new NotFoundException(
+        `Restaurant with ID ${createAccountDto.restaurantId} not found`,
+      );
+    }
 
     if (await this.isUsernameTaken(username)) {
       throw new Error(`Username "${username}" is already taken.`);
@@ -51,12 +63,18 @@ export class AccountService {
       );
     }
 
-    const account = this.accountRepository.create(createAccountDto);
+    const account = this.accountRepository.create({
+      ...createAccountDto,
+      restaurant,
+    });
     return await this.accountRepository.save(account);
   }
 
   async findAll(): Promise<Account[]> {
-    return await this.accountRepository.find({ relations: ['restaurant'] });
+    return await this.accountRepository.find({
+      relations: ['restaurant'],
+      where: { status: Not(0) },
+    });
   }
 
   async findOne(id: string): Promise<Account> {
@@ -71,7 +89,17 @@ export class AccountService {
     id: string,
     updateAccountDto: UpdateAccountDto,
   ): Promise<Account> {
-    const { username, email, phone, passwordHash } = updateAccountDto;
+    const { username, email, phone, passwordHash, restaurantId } =
+      updateAccountDto;
+
+    const restaurant = await this.restaurantRepository.findOneBy({
+      restaurantId: restaurantId,
+    });
+    if (!restaurant) {
+      throw new NotFoundException(
+        `Restaurant with ID ${updateAccountDto.restaurantId} not found`,
+      );
+    }
 
     if (username && (await this.isUsernameTaken(username))) {
       const existingAccount = await this.accountRepository.findOneBy({
@@ -106,6 +134,18 @@ export class AccountService {
 
     await this.accountRepository.update(id, updateAccountDto);
     return this.findOne(id);
+  }
+
+  async lock(id: string): Promise<void> {
+    const account = await this.accountRepository.findOneBy({ accountId: id });
+    if (!account) {
+      throw new NotFoundException(`Account with ID ${id} not found`);
+    }
+    if (account.status === 2) {
+      await this.accountRepository.update(id, { status: 1 });
+      return;
+    }
+    await this.accountRepository.update(id, { status: 2 });
   }
 
   async softDelete(id: string): Promise<void> {

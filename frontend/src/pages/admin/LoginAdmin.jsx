@@ -19,13 +19,15 @@ const LoginAdmin = ({ onLoginSuccess }) => {
     e.preventDefault();
     try {
       const data = await login(username, password);
-      onLoginSuccess(data.token);
+      if (data) {
+        onLoginSuccess();
+      }
     } catch (err) {
       setSnackbar({
         open: true,
-        message: err.response
-          ? `Lỗi: ${err.response.data}`
-          : "Đăng nhập thất bại. Vui lòng thử lại!",
+        message: err.message
+          ? `Error: ${err.message}`
+          : "Login failed. Please try again.!",
         severity: "error",
       });
     }
@@ -40,17 +42,15 @@ const LoginAdmin = ({ onLoginSuccess }) => {
     <GoogleOAuthProvider clientId={clientId}>
       <div className="flex justify-center items-center h-screen">
         <div className="bg-white p-8 rounded-lg shadow-md text-center max-w-md w-full">
-          <h1 className="text-2xl font-bold text-gray-800 mb-4">
-            Đăng nhập dành cho Admin
-          </h1>
+          <h1 className="text-2xl font-bold text-gray-800 mb-4">Admin Login</h1>
           <p className="text-gray-600 mb-6">
-            Sử dụng tài khoản Google hoặc nhập thông tin để đăng nhập.
+            Use your Google account or enter your credentials to log in.
           </p>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <input
                 type="text"
-                placeholder="Tên đăng nhập"
+                placeholder="Username"
                 className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
@@ -59,7 +59,7 @@ const LoginAdmin = ({ onLoginSuccess }) => {
             <div>
               <input
                 type="password"
-                placeholder="Mật khẩu"
+                placeholder="Password"
                 className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -69,10 +69,10 @@ const LoginAdmin = ({ onLoginSuccess }) => {
               type="submit"
               className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600 transition"
             >
-              Đăng nhập
+              Login
             </button>
           </form>
-          <div className="my-4 text-gray-500">Hoặc</div>
+          <div className="my-4 text-gray-500">Or</div>
           <GoogleLogin
             // onSuccess={(credentialResponse) =>
             //   handleGoogleLogin(credentialResponse)
@@ -80,13 +80,13 @@ const LoginAdmin = ({ onLoginSuccess }) => {
             onError={() =>
               setSnackbar({
                 open: true,
-                message: "Lỗi đăng nhập Google.",
+                message: "Google login error.",
                 severity: "error",
               })
             }
           />
           <p className="text-gray-500 mt-4 text-sm">
-            Nếu gặp vấn đề khi đăng nhập, hãy liên hệ với bộ phận hỗ trợ.
+            If you encounter any issues logging in, please contact support.
           </p>
         </div>
 

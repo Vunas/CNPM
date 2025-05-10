@@ -7,17 +7,22 @@ import { JwtStrategy } from './strategies/jwt.strategy';
 import { AccountService } from 'src/modules/account/account.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Account } from 'src/modules/account/account.entity';
+import { Restaurant } from 'src/modules/restaurant/restaurant.entity';
 
 @Module({
   imports: [
     PassportModule,
     JwtModule.register({
-      secret: process.env.JWT_SECRET || 'default-secret-key',
+      secret: process.env.JWT_SECRET || 'UltraSecureKey_2025!@#xyz123',
       signOptions: { expiresIn: process.env.JWT_EXPIRES_IN || '1h' },
     }),
-    TypeOrmModule.forFeature([Account]),
+    TypeOrmModule.forFeature([Account, Restaurant]),
   ],
   controllers: [AuthController],
   providers: [AuthService, JwtStrategy, AccountService],
 })
-export class AuthModule {}
+export class AuthModule {
+  constructor() {
+    console.log('✅ AuthModule initialized!');
+  }
+}

@@ -1,52 +1,32 @@
-import React, { useState } from "react";
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import React from "react";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import OrderListPage from "./pages/OrderListPage";
 import Order from "./pages/Order";
-import { getProfile } from "./api/auth";
-import LoginAdmin from "./pages/admin/LoginAdmin";
-import Payment from "./pages/customer/payment";
-import QRCodePage from "./pages/customer/QRCodePage";
 import CustomerRouter from "./router/CustomerRouter";
-import Employee from "./pages/Employee"
+import AdminRouter from "./router/AdminRouter";
+import Employee from "./pages/Employee";
+import Page404 from "./pages/Page404";
 
 export default function App() {
-  const [token, setToken] = useState(null);
-  const [user, setUser] = useState(null);
-  const [snackBarLogin, setSnackbarLogin] = useState({
-    open: false,
-    message: "",
-    type: "success",
-  });
-  const handleLoginSuccess = async (token) => {
-    setToken(token);
-    try {
-      const userProfile = await getProfile(token);
-      setUser(userProfile);
-    } catch (error) {
-      console.error("Error fetching profile:", error);
-    }
-  };
   return (
-    <Router>
-      {/* <div>
-        {!token ? (
-          <LoginAdmin onLoginSuccess={handleLoginSuccess} />
-        ) : (
-          <div>
-            <h1>Welcome, {user?.username}</h1>
-          </div>
-        )}
-      </div> */}
-      <Routes>
+    <div className="w-screen h-screen">
+      <Router>
+        <Routes>
+          <Route path="/orderlistpage" element={<OrderListPage />} />
+          <Route path="/" element={<Navigate to="/cus/qrcodepage" />} />
+          <Route path="/cus/*" element={<CustomerRouter />} />
+          <Route path="/admin/*" element={<AdminRouter />} />
 
-        <Route path="/orderlistpage" element={<OrderListPage />} />
-        <Route path="/" element={<Navigate to="/qrcodepage" />} />
-        <Route path="/*" element={<CustomerRouter snackBar={snackBarLogin} setSnackbar={setSnackbarLogin}/>} />
-                
-        <Route path="/order" element={<Order />} />
-        <Route path="/employee" element={<Employee />} />
-
-      </Routes>
-    </Router>
+          <Route path="/order" element={<Order />} />
+          <Route path="/employee" element={<Employee />} />
+          <Route path="*" element={<Page404 href={"/admin"} />} />
+        </Routes>
+      </Router>
+    </div>
   );
 }

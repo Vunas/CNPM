@@ -11,7 +11,7 @@ import { Restaurant } from '../restaurant/restaurant.entity';
 @Entity('Product')
 export class Product {
   @PrimaryGeneratedColumn('uuid')
-  productID: string;
+  productId: string;
 
   @Column({ length: 100 })
   name: string;
@@ -23,23 +23,16 @@ export class Product {
   price: number;
 
   @ManyToOne(() => Category, { nullable: true, onDelete: 'SET NULL' })
-  @JoinColumn({ name: 'CategoryID' })
+  @JoinColumn({ name: 'categoryId' })
   category: Category | null;
 
   @ManyToOne(() => Restaurant, { nullable: true, onDelete: 'SET NULL' })
-  @JoinColumn({ name: 'RestaurantID' })
+  @JoinColumn({ name: 'restaurantId' })
   restaurant: Restaurant | null;
-
-  @Column({
-    type: 'enum',
-    enum: ['Available', 'Out of Stock'],
-    default: 'Available',
-  })
-  status: 'Available' | 'Out of Stock';
 
   @Column({ type: 'text', nullable: true })
   imageUrl: string | null;
 
   @Column({ default: 1 })
-  isActive: number;
+  status: number;
 }

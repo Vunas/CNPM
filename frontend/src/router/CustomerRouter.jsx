@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
@@ -6,7 +6,12 @@ import Order from "../pages/Order";
 import Payment from "../pages/customer/payment";
 import QRCodePage from "../pages/customer/QRCodePage";
 
-const CustomerRouter = ({ snackBar, setSnackbar }) => {
+const CustomerRouter = () => {
+  const [snackBar, setSnackbar] = useState({
+    open: false,
+    message: "",
+    type: "success",
+  });
   const handleSnackbarClose = () => setSnackbar({ ...snackBar, open: false });
 
   return (
@@ -15,7 +20,10 @@ const CustomerRouter = ({ snackBar, setSnackbar }) => {
       <div className="flex-1 p-4">
         <Routes>
           <Route path="order" element={<Order replace />} />
-          <Route path="payment" element={<Payment setSnackbar={setSnackbar}/>} />
+          <Route
+            path="payment"
+            element={<Payment setSnackbar={setSnackbar} />}
+          />
           <Route path="qrcodepage" element={<QRCodePage />} />
         </Routes>
       </div>

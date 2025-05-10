@@ -63,7 +63,7 @@ export class OrderService {
     const orderDetails: OrderDetail[] = [];
     for (const dto of createOrderDetailDtos) {
       const product = await this.productRepository.findOneBy({
-        productID: dto.productId,
+        productId: dto.productId,
       });
       if (!product) {
         throw new NotFoundException(

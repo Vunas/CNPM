@@ -25,6 +25,11 @@ export class ProductController {
     return this.productService.findAll();
   }
 
+  @Get('/active')
+  findAllActive() {
+    return this.productService.findAllActive();
+  }
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.productService.findOne(id);
@@ -33,6 +38,11 @@ export class ProductController {
   @Get('/by-category/:categoryID')
   findByCategory(@Param('categoryID') categoryID: string) {
     return this.productService.findByCategory(categoryID);
+  }
+
+  @Put('/lock/:id')
+  Lock(@Param('id') id: string) {
+    return this.productService.lock(id);
   }
 
   @Put(':id')

@@ -37,6 +37,6 @@ export class Account {
   @ManyToOne(() => Restaurant, (restaurant) => restaurant.restaurantId, {
     nullable: true,
   })
-  @JoinColumn({ name: 'restaurantId' }) // Đặt tên cột là 'restaurantId'
+  @JoinColumn({ name: 'restaurantId' })
   restaurant: Restaurant;
 }
