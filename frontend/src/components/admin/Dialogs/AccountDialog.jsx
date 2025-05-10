@@ -35,7 +35,11 @@ const AccountDialog = ({ open, handleClose, onSave, account, restaurants }) => {
   };
 
   const handleSubmit = () => {
-    onSave(formData);
+    const updatedData = {
+      ...formData,
+      restaurantId: formData.restaurant?.restaurantId || "",
+    };
+    onSave(updatedData);
     handleClose();
   };
 
@@ -81,7 +85,7 @@ const AccountDialog = ({ open, handleClose, onSave, account, restaurants }) => {
           name="restaurantId"
           fullWidth
           margin="dense"
-          value={formData.restaurantId || ""}
+          value={formData.restaurant?.restaurantId || ""}
           onChange={handleChange}
         >
           <MenuItem value="" disabled>

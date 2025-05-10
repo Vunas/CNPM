@@ -20,7 +20,7 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import productApi from "../api/productapi";
 import categoryApi from "../api/categoryApi";
 import Loading from "../utils/Loading/Loading";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import ProductDetail from "../components/Details/ProductDetail";
 
 const Order = () => {
@@ -77,8 +77,14 @@ const Order = () => {
   };
 
   const handlePaymentClick = () => {
+    if (restaurantId === null || restaurantId === "null" || restaurantTableId === null || restaurantTableId === "null") {
+      alert(
+        "Please scan QR from employee a restaurant and table before proceeding to payment."
+      );
+      return;
+    }
     console.log(cart);
-    if(cart.length!=0){
+    if (cart.length != 0) {
       navigate("/payment", {
         state: {
           cart: cart,
@@ -172,9 +178,6 @@ const Order = () => {
     }
   };
 
-  function homepageNavigate(){
-    navigate(`/homepage?restaurantid=${restaurantId}&restauranttableid=${restaurantTableId}`)
-  }
   if (loading) {
     return <Loading />;
   }
@@ -188,22 +191,26 @@ const Order = () => {
       {/* Menu Section */}
       <div className="w-3/4 overflow-y-auto">
         <div className="flex items-center mb-4 bg-white w-full p-2 shadow-md">
-          <button
-            className="flex items-center space-x-2 text-blue-600 px-2 py-1 hover:scale-105 transition duration-300"
-            onClick={() => homepageNavigate()}
-          >
-            <div
-              style={{ backgroundColor: "rgb(47, 58, 85)" }}
-              className="p-1 mx-1 rounded-lg flex items-center justify-center"
+          <button className="flex items-center space-x-2 text-blue-600 px-2 py-1 hover:scale-105 transition duration-300">
+            <Link
+              to={`/home?restaurantid=${restaurantId}&restauranttableid=${restaurantTableId}`}
+              className="flex items-center space-x-2 text-blue-600 px-2 py-1 hover:scale-105 transition duration-300"
             >
-              <Home style={{ color: "white", width: "30px", height: "30px" }} />
-            </div>
-            <span
-              className="text-lg font-bold"
-              style={{ color: "rgb(47, 58, 85)" }}
-            >
-              Back to Home
-            </span>
+              <div
+                style={{ backgroundColor: "rgb(47, 58, 85)" }}
+                className="p-1 mx-1 rounded-lg flex items-center justify-center"
+              >
+                <Home
+                  style={{ color: "white", width: "30px", height: "30px" }}
+                />
+              </div>
+              <span
+                className="text-lg font-bold"
+                style={{ color: "rgb(47, 58, 85)" }}
+              >
+                Back to Home
+              </span>
+            </Link>
           </button>
         </div>
 

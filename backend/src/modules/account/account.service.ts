@@ -132,7 +132,7 @@ export class AccountService {
       );
     }
 
-    await this.accountRepository.update(id, updateAccountDto);
+    await this.accountRepository.save(updateAccountDto);
     return this.findOne(id);
   }
 
