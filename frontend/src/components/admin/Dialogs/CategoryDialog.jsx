@@ -8,6 +8,7 @@ import {
   Button,
 } from "@mui/material";
 import uploadApi from "../../../api/uploadApi";
+import validateRequiredFields from "../../../utils/ValidateDialog";
 
 const initialCategory = {
   name: "",
@@ -17,9 +18,11 @@ const initialCategory = {
 const CategoryDialog = ({ open, handleClose, onSave, category }) => {
   const [formData, setFormData] = useState(initialCategory);
   const [isDragging, setIsDragging] = useState(false);
+  const [errors, setErrors] = useState({});
 
   useEffect(() => {
     setFormData(category || initialCategory);
+    setErrors({});
   }, [category]);
 
   const handleChange = (e) => {
@@ -27,6 +30,14 @@ const CategoryDialog = ({ open, handleClose, onSave, category }) => {
   };
 
   const handleSubmit = () => {
+    setErrors({});
+    const requiredFields = ["name"];
+    const errors = validateRequiredFields(formData, requiredFields);
+    if (Object.keys(errors).length > 0) {
+      setErrors(errors);
+      return;
+    }
+
     onSave(formData);
     handleClose();
   };
@@ -70,6 +81,8 @@ const CategoryDialog = ({ open, handleClose, onSave, category }) => {
           margin="dense"
           value={formData.name}
           onChange={handleChange}
+          error={!!errors.name}
+          helperText={errors.name}
         />
 
         <input

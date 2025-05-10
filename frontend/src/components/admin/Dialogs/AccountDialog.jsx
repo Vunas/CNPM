@@ -9,6 +9,7 @@ import {
   MenuItem,
   Button,
 } from "@mui/material";
+import validateRequiredFields from "../../../utils/ValidateDialog";
 
 const newAccount = {
   username: "",
@@ -20,6 +21,7 @@ const newAccount = {
 };
 
 const AccountDialog = ({ open, handleClose, onSave, account, restaurants }) => {
+  const [errors, setErrors] = useState({});
   const [formData, setFormData] = useState(newAccount);
 
   useEffect(() => {
@@ -28,6 +30,7 @@ const AccountDialog = ({ open, handleClose, onSave, account, restaurants }) => {
     } else {
       setFormData(newAccount);
     }
+    setErrors({});
   }, [account]);
 
   const handleChange = (e) => {
@@ -39,6 +42,13 @@ const AccountDialog = ({ open, handleClose, onSave, account, restaurants }) => {
       ...formData,
       restaurantId: formData.restaurant?.restaurantId || "",
     };
+    const requiredFields = ["username", "passwordHash", "email", "phone"];
+    const errors = validateRequiredFields(updatedData, requiredFields);
+    if (Object.keys(errors).length > 0) {
+      setErrors(errors);
+      return;
+    }
+
     onSave(updatedData);
     handleClose();
   };
@@ -54,6 +64,8 @@ const AccountDialog = ({ open, handleClose, onSave, account, restaurants }) => {
           margin="dense"
           value={formData.username}
           onChange={handleChange}
+          error={!!errors.username}
+          helperText={errors.username}
         />
         <TextField
           name="passwordHash"
@@ -63,6 +75,8 @@ const AccountDialog = ({ open, handleClose, onSave, account, restaurants }) => {
           margin="dense"
           value={formData.passwordHash}
           onChange={handleChange}
+          error={!!errors.passwordHash}
+          helperText={errors.passwordHash}
         />
         <TextField
           name="email"
@@ -72,6 +86,8 @@ const AccountDialog = ({ open, handleClose, onSave, account, restaurants }) => {
           margin="dense"
           value={formData.email}
           onChange={handleChange}
+          error={!!errors.email}
+          helperText={errors.email}
         />
         <TextField
           name="phone"
@@ -80,6 +96,8 @@ const AccountDialog = ({ open, handleClose, onSave, account, restaurants }) => {
           margin="dense"
           value={formData.phone}
           onChange={handleChange}
+          error={!!errors.phone}
+          helperText={errors.phone}
         />
         <Select
           name="restaurantId"
@@ -87,6 +105,8 @@ const AccountDialog = ({ open, handleClose, onSave, account, restaurants }) => {
           margin="dense"
           value={formData.restaurant?.restaurantId || ""}
           onChange={handleChange}
+          error={!!errors.restaurantId}
+          helperText={errors.restaurantId}
         >
           <MenuItem value="" disabled>
             RestaurantID
@@ -112,6 +132,8 @@ const AccountDialog = ({ open, handleClose, onSave, account, restaurants }) => {
           margin="dense"
           value={formData.role}
           onChange={handleChange}
+          error={!!errors.role}
+          helperText={errors.role}
         >
           <MenuItem value="Admin">Admin</MenuItem>
           <MenuItem value="Employee">Employee</MenuItem>

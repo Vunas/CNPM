@@ -44,7 +44,7 @@ const Order = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const dataProduct = await productApi.getProducts();
+        const dataProduct = await productApi.getProductsActive();
         const dataCategory = await categoryApi.getCategories();
         const catePages = Math.ceil(dataCategory.length / maxCate);
 

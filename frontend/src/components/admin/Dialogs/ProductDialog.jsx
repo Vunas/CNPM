@@ -10,6 +10,7 @@ import {
   Button,
 } from "@mui/material";
 import uploadApi from "../../../api/uploadApi";
+import validateRequiredFields from "../../../utils/ValidateDialog";
 
 const newProduct = {
   name: "",
@@ -30,9 +31,11 @@ const ProductDialog = ({
 }) => {
   const [formData, setFormData] = useState(newProduct);
   const [isDragging, setIsDragging] = useState(false);
+  const [errors, setErrors] = useState({});
 
   useEffect(() => {
     setFormData(product || newProduct);
+    setErrors({});
   }, [product]);
 
   const handleChange = (e) => {
@@ -40,11 +43,19 @@ const ProductDialog = ({
   };
 
   const handleSubmit = () => {
+    setErrors({});
     const updatedData = {
       ...formData,
       restaurantId: formData.restaurant?.restaurantId || "",
       categoryId: formData.category?.categoryId || "",
     };
+    const requiredFields = ["name", "price", "categoryId", "restaurantId"];
+    const errors = validateRequiredFields(updatedData, requiredFields);
+    if (Object.keys(errors).length > 0) {
+      setErrors(errors);
+      return;
+    }
+
     onSave(updatedData);
     handleClose();
   };
@@ -94,6 +105,8 @@ const ProductDialog = ({
               margin="dense"
               value={formData.name}
               onChange={handleChange}
+              error={!!errors.name}
+              helperText={errors.name}
             />
             <TextField
               name="description"
@@ -111,6 +124,8 @@ const ProductDialog = ({
               margin="dense"
               value={formData.price}
               onChange={handleChange}
+              error={!!errors.price}
+              helperText={errors.price}
             />
             <Select
               name="categoryId"
@@ -118,6 +133,8 @@ const ProductDialog = ({
               margin="dense"
               value={formData.category?.categoryId || ""}
               onChange={handleChange}
+              error={!!errors.categoryId}
+              helperText={errors.categoryId}
             >
               <MenuItem value="" disabled>
                 categoryId
@@ -143,6 +160,8 @@ const ProductDialog = ({
               margin="dense"
               value={formData.restaurant?.restaurantId || ""}
               onChange={handleChange}
+              error={!!errors.restaurantId}
+              helperText={errors.restaurantId}
             >
               <MenuItem value="" disabled>
                 RestaurantID
