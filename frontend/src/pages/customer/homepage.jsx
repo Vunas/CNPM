@@ -30,7 +30,7 @@ export default function Homepage() {
   };
 
   function menuNavigate(){
-    navigate(`/order?restaurantid=${restaurantId}&restauranttableid=${restaurantTableId}`)
+    navigate(`/order?restaurantid=${restaurantId}&restaurantid=${restaurantId}&restauranttableid=${restaurantTableId}`)
   }
   useEffect(() => {
     loadOrders();
@@ -51,7 +51,12 @@ export default function Homepage() {
         />
 
         <div className="w-full text-center text-2xl font-bold mt-4">
-          TABLE {restaurantTableId}
+           <img
+            src="src/assets/table.png"
+            alt="Cart"
+            className="w-8 h-8 inline-block mr-2 mb-1"
+          />
+          TABLE: <span className="text-red-500">{restaurantTableId}</span>
         </div>
 
         <button 

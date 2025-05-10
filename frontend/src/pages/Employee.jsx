@@ -33,7 +33,7 @@ export default function Employee() {
   };
 
   return (
-    <div className="p-6 bg-gray-50 min-h-screen flex gap-6">
+    <div className="p-6 bg-gray-50 min-h-screen w-[70vw] flex gap-6">
       {/* Cột trái - Đơn hàng Pending */}
       <div className="w-1/3 space-y-4 overflow-y-auto bg-white p-4 rounded shadow">
         <h1 className="text-xl font-bold border-b pb-2 mb-4 text-green-700">
@@ -93,10 +93,8 @@ export default function Employee() {
 
       {/* Cột phải - Tất cả đơn */}
       <div className="w-1/3 space-y-4 overflow-y-auto bg-white p-4 rounded shadow">
-        <h1 className="text-xl font-bold border-b pb-2 mb-4 text-blue-700">
-          📋 Tất Cả Đơn Hàng
-        </h1>
-        {ordersData.map((order) => (
+        <h1 className="text-xl font-bold border-b pb-2 mb-4 text-blue-700">📋 Tất Cả Đơn Hàng</h1>
+        {ordersData.filter(o => o.orderStatus !== "Pending").map((order) => (
           <Paper
             key={order.orderId}
             className="p-4 hover:bg-blue-50 transition cursor-pointer border"

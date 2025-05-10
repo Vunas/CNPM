@@ -1,14 +1,22 @@
 import React, { useState } from "react";
 import { TextField, Button, Paper, Typography } from "@mui/material";
 import feedbackApi from "../api/feedbackApi";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 export default function FeedbackSender() {
+  const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
+  const orderId = searchParams.get("orderid")
+  const restaurantTableId = searchParams.get("restauranttableid")
+  const restaurantId = searchParams.get("restaurantid")
+  const returnUrl = `/homepage?restaurantid=${restaurantId}&restauranttableid=${restaurantTableId}`
   const [feedback, setFeedback] = useState({
     customerName: "",
     email: "",
     message: "",
-    orderId: "o-001",
+    orderId: orderId,
   });
+
 
   const [success, setSuccess] = useState(null);
 
@@ -21,13 +29,22 @@ export default function FeedbackSender() {
     await feedbackApi.create(feedback);
       setSuccess(true);
       setFeedback({ customerName: "", email: "", message: "", orderId: "o-001" });
+      homepageNavigate()
     } catch (err) {
       setSuccess(false);
     }
   };
-
+  function homepageNavigate(){
+    navigate(returnUrl)
+  }
   return (
     <Paper className="p-6 max-w-lg mx-auto mt-10 shadow-lg">
+      <button
+          onClick={() => homepageNavigate()}
+          className="text-gray-700 hover:text-black mr-2"
+        >
+          ← Back
+      </button>
       <Typography variant="h5" className="mb-4 font-bold text-center">
         Gửi phản hồi
       </Typography>
