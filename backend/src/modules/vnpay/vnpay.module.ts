@@ -3,8 +3,8 @@ import { VnpayModule } from 'nestjs-vnpay';
 import { ignoreLogger } from 'vnpay';
 import { HashAlgorithm } from 'vnpay';
 
-import { AppController } from 'src/app.controller';
-import { AppService } from 'src/app.service';
+import { VnPayController } from './vnpay.controller';
+import { VnPayService } from './vnpay.service';
 
 @Module({
   imports: [
@@ -20,7 +20,7 @@ import { AppService } from 'src/app.service';
       loggerFn: ignoreLogger, // Hàm xử lý log tùy chỉnh
     }),
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [VnPayController],
+  providers: [VnPayService],
 })
 export class VnPayModule {}

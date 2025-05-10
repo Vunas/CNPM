@@ -4,7 +4,7 @@ import { QRCodeSVG } from "qrcode.react";
 function QRCodePage() {
   const restaurantId = "r-001";
   const restaurantTableId = "t-001";
-  const orderUrlWithParams = `http://localhost:5173/order?restaurantid=${restaurantId}&restauranttableid=${restaurantTableId}`;
+  const orderUrlWithParams = `http://localhost:5173/homepage?restaurantid=${restaurantId}&restauranttableid=${restaurantTableId}`;
 
   return (
     <div>

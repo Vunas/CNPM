@@ -4,6 +4,7 @@ import orderApi from "../../api/orderApi";
 import CreditCardForm from "../../components/payment/CreditCardForm";
 import VNPayInfo from "../../components/payment/VNPayInfor";
 import CashOnDeliveryInfo from "../../components/payment/CashOnDeliveryInfo";
+import { Block } from "@mui/icons-material";
 
 function Payment({ setSnackbar }) {
   const navigate = useNavigate();
@@ -25,6 +26,11 @@ function Payment({ setSnackbar }) {
       </div>
     );
   }
+
+  const getButtonStyle = (method) => ({
+    display: method === "vnpay" ? "none" : "block",
+  });
+
 
   const handlePay = async () => {
     if (isSubmitting) return;
@@ -51,6 +57,7 @@ function Payment({ setSnackbar }) {
         0
       ),
       paymentMethod,
+      orderType: "Dine-in",
       customerContact: "user@example.com",
       restaurantId,
       tableId: restaurantTableId,
@@ -94,7 +101,9 @@ function Payment({ setSnackbar }) {
     <div className="mx-auto mt-8 p-6 w-full max-w-[500px] min-h-[450px] bg-white shadow rounded">
       <div className="flex items-center mb-4">
         <button
-          onClick={() => navigate("/order")}
+          onClick={() => navigate(
+            `/order?restaurantid=${restaurantId}&restauranttableid=${restaurantTableId}`,
+          )}
           className="text-gray-700 hover:text-black mr-2"
         >
           ← Back
@@ -154,7 +163,7 @@ function Payment({ setSnackbar }) {
               onChange={(e) => setPaymentMethod(e.target.value)}
               className="mr-2"
             />
-            Cash on Delivery
+            Cash
           </label>
         </div>
 
@@ -167,7 +176,16 @@ function Payment({ setSnackbar }) {
             onChange={handleInputChange}
           />
         )}
-        {paymentMethod === "vnpay" && <VNPayInfo />}
+        {paymentMethod === "vnpay" && (
+          <VNPayInfo 
+            cart={cart} 
+            returnUrl={`http://localhost:5173/order?restaurantid=${restaurantId}&restauranttableid=${restaurantTableId}`} 
+            resId = {restaurantId}
+            TableId = {restaurantId}
+            setSnackbar={setSnackbar}
+          />
+        )}
+
         {paymentMethod === "cashOnDelivery" && <CashOnDeliveryInfo />}
 
         <button
@@ -176,6 +194,7 @@ function Payment({ setSnackbar }) {
           className={`w-full py-3 mt-2 text-white rounded ${
             isSubmitting ? "bg-green-300" : "bg-green-500 hover:bg-green-600"
           }`}
+          style={getButtonStyle(paymentMethod)}
         >
           {isSubmitting ? "Processing..." : "Confirm & Pay"}
         </button>

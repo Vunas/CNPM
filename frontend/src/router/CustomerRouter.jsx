@@ -5,6 +5,7 @@ import Alert from "@mui/material/Alert";
 import Order from "../pages/Order";
 import Payment from "../pages/customer/payment";
 import QRCodePage from "../pages/customer/QRCodePage";
+import Homepage from "../pages/customer/homepage";
 
 const CustomerRouter = () => {
   const [snackBar, setSnackbar] = useState({
@@ -25,6 +26,7 @@ const CustomerRouter = () => {
             element={<Payment setSnackbar={setSnackbar} />}
           />
           <Route path="qrcodepage" element={<QRCodePage />} />
+          <Route path="/homepage" element={<Homepage />} />
         </Routes>
       </div>
 

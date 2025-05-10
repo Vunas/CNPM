@@ -15,6 +15,7 @@ import { AuthModule } from './auth/auth.module';
 import { VnPayModule } from './modules/vnpay/vnpay.module';
 import { UploadModule } from './uploads/upload.module';
 import { FileCleanupModule } from './utils/FileCleanUp.module';
+import { FeedbackModule } from './modules/feedback/feedback.module';
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
@@ -32,6 +33,7 @@ import { FileCleanupModule } from './utils/FileCleanUp.module';
     VnPayModule,
     UploadModule,
     FileCleanupModule,
+    FeedbackModule,
   ],
   controllers: [AppController],
   providers: [AppService, DatabaseConfigService],

@@ -12,6 +12,8 @@ import AdminRouter from "./router/AdminRouter";
 import Employee from "./pages/Employee";
 import Page404 from "./pages/Page404";
 
+import Feedback from "./pages/Feedback";
+import Homepage from "./pages/customer/homepage";
 export default function App() {
   return (
     <div className="w-screen h-screen">
@@ -24,6 +26,7 @@ export default function App() {
 
           <Route path="/order" element={<Order />} />
           <Route path="/employee" element={<Employee />} />
+          <Route path="/feedback" element={<Feedback />} />
           <Route path="*" element={<Page404 href={"/admin"} />} />
         </Routes>
       </Router>
