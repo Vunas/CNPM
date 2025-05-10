@@ -20,8 +20,8 @@ export default function App() {
       <Router>
         <Routes>
           <Route path="/orderlistpage" element={<OrderListPage />} />
-          <Route path="/" element={<Navigate to="/cus/qrcodepage" />} />
-          <Route path="/cus/*" element={<CustomerRouter />} />
+          <Route path="/" element={<Navigate to="/qrcodepage" />} />
+          <Route path="/*" element={<CustomerRouter />} />
           <Route path="/admin/*" element={<AdminRouter />} />
 
           <Route path="/order" element={<Order />} />

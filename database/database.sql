@@ -29,7 +29,7 @@ CREATE TABLE Account (
 
 INSERT INTO Account (AccountID, Username, PasswordHash, Role, Email, Phone, RestaurantID, Status)
 VALUES
-('a-001', 'admin_burger', 'admin_pass_hash', 'Admin', 'admin@burger.com', '0901122334', 'r-001', 1),
+('a-001', 'admin', '$2b$10$WQgAeG47rWv7Bidzkq1L/ujVLXh41lDbAPG4ZxcirgzYH9yRMzdcC', 'Admin', 'admin@burger.com', '0901122334', 'r-001', 1),
 ('a-002', 'staff_pizza', 'staff_pass_hash', 'Employee', 'staff@pizza.com', NULL, 'r-002', 1);
 
 -- 3. Bảng Category: Danh mục món ăn

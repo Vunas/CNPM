@@ -6,6 +6,7 @@ import Order from "../pages/Order";
 import Payment from "../pages/customer/payment";
 import QRCodePage from "../pages/customer/QRCodePage";
 import Homepage from "../pages/customer/homepage";
+import Home from "../pages/customer/home";
 
 const CustomerRouter = () => {
   const [snackBar, setSnackbar] = useState({
@@ -27,6 +28,7 @@ const CustomerRouter = () => {
           />
           <Route path="qrcodepage" element={<QRCodePage />} />
           <Route path="/homepage" element={<Homepage />} />
+          <Route path="/home" element={<Home />} />
         </Routes>
       </div>
 
