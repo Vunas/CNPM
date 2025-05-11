@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Home } from "@mui/icons-material";
+import { Home, Restaurant, ShoppingBag } from "@mui/icons-material";
 import {
   IconButton,
   Typography,
@@ -32,6 +32,7 @@ const Order = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPage, setTotalPage] = useState(1);
   const [lastClick, setLastClick] = useState("");
+  const [isDineIn, setIsDineIn] = useState(true);
   const maxCate = 5;
 
   const [isProductDetailOpen, setIsProductDetailOpen] = useState(false);
@@ -77,10 +78,13 @@ const Order = () => {
   };
 
   const handlePaymentClick = () => {
-    if (restaurantId === null || restaurantId === "null" || restaurantTableId === null || restaurantTableId === "null") {
-      alert(
-        "Please scan QR from employee a restaurant and table before proceeding to payment."
-      );
+    if (
+      restaurantId === null ||
+      restaurantId === "null" ||
+      restaurantTableId === null ||
+      restaurantTableId === "null"
+    ) {
+      alert("Please scan QR from employee before proceeding to payment.");
       return;
     }
     console.log(cart);
@@ -90,6 +94,7 @@ const Order = () => {
           cart: cart,
           restaurantId: restaurantId,
           restaurantTableId: restaurantTableId,
+          isDineIn: isDineIn,
         },
       });
     }
@@ -314,8 +319,16 @@ const Order = () => {
             />
             Your Cart ({cart.length})
           </h2>
-          <button className="bg-blue-400 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition duration-300 font-bold">
-            DINE IN
+          <button
+            onClick={() => setIsDineIn(!isDineIn)}
+            className={`px-6 py-2 rounded-full transition duration-300 font-bold flex items-center gap-2 ${
+              isDineIn
+                ? "bg-blue-400 text-white hover:bg-blue-700"
+                : "bg-green-400 text-white hover:bg-green-700"
+            }`}
+          >
+            {isDineIn ? <Restaurant /> : <ShoppingBag />}
+            {isDineIn ? "DINE IN" : "TAKE AWAY"}
           </button>
         </div>
 

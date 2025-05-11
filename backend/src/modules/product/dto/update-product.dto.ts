@@ -18,9 +18,6 @@ export class UpdateProductDto {
   categoryId?: string;
 
   @IsOptional()
-  restaurantId?: string;
-
-  @IsOptional()
   @IsString()
   imageUrl?: string;
 

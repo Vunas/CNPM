@@ -17,9 +17,10 @@ const CommonToolbar = ({ onAdd, onExport, searchTerm, setSearchTerm }) => {
         <button
           onClick={onAdd}
           aria-label="Add"
-          className="w-9 h-9 flex items-center justify-center rounded-full bg-white shadow-sm hover:shadow-md transition-shadow"
+          className="flex items-center gap-2 bg-white text-[#4a4a4a] text-sm font-medium rounded-full px-4 py-2 shadow-sm hover:shadow-md transition-shadow"
         >
           <i className="fas fa-plus text-[#4a4a4a]"></i>
+          Add
         </button>
         {/* <button
           aria-label="Filter"

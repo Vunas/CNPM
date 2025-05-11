@@ -4,7 +4,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Product } from './product.entity';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
-import { Restaurant } from '../restaurant/restaurant.entity';
 import { Category } from '../category/category.entity';
 
 @Injectable()
@@ -12,8 +11,6 @@ export class ProductService {
   constructor(
     @InjectRepository(Product)
     private readonly productRepository: Repository<Product>,
-    @InjectRepository(Restaurant)
-    private readonly restaurantRepository: Repository<Restaurant>,
     @InjectRepository(Category)
     private readonly categoryReposity: Repository<Category>,
   ) {}
@@ -28,50 +25,35 @@ export class ProductService {
       .filter((url): url is string => url !== null);
   }
 
-  async isValidate(
-    categoryId: string,
-    restaurantId: string,
-  ): Promise<{ category: Category; restaurant: Restaurant }> {
-    const restaurant = await this.restaurantRepository.findOneBy({
-      restaurantId: restaurantId,
-    });
-    if (!restaurant) {
-      throw new NotFoundException(
-        `Restaurant with ID ${restaurantId} not found`,
-      );
-    }
+  async isValidate(categoryId: string): Promise<{ category: Category }> {
     const category = await this.categoryReposity.findOneBy({
       categoryId: categoryId,
     });
     if (!category) {
       throw new NotFoundException(`Category with ID ${categoryId} not found`);
     }
-    return { category, restaurant };
+    return { category };
   }
 
   async create(createProductDto: CreateProductDto): Promise<Product> {
-    const { categoryId, restaurantId } = createProductDto;
-    const { category, restaurant } = await this.isValidate(
-      categoryId ?? '',
-      restaurantId ?? '',
-    );
+    const { categoryId } = createProductDto;
+    const { category } = await this.isValidate(categoryId ?? '');
     const product = this.productRepository.create({
       ...createProductDto,
       category,
-      restaurant,
     });
     return await this.productRepository.save(product);
   }
 
   async findAll(): Promise<Product[]> {
     return await this.productRepository.find({
-      relations: ['category', 'restaurant'],
+      relations: ['category'],
     });
   }
 
   async findAllActive(): Promise<Product[]> {
     return await this.productRepository.find({
-      relations: ['category', 'restaurant'],
+      relations: ['category'],
       where: { status: 1 },
     });
   }
@@ -98,8 +80,8 @@ export class ProductService {
     if (!product) {
       throw new NotFoundException(`Product with ID ${id} not found`);
     }
-    const { categoryId, restaurantId } = updateProductDto;
-    await this.isValidate(categoryId ?? '', restaurantId ?? '');
+    const { categoryId } = updateProductDto;
+    await this.isValidate(categoryId ?? '');
 
     await this.productRepository.save(updateProductDto);
 

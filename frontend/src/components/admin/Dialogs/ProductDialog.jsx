@@ -17,18 +17,10 @@ const newProduct = {
   description: "",
   price: "",
   categoryId: "",
-  restaurantId: "",
   imageUrl: "",
 };
 
-const ProductDialog = ({
-  open,
-  handleClose,
-  onSave,
-  product,
-  restaurants,
-  categories,
-}) => {
+const ProductDialog = ({ open, handleClose, onSave, product, categories }) => {
   const [formData, setFormData] = useState(newProduct);
   const [isDragging, setIsDragging] = useState(false);
   const [errors, setErrors] = useState({});
@@ -46,10 +38,9 @@ const ProductDialog = ({
     setErrors({});
     const updatedData = {
       ...formData,
-      restaurantId: formData.restaurant?.restaurantId || "",
       categoryId: formData.category?.categoryId || "",
     };
-    const requiredFields = ["name", "price", "categoryId", "restaurantId"];
+    const requiredFields = ["name", "price", "categoryId"];
     const errors = validateRequiredFields(updatedData, requiredFields);
     if (Object.keys(errors).length > 0) {
       setErrors(errors);
@@ -150,33 +141,6 @@ const ProductDialog = ({
                     value={category.categoryId}
                   >
                     {category.name}
-                  </MenuItem>
-                ))
-              )}
-            </Select>
-            <Select
-              name="restaurantId"
-              fullWidth
-              margin="dense"
-              value={formData.restaurant?.restaurantId || ""}
-              onChange={handleChange}
-              error={!!errors.restaurantId}
-              helperText={errors.restaurantId}
-            >
-              <MenuItem value="" disabled>
-                RestaurantID
-              </MenuItem>
-              {restaurants.length === 0 ? (
-                <MenuItem value="" disabled>
-                  Not found any restaurant
-                </MenuItem>
-              ) : (
-                restaurants.map((restaurant) => (
-                  <MenuItem
-                    key={restaurant.restaurantId}
-                    value={restaurant.restaurantId}
-                  >
-                    {restaurant.name}
                   </MenuItem>
                 ))
               )}

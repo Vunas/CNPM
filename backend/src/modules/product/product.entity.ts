@@ -6,7 +6,6 @@ import {
   JoinColumn,
 } from 'typeorm';
 import { Category } from '../category/category.entity';
-import { Restaurant } from '../restaurant/restaurant.entity';
 
 @Entity('Product')
 export class Product {
@@ -25,10 +24,6 @@ export class Product {
   @ManyToOne(() => Category, { nullable: true, onDelete: 'SET NULL' })
   @JoinColumn({ name: 'categoryId' })
   category: Category | null;
-
-  @ManyToOne(() => Restaurant, { nullable: true, onDelete: 'SET NULL' })
-  @JoinColumn({ name: 'restaurantId' })
-  restaurant: Restaurant | null;
 
   @Column({ type: 'text', nullable: true })
   imageUrl: string | null;

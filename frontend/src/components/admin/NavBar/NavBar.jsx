@@ -43,6 +43,8 @@ const Navbar = () => {
     const savedAvatar = localStorage.getItem("avatar");
     if (savedAvatar) {
       setAvatar(savedAvatar);
+    }else {
+      setAvatar("http://localhost:5173/src/assets/svg/avatar.svg")
     }
   }, []);
 
