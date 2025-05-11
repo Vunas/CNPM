@@ -30,9 +30,12 @@ const Navbar = () => {
   const handleImageChange = (event) => {
     const file = event.target.files[0];
     if (file) {
-      const imageUrl = URL.createObjectURL(file);
-      setAvatar(imageUrl);
-      localStorage.setItem("avatar", imageUrl);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setAvatar(reader.result);
+        localStorage.setItem("avatar", reader.result);
+      };
+      reader.readAsDataURL(file);
     }
   };
 
