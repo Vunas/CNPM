@@ -11,6 +11,7 @@ import Category from "../pages/admin/Category";
 import Page404 from "../pages/Page404";
 import Restaurant from "../pages/admin/Restaurant";
 import RestaurantTablePage from "../pages/admin/RestaurantTablePage";
+import Statistics from "../pages/admin/Statistics";
 
 const AdminRoutes = () => {
   const handleSnackbarClose = () =>
@@ -53,6 +54,7 @@ const AdminRoutes = () => {
           <Route path="category" element={<Category />} />
           <Route path="restaurant" element={<Restaurant />} />
           <Route path="restaurantTable" element={<RestaurantTablePage />} />
+          <Route path="statistics" element={<Statistics />} />
           <Route path="*" element={<Page404 href={"/admin"} />} />
         </Routes>
       </div>

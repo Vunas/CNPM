@@ -130,12 +130,12 @@ const Order = () => {
 
   const addToCart = (item, qty = 1) => {
     const existingItem = cart.find(
-      (cartItem) => cartItem.productID === item.productID
+      (cartItem) => cartItem.productId === item.productId
     );
     if (existingItem) {
       setCart(
         cart.map((cartItem) =>
-          cartItem.productID === item.productID
+          cartItem.productId === item.productId
             ? { ...cartItem, quantity: cartItem.quantity + qty }
             : cartItem
         )
@@ -264,7 +264,7 @@ const Order = () => {
           <div className="grid gap-5 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 border-t-2 p-8">
             {products.map((item, index) => (
               <div
-                key={item.productID}
+                key={item.productId}
                 className="bg-white rounded-xl shadow-lg flex flex-col items-center w-74 h-65 hover:scale-105 transition duration-200 cursor-pointer"
                 onClick={() => handleOpenProductDetail(item)}
               >

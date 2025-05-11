@@ -79,6 +79,16 @@ INSERT INTO `product` (`ProductID`, `Name`, `Description`, `Price`, `CategoryID`
 ('p-013', 'Yangzhou Fried Rice', 'Classic Chinese-style fried rice with a colorful mix of vegetables, egg, and meat — satisfying and flavorful.', 62.00, 'c-006', 'http://localhost:3000/api/upload/ComChienDuongChau.jpg', 'r-001', 1),
 ('p-014', 'Black Bean Noodles', 'Black Bean Noodles, also known as Jajangmyeon, are a Korean dish made with thick, savory black bean sauce and diced pork or vegetables.', 72.00, 'c-007', 'http://localhost:3000/api/upload/BlackBeanNoodles.jpg', 'r-001', 1);
 
+CREATE TABLE Restaurant_Product (
+    RestaurantID CHAR(36),
+    ProductID CHAR(36),
+    Price DECIMAL(10,2) NOT NULL,
+    Status INT DEFAULT 1,
+    PRIMARY KEY (RestaurantID, ProductID),
+    FOREIGN KEY (RestaurantID) REFERENCES Restaurant(RestaurantID),
+    FOREIGN KEY (ProductID) REFERENCES Product(ProductID)
+);
+
 -- 5. Bảng RestaurantTable: Bàn ăn
 CREATE TABLE RestaurantTable (
   TableID CHAR(36) DEFAULT UUID() PRIMARY KEY,

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Palette,
   Image,
@@ -12,12 +12,37 @@ import {
   ExpandLess,
   Logout,
   Face,
+  AccountCircle,
+  ShoppingBag,
+  Category,
+  Restaurant,
+  TableRestaurant,
+  BarChart,
 } from "@mui/icons-material";
 import "./NavBar.scss";
 import { Link } from "react-router-dom";
 import { logout } from "../../../api/auth";
+import { useState } from "react";
 
 const Navbar = () => {
+  const [avatar, setAvatar] = useState("/src/assets/svg/avatar.svg");
+
+  const handleImageChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const imageUrl = URL.createObjectURL(file);
+      setAvatar(imageUrl);
+      localStorage.setItem("avatar", imageUrl);
+    }
+  };
+
+  useEffect(() => {
+    const savedAvatar = localStorage.getItem("avatar");
+    if (savedAvatar) {
+      setAvatar(savedAvatar);
+    }
+  }, []);
+
   return (
     <div id="nav-bar">
       <input id="nav-toggle" type="checkbox" />
@@ -40,53 +65,43 @@ const Navbar = () => {
       <div id="nav-content">
         <div className="nav-button">
           <Link className="absolute w-full inset-0" to="/admin/account" />
-          <Palette />
+          <AccountCircle sx={{ fontSize: 28 }} />
           <span>Account</span>
         </div>
 
         <div className="nav-button">
           <Link className="absolute w-full inset-0" to="/admin/product" />
-          <Image />
+          <ShoppingBag sx={{ fontSize: 28 }} />
           <span>Product</span>
         </div>
+
         <div className="nav-button">
           <Link className="absolute w-full inset-0" to="/admin/category" />
-          <PushPin />
+          <Category sx={{ fontSize: 28 }} />
           <span>Category</span>
         </div>
+
         <div className="nav-button">
           <Link className="absolute w-full inset-0" to="/admin/restaurant" />
-          <Face />
+          <Restaurant sx={{ fontSize: 28 }} />
           <span>Restaurant</span>
         </div>
+
         <div className="nav-button">
-          <Link className="absolute w-full inset-0" to="/admin/restauranttable" />
-          <Face />
+          <Link
+            className="absolute w-full inset-0"
+            to="/admin/restauranttable"
+          />
+          <TableRestaurant sx={{ fontSize: 28 }} />
           <span>Restaurant Table</span>
         </div>
 
-        <hr />
         <div className="nav-button">
-          <Favorite />
-          <span>Following</span>
+          <Link className="absolute w-full inset-0" to="/admin/statistics" />
+          <BarChart sx={{ fontSize: 28 }} />
+          <span>Statistics</span>
         </div>
-        <div className="nav-button">
-          <TrendingUp />
-          <span>Trending</span>
-        </div>
-        <div className="nav-button">
-          <Whatshot />
-          <span>Challenges</span>
-        </div>
-        <div className="nav-button">
-          <AutoFixHigh />
-          <span>Spark</span>
-        </div>
-        <hr />
-        <div className="nav-button">
-          <Diamond />
-          <span>Codepen Pro</span>
-        </div>
+
         <div id="nav-content-highlight"></div>
       </div>
 
@@ -95,7 +110,19 @@ const Navbar = () => {
       <div id="nav-footer">
         <div id="nav-footer-heading">
           <div id="nav-footer-avatar">
-            <img src="/src/assets/svg/avatar.svg" alt="Avatar" />
+            <img
+              src={avatar}
+              alt="Avatar"
+              title="change avatar?"
+              className="cursor-pointer"
+              onClick={() => document.getElementById("avatarInput").click()}
+            />
+            <input
+              type="file"
+              id="avatarInput"
+              onChange={handleImageChange}
+              style={{ display: "none" }}
+            />
           </div>
           <div id="nav-footer-titlebox">
             <a
@@ -106,7 +133,7 @@ const Navbar = () => {
             >
               Admin
             </a>
-            <span id="nav-footer-subtitle">Admin</span>
+            {/* <span id="nav-footer-subtitle">Admin</span> */}
           </div>
           <label htmlFor="nav-footer-toggle">
             <ExpandLess />
