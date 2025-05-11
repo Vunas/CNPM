@@ -44,7 +44,6 @@ const ProductTable = ({ products, onAdd, onEdit, onDelete, onLock }) => {
         { header: "Description", key: "description" },
         { header: "Price", key: "price" },
         { header: "Category", key: "category?.name" },
-        { header: "Restaurant", key: "restaurant?.name" },
         { header: "status", key: "status" },
       ],
       "ProductList.xlsx"
@@ -101,7 +100,6 @@ const ProductTable = ({ products, onAdd, onEdit, onDelete, onLock }) => {
                 "name",
                 "price",
                 "category",
-                "restaurant",
                 "status",
                 "actions",
               ].map((header, index, array) => (
@@ -148,7 +146,6 @@ const ProductTable = ({ products, onAdd, onEdit, onDelete, onLock }) => {
                   <td className="p-3">{product.name}</td>
                   <td className="p-3">{product.price}</td>
                   <td className="p-3">{product.category?.name}</td>
-                  <td className="p-3">{product.restaurant?.name}</td>
                   <td className="p-3">
                     {product.status === 1 ? (
                       <div className="bg-green-100 text-green-700 px-2 py-1 rounded-md flex items-center justify-center w-28 mx-auto">

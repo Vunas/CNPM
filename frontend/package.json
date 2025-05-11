@@ -22,6 +22,7 @@
     "chart.js": "^4.4.9",
     "date-fns": "^4.1.0",
     "exceljs": "^4.4.0",
+    "framer-motion": "^12.10.5",
     "qrcode": "^1.5.4",
     "qrcode.react": "^4.2.0",
     "query-string": "^9.1.1",
@@ -31,7 +32,8 @@
     "react-dropzone": "^14.3.8",
     "react-router-dom": "^7.3.0",
     "react-toastify": "^11.0.5",
-    "sass": "^1.87.0"
+    "sass": "^1.87.0",
+    "shadcn": "^2.5.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",

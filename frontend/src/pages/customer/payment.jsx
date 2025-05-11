@@ -17,7 +17,8 @@ function Payment({ setSnackbar }) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
-  const { cart, restaurantId, restaurantTableId } = location.state || {};
+  const { cart, restaurantId, restaurantTableId, isDineIn } =
+    location.state || {};
 
   if (!cart || !restaurantId || !restaurantTableId) {
     return (
@@ -30,7 +31,6 @@ function Payment({ setSnackbar }) {
   const getButtonStyle = (method) => ({
     display: method === "vnpay" ? "none" : "block",
   });
-
 
   const handlePay = async () => {
     if (isSubmitting) return;
@@ -57,7 +57,7 @@ function Payment({ setSnackbar }) {
         0
       ),
       paymentMethod,
-      orderType: "Dine-in",
+      orderType: isDineIn ? "Dine-in" : "Takeaway",
       customerContact: "user@example.com",
       restaurantId,
       tableId: restaurantTableId,
@@ -66,14 +66,14 @@ function Payment({ setSnackbar }) {
     try {
       const response = await orderApi.createOrder(orderData, orderDetails);
       if (response) {
-        console.log(response)
+        console.log(response);
         setSnackbar({
           open: true,
           message: "Order created successfully!",
           type: "success",
         });
         navigate(
-          `/order?restaurantid=${restaurantId}&restauranttableid=${restaurantTableId}`,
+          `/order?restaurantid=${restaurantId}&restauranttableid=${restaurantTableId}`
         );
       } else {
         throw new Error(response?.error || "Unknown error");
@@ -101,9 +101,11 @@ function Payment({ setSnackbar }) {
     <div className="mx-auto mt-8 p-6 w-full max-w-[500px] min-h-[450px] bg-white shadow rounded">
       <div className="flex items-center mb-4">
         <button
-          onClick={() => navigate(
-            `/order?restaurantid=${restaurantId}&restauranttableid=${restaurantTableId}`,
-          )}
+          onClick={() =>
+            navigate(
+              `/order?restaurantid=${restaurantId}&restauranttableid=${restaurantTableId}`
+            )
+          }
           className="text-gray-700 hover:text-black mr-2"
         >
           ← Back
@@ -177,11 +179,11 @@ function Payment({ setSnackbar }) {
           />
         )}
         {paymentMethod === "vnpay" && (
-          <VNPayInfo 
-            cart={cart} 
-            returnUrl={`http://localhost:5173/order?restaurantid=${restaurantId}&restauranttableid=${restaurantTableId}`} 
-            resId = {restaurantId}
-            TableId = {restaurantId}
+          <VNPayInfo
+            cart={cart}
+            returnUrl={`http://localhost:5173/order?restaurantid=${restaurantId}&restauranttableid=${restaurantTableId}`}
+            resId={restaurantId}
+            TableId={restaurantId}
             setSnackbar={setSnackbar}
           />
         )}

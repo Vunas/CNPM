@@ -24,9 +24,6 @@ export class CreateProductDto {
   categoryId?: string;
 
   @IsOptional()
-  restaurantId?: string;
-
-  @IsOptional()
   @IsString()
   imageUrl?: string;
 

@@ -24,7 +24,6 @@ export default function App() {
           <Route path="/*" element={<CustomerRouter />} />
           <Route path="/admin/*" element={<AdminRouter />} />
 
-          <Route path="/order" element={<Order />} />
           <Route path="/employee" element={<Employee />} />
           <Route path="/feedback" element={<Feedback />} />
           <Route path="*" element={<Page404 href={"/admin"} />} />
