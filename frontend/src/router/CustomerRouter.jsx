@@ -22,7 +22,7 @@ const CustomerRouter = () => {
   const handleSnackbarClose = () => setSnackbar({ ...snackBar, open: false });
 
   return (
-    <div className="flex">
+    <div className="flex w-full h-full">
       {/* Nội dung chính */}
       <div className="flex-1">
         <Routes>

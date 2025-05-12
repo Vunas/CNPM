@@ -99,108 +99,111 @@ function Payment({ setSnackbar }) {
   };
 
   return (
-    <div className="mx-auto mt-8 p-6 w-full max-w-[500px] min-h-[450px] bg-white shadow rounded">
-      <div className="flex items-center mb-4">
-        <button
-          onClick={() =>
-            navigate(
-              `/order?restaurantid=${restaurantId}&restauranttableid=${restaurantTableId}`
-            )
-          }
-          className="text-gray-700 hover:text-black mr-2"
-        >
-          ← Back
-        </button>
-        <h2 className="text-lg font-bold flex-grow text-center">Payment</h2>
-      </div>
-
-      <div className="bg-white rounded shadow p-4">
-        <div className="mb-4 flex justify-between">
-          <div>
-            <div className="font-semibold">Business Name</div>
-            <div className="text-sm text-gray-600">{cart.length} item(s)</div>
-          </div>
-          <div className="font-bold text-lg">
-            {cart.reduce((s, i) => s + i.price * i.quantity, 0).toFixed(2)} NOK
-          </div>
+    <div className="flex justify-center items-center h-screen">
+      <div className="mx-auto p-6 w-full max-w-[500px] min-h-[450px] bg-white shadow rounded grid place-items-center">
+        <div className="flex items-center mb-4">
+          <button
+            onClick={() =>
+              navigate(
+                `/order?restaurantid=${restaurantId}&restauranttableid=${restaurantTableId}`
+              )
+            }
+            className="text-gray-700 hover:text-black mr-2"
+          >
+            ← Back
+          </button>
+          <h2 className="text-lg font-bold flex-grow text-center">Payment</h2>
         </div>
 
-        {errorMessage && (
-          <div className="bg-red-100 text-red-700 p-3 rounded mb-3">
-            {errorMessage}
+        <div className="bg-white rounded shadow p-4">
+          <div className="mb-4 flex justify-between">
+            <div>
+              <div className="font-semibold">Business Name</div>
+              <div className="text-sm text-gray-600">{cart.length} item(s)</div>
+            </div>
+            <div className="font-bold text-lg">
+              {cart.reduce((s, i) => s + i.price * i.quantity, 0).toFixed(2)}{" "}
+              NOK
+            </div>
           </div>
-        )}
 
-        {/* Payment method selection */}
-        <div className="mb-4">
-          <label className="flex items-center mb-2">
-            <input
-              type="radio"
-              name="paymentMethod"
-              value="creditCard"
-              checked={paymentMethod === "creditCard"}
-              onChange={(e) => setPaymentMethod(e.target.value)}
-              className="mr-2"
-            />
-            Credit Card
-          </label>
+          {errorMessage && (
+            <div className="bg-red-100 text-red-700 p-3 rounded mb-3">
+              {errorMessage}
+            </div>
+          )}
 
-          <label className="flex items-center mb-2">
-            <input
-              type="radio"
-              name="paymentMethod"
-              value="vnpay"
-              checked={paymentMethod === "vnpay"}
-              onChange={(e) => setPaymentMethod(e.target.value)}
-              className="mr-2"
-            />
-            VNPay
-          </label>
+          {/* Payment method selection */}
+          <div className="mb-4">
+            <label className="flex items-center mb-2">
+              <input
+                type="radio"
+                name="paymentMethod"
+                value="creditCard"
+                checked={paymentMethod === "creditCard"}
+                onChange={(e) => setPaymentMethod(e.target.value)}
+                className="mr-2"
+              />
+              Credit Card
+            </label>
 
-          <label className="flex items-center">
-            <input
-              type="radio"
-              name="paymentMethod"
-              value="cashOnDelivery"
-              checked={paymentMethod === "cashOnDelivery"}
-              onChange={(e) => setPaymentMethod(e.target.value)}
-              className="mr-2"
+            <label className="flex items-center mb-2">
+              <input
+                type="radio"
+                name="paymentMethod"
+                value="vnpay"
+                checked={paymentMethod === "vnpay"}
+                onChange={(e) => setPaymentMethod(e.target.value)}
+                className="mr-2"
+              />
+              VNPay
+            </label>
+
+            <label className="flex items-center">
+              <input
+                type="radio"
+                name="paymentMethod"
+                value="cashOnDelivery"
+                checked={paymentMethod === "cashOnDelivery"}
+                onChange={(e) => setPaymentMethod(e.target.value)}
+                className="mr-2"
+              />
+              Cash
+            </label>
+          </div>
+
+          {/* Conditional forms */}
+          {paymentMethod === "creditCard" && (
+            <CreditCardForm
+              cardNumber={cardNumber}
+              expiryDate={expiryDate}
+              cvv={cvv}
+              onChange={handleInputChange}
             />
-            Cash
-          </label>
+          )}
+          {paymentMethod === "vnpay" && (
+            <VNPayInfo
+              cart={cart}
+              returnUrl={`http://localhost:5173/order?restaurantid=${restaurantId}&restauranttableid=${restaurantTableId}`}
+              resId={restaurantId}
+              TableId={restaurantId}
+              setSnackbar={setSnackbar}
+            />
+          )}
+
+          {paymentMethod === "cashOnDelivery" && <CashOnDeliveryInfo />}
+
+          <button
+            onClick={handlePay}
+            disabled={isSubmitting}
+            className={`w-full py-3 mt-2 text-white rounded ${
+              isSubmitting ? "bg-green-300" : "bg-green-500 hover:bg-green-600"
+            }`}
+            style={getButtonStyle(paymentMethod)}
+          >
+            {isSubmitting ? "Processing..." : "Confirm & Pay"}
+          </button>
         </div>
-
-        {/* Conditional forms */}
-        {paymentMethod === "creditCard" && (
-          <CreditCardForm
-            cardNumber={cardNumber}
-            expiryDate={expiryDate}
-            cvv={cvv}
-            onChange={handleInputChange}
-          />
-        )}
-        {paymentMethod === "vnpay" && (
-          <VNPayInfo
-            cart={cart}
-            returnUrl={`http://localhost:5173/order?restaurantid=${restaurantId}&restauranttableid=${restaurantTableId}`}
-            resId={restaurantId}
-            TableId={restaurantId}
-            setSnackbar={setSnackbar}
-          />
-        )}
-
-        {paymentMethod === "cashOnDelivery" && <CashOnDeliveryInfo />}
-
-        <button
-          onClick={handlePay}
-          disabled={isSubmitting}
-          className={`w-full py-3 mt-2 text-white rounded ${
-            isSubmitting ? "bg-green-300" : "bg-green-500 hover:bg-green-600"
-          }`}
-          style={getButtonStyle(paymentMethod)}
-        >
-          {isSubmitting ? "Processing..." : "Confirm & Pay"}
-        </button>
       </div>
     </div>
   );
