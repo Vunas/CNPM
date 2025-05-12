@@ -43,13 +43,12 @@ import { Line, Pie } from "react-chartjs-2";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
-import orderApi from "../../api/orderApi"; // Ensure the API path is correct
+import orderApi from "../../api/orderApi"; 
 import { AttachMoney, MonetizationOn, ShoppingCart } from "@mui/icons-material";
 
-// Helper function to check if a date is within the selected range
 const isDateInRange = (date, startDate, endDate) => {
   const orderDate = new Date(date);
-  orderDate.setHours(0, 0, 0, 0); // Normalize to start of day for comparison
+  orderDate.setHours(0, 0, 0, 0); 
 
   if (startDate && orderDate < startDate) {
     return false;
@@ -61,11 +60,11 @@ const isDateInRange = (date, startDate, endDate) => {
 };
 
 const Statistics = () => {
-  const [allOrders, setAllOrders] = useState([]); // Stores all orders
+  const [allOrders, setAllOrders] = useState([]); 
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
-  const [loading, setLoading] = useState(true); // Loading state
-  const [error, setError] = useState(null); // Error state
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null); 
 
   useEffect(() => {
     const fetchOrders = async () => {

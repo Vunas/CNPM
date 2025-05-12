@@ -95,7 +95,7 @@ const Order = () => {
       >
         <Alert
           onClose={handleSnackbarClose}
-          severity={snackBar.severity} // Changed from snackBar.type to snackBar.severity
+          severity={snackBar.severity} 
           variant="filled"
         >
           {snackBar.message}

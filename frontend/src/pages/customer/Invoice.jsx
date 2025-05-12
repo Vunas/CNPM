@@ -5,10 +5,11 @@ import orderApi from "../../api/orderApi";
 import Loading from "../../utils/Loading/Loading";
 import { QRCodeCanvas } from "qrcode.react";
 import { Print, ShoppingCart } from "@mui/icons-material";
+import { format } from "date-fns";
 
 export default function Invoice() {
   const location = useLocation();
-  const orderData = location.state?.orderData; // Assuming orderData is passed via router state
+  const orderData = location.state?.orderData;
   const [orderDetails, setOrderDetails] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -22,7 +23,6 @@ export default function Invoice() {
         return;
       }
       try {
-        // Ensure getOrderDetails exists and returns expected data
         const dataOrder = await orderApi.getOrderDetails(orderData.orderId);
         setOrderDetails(dataOrder);
       } catch (e) {
@@ -109,13 +109,7 @@ export default function Invoice() {
             </p>
             <p>
               <span className="font-medium">Order Date:</span>{" "}
-              {new Date(orderData.createdAt).toLocaleDateString("en-US", {
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-                hour: "2-digit",
-                minute: "2-digit",
-              })}
+              {format(new Date(orderData.orderDate), "d/M/yyyy, HH:mm:ss")}
             </p>
             <p>
               <span className="font-medium">Payment Method:</span>{" "}
