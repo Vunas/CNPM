@@ -14,6 +14,7 @@ import RestaurantTablePage from "../pages/admin/RestaurantTablePage";
 import Statistics from "../pages/admin/Statistics";
 import Employee from "../pages/admin/Employee";
 import OrderListPage from "../pages/admin/OrderListPage";
+import Feedback from "../pages/admin/FeedBack";
 
 const AdminRoutes = () => {
   const handleSnackbarClose = () =>
@@ -59,6 +60,7 @@ const AdminRoutes = () => {
           <Route path="statistics" element={<Statistics />} />
           <Route path="/employee" element={<Employee />} />
           <Route path="/orderlistpage" element={<OrderListPage />} />
+          <Route path="/feedback" element={<Feedback />} />
           <Route path="*" element={<Page404 href={"/admin"} />} />
         </Routes>
       </div>

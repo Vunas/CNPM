@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Not, Repository } from 'typeorm';
 import { OrderDetail } from './orderDetail.entity';
 import { CreateOrderDetailDto } from './dto/create-orderDetail.dto';
 import { UpdateOrderDetailDto } from './dto/update-orderDetail.dto';
@@ -23,7 +23,8 @@ export class OrderDetailService {
   // Get all order details
   async findAll(): Promise<OrderDetail[]> {
     return await this.orderDetailRepository.find({
-      relations: ['order', 'product'], // Load relationships if necessary
+      relations: ['order', 'product'],
+      where: { status: Not(0) },
     });
   }
 
@@ -58,15 +59,13 @@ export class OrderDetailService {
       .createQueryBuilder('detail')
       .leftJoin('detail.product', 'product')
       .select([
-        'detail.orderDetailId AS "orderDetailId"',  
+        'detail.orderDetailId AS "orderDetailId"',
         'detail.quantity AS "quantity"',
         'detail.price AS "price"',
-        'product.name AS "productName"',             
+        'product.name AS "productName"',
         'product.price AS "productPrice"',
       ])
       .where('detail.orderId = :orderId', { orderId })
       .getRawMany();
   }
 }
-
-

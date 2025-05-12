@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Not, Repository } from 'typeorm';
 import { Feedback } from './feedback.entity';
 import { CreateFeedbackDto } from './dto/create-feedback.dto';
 import { UpdateFeedbackDto } from './dto/update-feedback.dto';
@@ -21,7 +21,7 @@ export class FeedbackService {
   }
 
   async findAll(): Promise<Feedback[]> {
-    return this.feedbackRepo.find();
+    return this.feedbackRepo.find({ where: { status: Not(0) } });
   }
 
   async findOne(id: string): Promise<Feedback | null> {
