@@ -60,13 +60,6 @@ const Header = () => {
         >
           Contact
         </Link>
-        <button
-          className="bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition-colors"
-          data-aos="fade-down"
-          data-aos-delay="400"
-        >
-          DINE IN
-        </button>
       </nav>
     </header>
   );

@@ -60,13 +60,6 @@ const Header = () => {
         >
           Contact
         </Link>
-        <button
-          className="bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition-colors"
-          data-aos="fade-down"
-          data-aos-delay="400"
-        >
-          DINE IN
-        </button>
       </nav>
     </header>
   );
@@ -77,8 +70,7 @@ const AboutHeroSection = () => {
     <div
       className="relative -top-20 flex flex-col items-center justify-center w-screen h-[80vh] text-center bg-cover bg-center"
       style={{
-        backgroundImage:
-          "url('src/assets/img/about.jpg')",
+        backgroundImage: "url('src/assets/img/about.jpg')",
       }}
     >
       <div className="absolute inset-0 bg-black opacity-50"></div>
