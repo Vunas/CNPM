@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "@mui/material";
 import orderApi from "../api/orderApi";
-import FeedbackSender from "../pages/Feedback";
 import { useNavigate } from "react-router-dom";
 
 export default function OrderDetailPageFeedback({ order, onStatusChange }) {
@@ -33,23 +32,25 @@ export default function OrderDetailPageFeedback({ order, onStatusChange }) {
         orderStatus: status,
         tableId: order.tableId || null,
         accountId: order.accountId || null,
-        restaurantId: order.restaurantId, 
-        customerContact: order.customerContact, 
+        restaurantId: order.restaurantId,
+        customerContact: order.customerContact,
         paymentMethod: order.paymentMethod || null,
-        totalPrice: order.totalPrice, 
+        totalPrice: order.totalPrice,
         orderType: order.orderType,
         status: order.status,
       });
       onStatusChange();
     } catch (err) {
+      console.log(err);
       alert("Cập nhật trạng thái thất bại!");
     }
   };
-  
-  function feedbackNavigate(){
-     navigate(`/feedback?orderid=${order.orderId}&restauranttableid=${order.tableId}`)
+
+  function feedbackNavigate() {
+    navigate(
+      `/feedback?orderid=${order.orderId}&restauranttableid=${order.tableId}`
+    );
   }
-  
 
   return (
     <div className="justify-center">
@@ -75,38 +76,41 @@ export default function OrderDetailPageFeedback({ order, onStatusChange }) {
 
       <h3 className="font-semibold mt-4">Order detail:</h3>
       <ul className="list-disc pl-6">
-  {Array.isArray(details) && details.length > 0 ? (
-    details.map((item, index) => (
-      <li key={index}>
-        {item.productName || "Sản phẩm không tên"} - Quantity: {item.quantity} - Price:{" "}
-        {item.price !== undefined
-          ? Number(item.price*item.quantity).toFixed(2).replace(".", ",")
-          : "?"}{" "}
-        Kr
-      </li>
-    ))
-  ) : (
-    <li>Không có chi tiết đơn hàng</li>
-  )}
-</ul>
+        {Array.isArray(details) && details.length > 0 ? (
+          details.map((item, index) => (
+            <li key={index}>
+              {item.productName || "Sản phẩm không tên"} - Quantity:{" "}
+              {item.quantity} - Price:{" "}
+              {item.price !== undefined
+                ? Number(item.price * item.quantity)
+                    .toFixed(2)
+                    .replace(".", ",")
+                : "?"}{" "}
+              Kr
+            </li>
+          ))
+        ) : (
+          <li>Không có chi tiết đơn hàng</li>
+        )}
+      </ul>
       <div className="mt-4 space-x-2">
-            <Button
-              variant="contained"
-              color="success"
-              onClick={() => feedbackNavigate()}
-              disabled={order.orderStatus !== "Finished"}
-            >
-              Đánh giá
-            </Button>
-            <Button
-              variant="contained"
-              color="error"
-              onClick={() => handleUpdateStatus("Cancelled")}
-              disabled={order.orderStatus !== "Pending"}
-            >
-              Hủy Đơn
-            </Button>
-        </div>
+        <Button
+          variant="contained"
+          color="success"
+          onClick={() => feedbackNavigate()}
+          disabled={order.orderStatus !== "Finished"}
+        >
+          Đánh giá
+        </Button>
+        <Button
+          variant="contained"
+          color="error"
+          onClick={() => handleUpdateStatus("Cancelled")}
+          disabled={order.orderStatus !== "Pending"}
+        >
+          Hủy Đơn
+        </Button>
+      </div>
     </div>
   );
 }

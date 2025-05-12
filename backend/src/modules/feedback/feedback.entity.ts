@@ -31,4 +31,7 @@ export class Feedback {
 
   @Column({ type: 'int', default: 1 })
   status: number;
+
+  // @Column({ type: 'int', nullable: false })
+  // rating: number;
 }

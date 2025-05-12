@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Paper } from "@mui/material";
-import OrderDetailPage from "../components/OrderDetailForKitchen";
-import orderApi from "../api/orderApi";
+import OrderDetailPage from "../../components/OrderDetailForKitchen";
+import orderApi from "../../api/orderApi";
 
 export default function OrderListPage() {
   const [selectedOrder, setSelectedOrder] = useState(null);
@@ -15,6 +15,7 @@ export default function OrderListPage() {
       console.log("📦 Dữ liệu đơn hàng:", dataOrder);
       setOrdersData(dataOrder);
     } catch (e) {
+      console.log(e);
       setError("Lỗi khi tải đơn hàng");
     } finally {
       setLoading(false);
@@ -29,7 +30,9 @@ export default function OrderListPage() {
     <div className="p-6 bg-gray-50 min-h-screen flex gap-6 w-[70vw]">
       {/* Cột trái - Đơn Đang Chế Biến chiếm 40% */}
       <div className="w-2/5 space-y-4 overflow-y-auto bg-white p-4 rounded shadow">
-        <h1 className="text-xl font-bold border-b pb-2 mb-4 text-orange-700">⏳ Đơn Đang Chế Biến</h1>
+        <h1 className="text-xl font-bold border-b pb-2 mb-4 text-orange-700">
+          ⏳ Đơn Đang Chế Biến
+        </h1>
         {loading && <p>Đang tải đơn hàng...</p>}
         {error && <p className="text-red-500">{error}</p>}
         {ordersData
@@ -41,13 +44,16 @@ export default function OrderListPage() {
               onClick={() => setSelectedOrder(order)}
             >
               <p className="font-semibold text-gray-800">🆔 {order.orderId}</p>
-              <p>Trạng thái: <b>{order.orderStatus}</b></p>
+              <p>
+                Trạng thái: <b>{order.orderStatus}</b>
+              </p>
               <p>
                 Tổng Tiền:{" "}
                 <span className="text-orange-600 font-medium">
                   {order.totalPrice
                     ? parseFloat(order.totalPrice).toLocaleString()
-                    : "?"} đ
+                    : "?"}{" "}
+                  đ
                 </span>
               </p>
               <p>Loại đơn: {order.orderType || "Không rõ"}</p>

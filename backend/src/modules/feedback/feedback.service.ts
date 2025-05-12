@@ -15,7 +15,7 @@ export class FeedbackService {
   async create(dto: CreateFeedbackDto): Promise<Feedback> {
     const feedback = this.feedbackRepo.create({
       ...dto,
-      order: { orderId: dto.orderId }, 
+      order: { orderId: dto.orderId },
     });
     return this.feedbackRepo.save(feedback);
   }
@@ -36,7 +36,7 @@ export class FeedbackService {
     }
     return updated;
   }
-  
+
   async softDelete(id: string): Promise<void> {
     await this.feedbackRepo.update(id, { status: 0 });
   }

@@ -3,6 +3,7 @@ import { AuthService } from './auth.service';
 import { LoginDto } from './dto/login.dto';
 import { JwtAuthGuard } from './guard/jwt-auth.guard';
 import { JwtPayload } from './types/jwt-payload.type';
+import { GoogleLoginDto } from './dto/google-login.dto';
 
 interface JwtRequest extends Request {
   user: JwtPayload;
@@ -15,8 +16,12 @@ export class AuthController {
 
   @Post('login')
   async login(@Body() loginDto: LoginDto) {
-    console.log(loginDto);
     return this.authService.login(loginDto);
+  }
+
+  @Post('google-login')
+  async loginWithGoogle(@Body() googleLoginDto: GoogleLoginDto) {
+    return this.authService.loginWithGoogle(googleLoginDto.idToken);
   }
 
   @Get('me')

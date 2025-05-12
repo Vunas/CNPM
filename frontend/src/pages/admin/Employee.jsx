@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Paper } from "@mui/material";
-import orderApi from "../api/orderApi";
-import OrderDetailPageButForEmployees from "../components/OrderDetailForEmployee";
-import OrderDetailPageButWithoutOptions from "../components/OrderDetailPageButWithoutOption";
+import orderApi from "../../api/orderApi";
+import OrderDetailPageButForEmployees from "../../components/OrderDetailForEmployee";
+import OrderDetailPageButWithoutOptions from "../../components/OrderDetailPageButWithoutOption";
 
 export default function Employee() {
   const [selectedOrder, setSelectedOrder] = useState(null);
