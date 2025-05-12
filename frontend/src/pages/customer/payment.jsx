@@ -101,18 +101,20 @@ function Payment({ setSnackbar }) {
   return (
     <div className="flex justify-center items-center h-screen">
       <div className="mx-auto p-6 w-full max-w-[500px] min-h-[450px] bg-white shadow rounded grid place-items-center">
-        <div className="flex items-center mb-4">
+        <div className="flex items-center justify-between mb-4 w-full">
           <button
             onClick={() =>
               navigate(
                 `/order?restaurantid=${restaurantId}&restauranttableid=${restaurantTableId}`
               )
             }
-            className="text-gray-700 hover:text-black mr-2"
+            className="text-gray-700 hover:text-black"
           >
             ← Back
           </button>
-          <h2 className="text-lg font-bold flex-grow text-center">Payment</h2>
+          <div className="flex-1 text-right">
+            <h2 className="text-lg font-bold">Payment</h2>
+          </div>
         </div>
 
         <div className="bg-white rounded shadow p-4">
