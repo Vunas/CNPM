@@ -19,6 +19,7 @@ import {
   TableRestaurant,
   BarChart,
   Feedback,
+  ListAlt,
 } from "@mui/icons-material";
 import "./NavBar.scss";
 import { Link } from "react-router-dom";
@@ -44,8 +45,8 @@ const Navbar = () => {
     const savedAvatar = localStorage.getItem("avatar");
     if (savedAvatar) {
       setAvatar(savedAvatar);
-    }else {
-      setAvatar("http://localhost:5173/src/assets/svg/avatar.svg")
+    } else {
+      setAvatar("http://localhost:5173/src/assets/svg/avatar.svg");
     }
   }, []);
 
@@ -54,12 +55,7 @@ const Navbar = () => {
       <input id="nav-toggle" type="checkbox" />
 
       <div id="nav-header">
-        <a
-          id="nav-title"
-          href="https://codepen.io"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+        <a id="nav-title" >
           ADMIN
         </a>
         <label htmlFor="nav-toggle">
@@ -100,6 +96,12 @@ const Navbar = () => {
           />
           <TableRestaurant sx={{ fontSize: 28 }} />
           <span>Restaurant Table</span>
+        </div>
+
+        <div className="nav-button">
+          <Link className="absolute w-full inset-0" to="/admin/order" />
+          <ListAlt sx={{ fontSize: 28 }} />
+          <span>Order</span>
         </div>
 
         <div className="nav-button">
