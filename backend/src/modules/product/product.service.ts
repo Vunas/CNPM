@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { Repository } from 'typeorm';
+import { Not, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Product } from './product.entity';
 import { CreateProductDto } from './dto/create-product.dto';
@@ -48,6 +48,7 @@ export class ProductService {
   async findAll(): Promise<Product[]> {
     return await this.productRepository.find({
       relations: ['category'],
+      where: { status: Not(0) },
     });
   }
 

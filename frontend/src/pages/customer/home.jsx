@@ -353,7 +353,6 @@ const NewsletterSignup = () => {
         className="max-w-md mx-auto flex"
         data-aos="fade-up"
         data-aos-duration="1000"
-        data
         data-aos-delay="400"
       >
         <input

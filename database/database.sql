@@ -183,13 +183,13 @@ CREATE TABLE Feedback (
   Message TEXT NOT NULL,
   CreatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   Status INT DEFAULT 1,
-  -- Rating INT CHECK (Rating BETWEEN 1 AND 5),
+  Rating INT CHECK (Rating BETWEEN 1 AND 5),
   FOREIGN KEY (OrderID) REFERENCES `Order`(OrderID)
 );
 
--- INSERT INTO Feedback (OrderID, CustomerName, Email, Message, Rating) 
--- VALUES 
--- ( 'o-001', 'John Doe', 'johndoe@example.com', 'I am extremely satisfied with my purchase! The product quality is excellent, and the customer service was outstanding. I will definitely recommend this to my friends and family.', 5),
+INSERT INTO Feedback (OrderID, CustomerName, Email, Message, Rating) 
+VALUES 
+( 'o-001', 'John Doe', 'johndoe@example.com', 'I am extremely satisfied with my purchase! The product quality is excellent, and the customer service was outstanding. I will definitely recommend this to my friends and family.', 5),
 
--- ( 'o-0022', 'Sarah Smith', 'sarahsmith@example.com', 'The product is decent, but the delivery took longer than expected. Overall, it is okay, but there is room for improvement.', 3);
+( 'o-0022', 'Sarah Smith', 'sarahsmith@example.com', 'The product is decent, but the delivery took longer than expected. Overall, it is okay, but there is room for improvement.', 3);
 

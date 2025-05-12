@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Not, Repository } from 'typeorm';
 import { Order } from './order.entity';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
@@ -87,6 +87,7 @@ export class OrderService {
   async findAll(): Promise<Order[]> {
     return await this.orderRepository.find({
       relations: ['restaurantTable', 'restaurant', 'account'],
+      where: { status: Not(0) },
     });
   }
 

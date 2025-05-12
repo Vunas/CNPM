@@ -18,6 +18,7 @@ import {
   Restaurant,
   TableRestaurant,
   BarChart,
+  Feedback,
 } from "@mui/icons-material";
 import "./NavBar.scss";
 import { Link } from "react-router-dom";
@@ -99,6 +100,12 @@ const Navbar = () => {
           />
           <TableRestaurant sx={{ fontSize: 28 }} />
           <span>Restaurant Table</span>
+        </div>
+
+        <div className="nav-button">
+          <Link className="absolute w-full inset-0" to="/admin/feedback" />
+          <Feedback sx={{ fontSize: 28 }} />
+          <span>feedback</span>
         </div>
 
         <div className="nav-button">

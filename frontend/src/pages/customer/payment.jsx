@@ -72,9 +72,10 @@ function Payment({ setSnackbar }) {
           message: "Order created successfully!",
           type: "success",
         });
-        navigate(
-          `/order?restaurantid=${restaurantId}&restauranttableid=${restaurantTableId}`
-        );
+        // navigate(
+        //   `/order?restaurantid=${restaurantId}&restauranttableid=${restaurantTableId}`
+        // );
+        navigate(`/invoice`, { state: { orderData: response } });
       } else {
         throw new Error(response?.error || "Unknown error");
       }

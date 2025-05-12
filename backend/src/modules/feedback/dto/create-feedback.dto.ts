@@ -25,9 +25,9 @@ export class CreateFeedbackDto {
   @IsString()
   message: string;
 
-  // @IsNotEmpty()
-  // @IsInt()
-  // @Min(1)
-  // @Max(5)
-  // rating: number;
+  @IsNotEmpty()
+  @IsInt()
+  @Min(1)
+  @Max(5)
+  rating: number;
 }

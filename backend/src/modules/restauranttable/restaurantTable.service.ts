@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Repository } from 'typeorm';
+import { Not, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { RestaurantTable } from './restaurantTable.entity';
 import { CreateRestaurantTableDto } from './dto/create-restaurantTable.dto';
@@ -22,7 +22,9 @@ export class RestaurantTableService {
   }
 
   async findAll(): Promise<RestaurantTable[]> {
-    return await this.restaurantTableRepository.find();
+    return await this.restaurantTableRepository.find({
+      where: { status: Not(0) },
+    });
   }
 
   async findOne(id: string): Promise<RestaurantTable> {
