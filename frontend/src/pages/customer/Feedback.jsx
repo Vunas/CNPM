@@ -1,22 +1,23 @@
 import React, { useState } from "react";
-import { TextField, Button, Paper, Typography } from "@mui/material";
-import feedbackApi from "../api/feedbackApi";
+import { TextField, Button, Paper, Typography, Rating } from "@mui/material";
+import feedbackApi from "../../api/feedbackApi";
 import { useNavigate, useSearchParams } from "react-router-dom";
 
 export default function FeedbackSender() {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
-  const orderId = searchParams.get("orderid")
-  const restaurantTableId = searchParams.get("restauranttableid")
-  const restaurantId = searchParams.get("restaurantid")
-  const returnUrl = `/homepage?restaurantid=${restaurantId}&restauranttableid=${restaurantTableId}`
+  const orderId = searchParams.get("orderid");
+  const restaurantTableId = searchParams.get("restauranttableid");
+  const restaurantId = searchParams.get("restaurantid");
+  const returnUrl = `/homepage?restaurantid=${restaurantId}&restauranttableid=${restaurantTableId}`;
+
   const [feedback, setFeedback] = useState({
     customerName: "",
     email: "",
     message: "",
     orderId: orderId,
+    rating: 5,
   });
-
 
   const [success, setSuccess] = useState(null);
 
@@ -24,30 +25,32 @@ export default function FeedbackSender() {
     setFeedback({ ...feedback, [e.target.name]: e.target.value });
   };
 
+  const handleRatingChange = (event, newValue) => {
+    setFeedback({ ...feedback, rating: newValue });
+  };
+
   const handleSubmit = async () => {
     try {
-    await feedbackApi.create(feedback);
+      await feedbackApi.create(feedback);
       setSuccess(true);
-      setFeedback({ customerName: "", email: "", message: "", orderId: "o-001" });
-      homepageNavigate()
+      setFeedback({ customerName: "", email: "", message: "", orderId: "o-001", rating: 5 });
+      homepageNavigate();
     } catch (err) {
+      console.log(err);
       setSuccess(false);
     }
   };
-  function homepageNavigate(){
-    navigate(returnUrl)
+
+  function homepageNavigate() {
+    navigate(returnUrl);
   }
+
   return (
     <Paper className="p-6 max-w-lg mx-auto mt-10 shadow-lg">
-      <button
-          onClick={() => homepageNavigate()}
-          className="text-gray-700 hover:text-black mr-2"
-        >
-          ← Back
+      <button onClick={() => homepageNavigate()} className="text-gray-700 hover:text-black mr-2">
+        ← Back
       </button>
-      <Typography variant="h5" className="mb-4 font-bold text-center">
-        Gửi phản hồi
-      </Typography>
+      <Typography variant="h5" className="mb-4 font-bold text-center">Gửi phản hồi</Typography>
       <TextField
         label="Tên khách hàng"
         name="customerName"
@@ -74,7 +77,9 @@ export default function FeedbackSender() {
         onChange={handleChange}
         className="mb-4"
       />
-      <Button variant="contained" color="primary" fullWidth onClick={handleSubmit}>
+      <Typography variant="h6" className="mb-2">Đánh giá</Typography>
+      <Rating name="rating" value={feedback.rating} onChange={handleRatingChange} />
+      <Button variant="contained" color="primary" fullWidth onClick={handleSubmit} className="mt-4">
         Gửi phản hồi
       </Button>
       {success === true && <p className="text-green-600 mt-2">Gửi thành công!</p>}

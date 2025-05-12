@@ -5,27 +5,19 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
-import OrderListPage from "./pages/OrderListPage";
-import Order from "./pages/Order";
 import CustomerRouter from "./router/CustomerRouter";
 import AdminRouter from "./router/AdminRouter";
-import Employee from "./pages/Employee";
 import Page404 from "./pages/Page404";
 
-import Feedback from "./pages/Feedback";
-import Homepage from "./pages/customer/homepage";
 export default function App() {
   return (
     <div className="w-screen h-screen">
       <Router>
         <Routes>
-          <Route path="/orderlistpage" element={<OrderListPage />} />
           <Route path="/" element={<Navigate to="/qrcodepage" />} />
           <Route path="/*" element={<CustomerRouter />} />
           <Route path="/admin/*" element={<AdminRouter />} />
 
-          <Route path="/employee" element={<Employee />} />
-          <Route path="/feedback" element={<Feedback />} />
           <Route path="*" element={<Page404 href={"/admin"} />} />
         </Routes>
       </Router>

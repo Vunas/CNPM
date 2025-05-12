@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
 import { Snackbar, Alert } from "@mui/material";
-import { login } from "../../api/auth";
+import { login, loginWithGoogle } from "../../api/auth";
 
 const clientId =
   "1041605160701-9q21rn06djjtsdlck5ks2mur96eckti0.apps.googleusercontent.com";
@@ -28,6 +28,25 @@ const LoginAdmin = ({ onLoginSuccess }) => {
         message: err.message
           ? `Error: ${err.message}`
           : "Login failed. Please try again.!",
+        severity: "error",
+      });
+    }
+  };
+
+  const handleGoogleLogin = async (credentialResponse) => {
+    try {
+      const idToken = credentialResponse.credential;
+
+      const data = await loginWithGoogle(idToken);
+      if (data) {
+        onLoginSuccess();
+      }
+    } catch (err) {
+      setSnackbar({
+        open: true,
+        message: err.message
+          ? `Error: ${err.message}`
+          : "Google login failed. Please try again!",
         severity: "error",
       });
     }
@@ -74,9 +93,9 @@ const LoginAdmin = ({ onLoginSuccess }) => {
           </form>
           <div className="my-4 text-gray-500">Or</div>
           <GoogleLogin
-            // onSuccess={(credentialResponse) =>
-            //   handleGoogleLogin(credentialResponse)
-            // }
+            onSuccess={(credentialResponse) =>
+              handleGoogleLogin(credentialResponse)
+            }
             onError={() =>
               setSnackbar({
                 open: true,

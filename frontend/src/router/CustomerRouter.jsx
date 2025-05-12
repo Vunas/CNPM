@@ -2,13 +2,14 @@ import React, { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
-import Order from "../pages/Order";
 import Payment from "../pages/customer/payment";
 import QRCodePage from "../pages/customer/QRCodePage";
 import Homepage from "../pages/customer/homepage";
 import Home from "../pages/customer/home";
 import About from "../pages/customer/about";
 import Contact from "../pages/customer/contact";
+import FeedbackSender from "../pages/customer/Feedback";
+import Order from "../pages/customer/Order";
 
 const CustomerRouter = () => {
   const [snackBar, setSnackbar] = useState({
@@ -33,6 +34,7 @@ const CustomerRouter = () => {
           <Route path="/home" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/feedback" element={<FeedbackSender />} />
         </Routes>
       </div>
 
