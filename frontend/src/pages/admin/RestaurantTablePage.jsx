@@ -47,7 +47,11 @@ const RestaurantTablePage = () => {
       });
       await fetchData();
     } catch (e) {
-      setError(e);
+      setSnackbar({
+        open: true,
+        message: "Error: " + e.response?.data?.message,
+        type: "error",
+      });
     } finally {
       setLoading(false);
     }
@@ -65,7 +69,11 @@ const RestaurantTablePage = () => {
       });
       await fetchData();
     } catch (e) {
-      setError(e);
+      setSnackbar({
+        open: true,
+        message: "Error: " + e.response?.data?.message,
+        type: "error",
+      });
     } finally {
       setLoading(false);
     }
@@ -81,7 +89,11 @@ const RestaurantTablePage = () => {
         severity: "success",
       });
     } catch (e) {
-      setError(e);
+      setSnackbar({
+        open: true,
+        message: "Error: " + e.response?.data?.message,
+        type: "error",
+      });
     } finally {
       setLoading(false);
     }

@@ -42,7 +42,11 @@ const Feedback = () => {
         type: "success",
       });
     } catch (e) {
-      setError(e);
+      setSnackbar({
+        open: true,
+        message: "Error: " + e.response?.data?.message,
+        type: "error",
+      });
     }
   }, []);
 

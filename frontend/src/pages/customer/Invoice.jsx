@@ -204,7 +204,7 @@ export default function Invoice() {
             sx={{ paddingY: "12px", fontSize: "1.1rem" }}
           >
             Print Invoice
-            <Print/>
+            <Print />
           </Button>
           <div className="my-4 text-gray-500">Or</div>
           <Button
@@ -216,7 +216,7 @@ export default function Invoice() {
             sx={{ paddingY: "12px", fontSize: "1.1rem" }}
           >
             Proceed with the order
-            <ShoppingCart/>
+            <ShoppingCart />
           </Button>
         </div>
       </div>

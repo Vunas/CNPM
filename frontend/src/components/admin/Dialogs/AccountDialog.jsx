@@ -16,7 +16,7 @@ const newAccount = {
   passwordHash: "",
   email: "",
   phone: "",
-  restaurantId: "",
+  restaurant: { restaurantId: "" },
   role: "User",
 };
 
@@ -34,22 +34,42 @@ const AccountDialog = ({ open, handleClose, onSave, account, restaurants }) => {
   }, [account]);
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+
+    if (name === "restaurantId") {
+      setFormData({
+        ...formData,
+        restaurant: {
+          ...formData.restaurant,
+          restaurantId: value,
+        },
+      });
+    } else {
+      setFormData({
+        ...formData,
+        [name]: value,
+      });
+    }
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const updatedData = {
       ...formData,
       restaurantId: formData.restaurant?.restaurantId || "",
     };
+
     const requiredFields = ["username", "passwordHash", "email", "phone"];
     const errors = validateRequiredFields(updatedData, requiredFields);
+
     if (Object.keys(errors).length > 0) {
       setErrors(errors);
       return;
     }
 
-    onSave(updatedData);
+    const result = await onSave(updatedData);
+    console.log(result);
+    if (result === false) return;
+
     handleClose();
   };
 

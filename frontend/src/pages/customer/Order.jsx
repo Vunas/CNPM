@@ -315,7 +315,7 @@ const Order = () => {
                     "https://via.placeholder.com/192x192?text=No+Image"
                   }
                   alt={item.name}
-                  className="w-full h-48 object-cover rounded-t-xl"
+                  className=" h-48 object-cover rounded-t-xl"
                 />
                 <div className="p-4 w-full flex flex-col justify-between flex-grow">
                   <p className="text-lg font-semibold text-gray-900 mb-2">

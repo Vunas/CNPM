@@ -46,11 +46,15 @@ const Account = () => {
       setSnackbar({
         open: true,
         message: "Added new account successfully!",
-        severity: "success",
+        type: "success",
       });
       await fetchData();
     } catch (e) {
-      setError(e);
+      setSnackbar({
+        open: true,
+        message: "Error: " + e.response?.data?.message,
+        type: "error",
+      });
     } finally {
       setLoading(false);
     }
@@ -64,11 +68,15 @@ const Account = () => {
       setSnackbar({
         open: true,
         message: "Updated account successfully!",
-        severity: "success",
+        type: "success",
       });
       await fetchData();
     } catch (e) {
-      setError(e);
+      setSnackbar({
+        open: true,
+        message: "Error: " + e.response?.data?.message,
+        type: "error",
+      });
     } finally {
       setLoading(false);
     }
@@ -81,10 +89,14 @@ const Account = () => {
       setSnackbar({
         open: true,
         message: "Locked/UnLocked product successfully!",
-        severity: "success",
+        type: "success",
       });
     } catch (e) {
-      setError(e);
+      setSnackbar({
+        open: true,
+        message: "Error: " + e.response?.data?.message,
+        type: "error",
+      });
     } finally {
       setLoading(false);
     }
@@ -97,10 +109,14 @@ const Account = () => {
       setSnackbar({
         open: true,
         message: "Deleted account successfully!",
-        severity: "success",
+        type: "success",
       });
     } catch (e) {
-      setError(e);
+      setSnackbar({
+        open: true,
+        message: "Error: " + e.response?.data?.message,
+        type: "error",
+      });
     } finally {
       setLoading(false);
     }
@@ -112,7 +128,7 @@ const Account = () => {
 
   if (loading) return <Loading />;
   if (error) {
-    return <div>Lỗi khi tải dữ liệu tài khoản: {error.message}</div>;
+    return <div>Error loading account data: {error.message}</div>;
   }
 
   return (

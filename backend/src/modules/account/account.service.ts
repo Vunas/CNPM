@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { Not, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Account } from './account.entity';
@@ -44,15 +48,17 @@ export class AccountService {
     }
 
     if (await this.isUsernameTaken(username)) {
-      throw new Error(`Username "${username}" is already taken.`);
+      throw new BadRequestException(`Username "${username}" is already taken.`);
     }
 
     if (email && (await this.isEmailTaken(email))) {
-      throw new Error(`Email "${email}" is already registered.`);
+      throw new BadRequestException(`Email "${email}" is already registered.`);
     }
 
     if (phone && (await this.isPhoneTaken(phone))) {
-      throw new Error(`Phone number "${phone}" is already registered.`);
+      throw new BadRequestException(
+        `Phone number "${phone}" is already registered.`,
+      );
     }
 
     if (passwordHash) {
@@ -80,7 +86,7 @@ export class AccountService {
   async findOne(id: string): Promise<Account> {
     const account = await this.accountRepository.findOneBy({ accountId: id });
     if (!account) {
-      throw new Error(`Account with ID ${id} not found`);
+      throw new BadRequestException(`Account with ID ${id} not found`);
     }
     return account;
   }
@@ -106,21 +112,27 @@ export class AccountService {
         username,
       });
       if (existingAccount && existingAccount.accountId !== id) {
-        throw new Error(`Username "${username}" is already taken.`);
+        throw new BadRequestException(
+          `Username "${username}" is already taken.`,
+        );
       }
     }
 
     if (email && (await this.isEmailTaken(email))) {
       const existingAccount = await this.accountRepository.findOneBy({ email });
       if (existingAccount && existingAccount.accountId !== id) {
-        throw new Error(`Email "${email}" is already registered.`);
+        throw new BadRequestException(
+          `Email "${email}" is already registered.`,
+        );
       }
     }
 
     if (phone && (await this.isPhoneTaken(phone))) {
       const existingAccount = await this.accountRepository.findOneBy({ phone });
       if (existingAccount && existingAccount.accountId !== id) {
-        throw new Error(`Phone number "${phone}" is already registered.`);
+        throw new BadRequestException(
+          `Phone number "${phone}" is already registered.`,
+        );
       }
     }
 
