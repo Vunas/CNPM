@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Not, Repository } from 'typeorm';
 import { Order } from './order.entity';
@@ -49,6 +53,12 @@ export class OrderService {
     if (!restaurantTable) {
       throw new NotFoundException(
         `RestaurantTable with ID ${createOrderDto.tableId} not found`,
+      );
+    }
+
+    if (restaurantTable.status == 2 || restaurantTable.status == 4) {
+      throw new BadRequestException(
+        `RestaurantTable with ID ${createOrderDto.tableId} is locked, please contact staff to activate.`,
       );
     }
 

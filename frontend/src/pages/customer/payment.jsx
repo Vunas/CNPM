@@ -80,10 +80,11 @@ function Payment({ setSnackbar }) {
         throw new Error(response?.error || "Unknown error");
       }
     } catch (error) {
+      console.log(error)
       setErrorMessage(error.message || "Unexpected error. Try again.");
       setSnackbar({
         open: true,
-        message: "Failed to create order",
+        message: "Failed to create order" + error.response?.data?.message,
         type: "error",
       });
     } finally {

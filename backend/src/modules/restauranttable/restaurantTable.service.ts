@@ -23,6 +23,7 @@ export class RestaurantTableService {
 
   async findAll(): Promise<RestaurantTable[]> {
     return await this.restaurantTableRepository.find({
+      relations: ['restaurant'],
       where: { status: Not(0) },
     });
   }
@@ -42,6 +43,18 @@ export class RestaurantTableService {
     updateRestaurantTableDto: UpdateRestaurantTableDto,
   ): Promise<RestaurantTable> {
     await this.restaurantTableRepository.update(id, updateRestaurantTableDto);
+    return this.findOne(id);
+  }
+
+  async updateStatus(id: string, newStatus: number): Promise<RestaurantTable> {
+    const restaurantTable = await this.findOne(id);
+    if (!restaurantTable) {
+      throw new Error(`RestaurantTable with ID ${id} not found`);
+    }
+
+    restaurantTable.status = newStatus;
+
+    await this.restaurantTableRepository.save(restaurantTable);
     return this.findOne(id);
   }
 

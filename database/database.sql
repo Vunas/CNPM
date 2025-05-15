@@ -102,7 +102,17 @@ INSERT INTO RestaurantTable (TableID, TableNumber, QRCode, RestaurantID, Status)
 VALUES
 ('t-001', 1, 'qr_burger_1', 'r-001', 1),
 ('t-002', 2, 'qr_burger_2', 'r-001', 1),
-('t-003', 1, 'qr_pizza_1', 'r-002', 1);
+('t-003', 1, 'qr_pizza_1', 'r-002', 1),
+('t-004', 3, 'qr_burger_3', 'r-001', 1),
+('t-005', 4, 'qr_burger_4', 'r-001', 1),
+('t-006', 5, 'qr_burger_5', 'r-001', 1),
+('t-007', 6, 'qr_burger_6', 'r-001', 1),
+('t-008', 7, 'qr_burger_7', 'r-001', 1),
+('t-009', 8, 'qr_burger_8', 'r-001', 1),
+('t-010', 9, 'qr_burger_9', 'r-001', 1),
+('t-011', 10, 'qr_burger_10', 'r-001', 1),
+('t-012', 11, 'qr_burger_11', 'r-001', 1),
+('t-013', 12, 'qr_burger_12', 'r-001', 1);
 
 -- 6. Bảng Order: Đơn hàng
 CREATE TABLE `Order` (

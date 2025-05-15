@@ -40,6 +40,11 @@ export class RestaurantTableController {
     return this.restaurantTableService.update(id, updateRestaurantTableDto);
   }
 
+  @Put(':id/status')
+  updateStatus(@Param('id') id: string, @Body() newStatus: { status: number }) {
+    return this.restaurantTableService.updateStatus(id, newStatus.status);
+  }
+
   @Delete(':id')
   softDelete(@Param('id') id: string) {
     return this.restaurantTableService.softDelete(id);

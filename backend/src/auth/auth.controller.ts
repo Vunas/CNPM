@@ -27,7 +27,7 @@ export class AuthController {
   @Get('me')
   @UseGuards(JwtAuthGuard)
   async getProfile(@Req() req: JwtRequest) {
-    return this.authService.getAccountByID(req.user.sub);
+    return this.authService.getAccountByUsername(req.user.username);
   }
 
   @Post('refresh-token')

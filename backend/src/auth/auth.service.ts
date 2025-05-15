@@ -139,8 +139,8 @@ export class AuthService {
     }
   }
 
-  async getAccountByID(accountId: string) {
-    const account = await this.accountService.findOne(accountId);
+  async getAccountByUsername(username: string): Promise<{ account: Account }> {
+    const account = await this.accountService.findOneByUsername(username);
 
     if (!account) {
       throw new UnauthorizedException({
@@ -150,8 +150,7 @@ export class AuthService {
     }
 
     return {
-      status: 'success',
-      data: account,
+      account: account,
     };
   }
 }

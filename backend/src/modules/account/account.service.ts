@@ -91,6 +91,18 @@ export class AccountService {
     return account;
   }
 
+  async findOneByUsername(username: string): Promise<Account> {
+    const account = await this.accountRepository.findOneBy({
+      username: username,
+    });
+    if (!account) {
+      throw new BadRequestException(
+        `Account with Username ${username} not found`,
+      );
+    }
+    return account;
+  }
+
   async update(
     id: string,
     updateAccountDto: UpdateAccountDto,

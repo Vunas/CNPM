@@ -16,10 +16,12 @@ import Employee from "../pages/admin/Employee";
 import OrderListPage from "../pages/admin/OrderListPage";
 import Feedback from "../pages/admin/FeedBack";
 import Order from "../pages/admin/Order";
+import TableStatus from "../pages/admin/TableStatus";
 
 const AdminRoutes = () => {
   const handleSnackbarClose = () =>
     setSnackbarLogin({ ...snackBarLogin, open: false });
+  const [user, setUser] = useState(null);
   const [isLogin, setLogin] = useState(false);
   const [snackBarLogin, setSnackbarLogin] = useState({
     open: false,
@@ -38,7 +40,9 @@ const AdminRoutes = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       const userProfile = await getProfile();
+      console.log(userProfile);
       if (userProfile) {
+        setUser(userProfile.account);
         setLogin(true);
       }
     };
@@ -46,6 +50,14 @@ const AdminRoutes = () => {
   }, []);
 
   if (!isLogin) return <LoginAdmin onLoginSuccess={handleLoginSuccess} />;
+  if (user && user.role === "Employee")
+    return (
+      <Routes>
+        {" "}
+        <Route path="/" element={<Navigate to="table" />} />
+        <Route path="table" element={<TableStatus />} />
+      </Routes>
+    );
   return (
     <div className="flex absolute w-screen h-screen inset-0">
       <NavBar />
