@@ -6,7 +6,7 @@ import { login, loginWithGoogle } from "../../api/auth";
 const clientId =
   "1041605160701-9q21rn06djjtsdlck5ks2mur96eckti0.apps.googleusercontent.com";
 
-const LoginAdmin = ({ onLoginSuccess }) => {
+const LoginAdmin = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [snackbar, setSnackbar] = useState({
@@ -18,10 +18,7 @@ const LoginAdmin = ({ onLoginSuccess }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const data = await login(username, password);
-      if (data) {
-        onLoginSuccess();
-      }
+      await login(username, password);
     } catch (err) {
       setSnackbar({
         open: true,
@@ -37,10 +34,7 @@ const LoginAdmin = ({ onLoginSuccess }) => {
     try {
       const idToken = credentialResponse.credential;
 
-      const data = await loginWithGoogle(idToken);
-      if (data) {
-        onLoginSuccess();
-      }
+      await loginWithGoogle(idToken);
     } catch (err) {
       setSnackbar({
         open: true,

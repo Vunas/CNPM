@@ -9,6 +9,8 @@ export const login = async (username, password) => {
       password,
     });
     localStorage.setItem("accessToken", response.accessToken);
+    localStorage.setItem("login", "true");
+    window.location.reload();
     return response;
   } catch (error) {
     console.log(error);
@@ -23,6 +25,8 @@ export const loginWithGoogle = async (idToken) => {
     });
 
     localStorage.setItem("accessToken", response.accessToken);
+    localStorage.setItem("login", "true");
+    window.location.reload();
     return response;
   } catch (error) {
     console.log("Google login error:", error);
@@ -33,7 +37,7 @@ export const loginWithGoogle = async (idToken) => {
 export const logout = () => {
   try {
     localStorage.removeItem("accessToken");
-    window.location.reload();
+    window.location.href = "/admin";
   } catch (error) {
     throw error.response?.message || "Something went wrong";
   }
