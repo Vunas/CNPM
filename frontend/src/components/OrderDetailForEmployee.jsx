@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Button } from "@mui/material";
 import orderApi from "../api/orderApi";
 
-export default function OrderDetailPageButForEmployees({ order, onStatusChange }) {
+export default function OrderDetailPageButForEmployees({ order, onStatusChange, currentUser }) {
   const [details, setDetails] = useState([]);
 
 
@@ -25,31 +25,25 @@ export default function OrderDetailPageButForEmployees({ order, onStatusChange }
 
   if (!order) return null;
 
-  const handleUpdateStatus = async (status) => {
-    try {
-      await orderApi.updateOrder(order.orderId, {
-        orderStatus: status,
-        tableId: order.tableId || null,
-        accountId: order.accountId || null,
-        restaurantId: order.restaurantId, 
-        customerContact: order.customerContact, 
-        paymentMethod: order.paymentMethod || null,
-        totalPrice: order.totalPrice, 
-        orderType: order.orderType,
-        status: order.status,
-      });
-      alert("Thao tác thành công!");
-      setDetails([]);
-      if (typeof onStatusChange === "function") {
-        onStatusChange(null); 
-      }
-    } catch (err) {
-      alert("Cập nhật trạng thái thất bại!");
-    }
-  };
-  
-  
-  
+const handleUpdateStatus = async (status) => {
+  try {
+    await orderApi.updateOrder(order.orderId, {
+      orderStatus: status,
+      tableId: order.tableId || null,
+      accountId: currentUser?.accountId || null, // 👈 dùng user hiện tại
+      restaurantId: order.restaurantId,
+      customerContact: order.customerContact,
+      paymentMethod: order.paymentMethod || null,
+      totalPrice: order.totalPrice,
+      orderType: order.orderType,
+      status: order.status,
+    });
+    onStatusChange(null);
+  } catch (err) {
+    alert("Cập nhật trạng thái thất bại!");
+  }
+};
+
 
   return (
     <div className="justify-center">
