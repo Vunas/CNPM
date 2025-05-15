@@ -36,6 +36,7 @@ import {
   Box,
   Typography,
 } from "@mui/material";
+import { logout } from "../../api/auth";
 
 const getOrderStatusColor = (status) => {
   switch (status) {
@@ -478,7 +479,7 @@ const RestaurantFilter = ({ restaurants, onRestaurantSelect }) => {
   );
 };
 
-const TableStatus = () => {
+const TableStatus = ({user}) => {
   const [tables, setTables] = useState([]);
   const [restaurants, setRestaurants] = useState([]);
   const [selectedRestaurantId, setSelectedRestaurantId] = useState(null);
@@ -667,7 +668,23 @@ const TableStatus = () => {
   }
 
   return (
-    <div className="min-h-screen w-screen bg-gradient-to-br from-gray-100 to-gray-300 flex items-center justify-center p-4">
+    <div className="min-h-screen w-screen bg-gradient-to-br from-gray-100 to-gray-300 flex items-center justify-center flex-wrap p-4">
+      <div className="flex justify-between w-screen p-2 items-center bg-white rounded shadow mb-2 top">
+        <div>
+            <>
+              <span className="font-semibold text-gray-800">
+                👤 Hello, {user?.username || ""}
+              </span>
+              <span className="ml-2 text-sm text-gray-500">({user?.role})</span>
+            </>
+        </div>
+        <button
+          onClick={() => {logout()}}
+          className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded"
+        >
+          Logout
+        </button>
+      </div>
       <div className="h-screen w-full mx-auto flex flex-col md:flex-row gap-6">
         {" "}
         <div

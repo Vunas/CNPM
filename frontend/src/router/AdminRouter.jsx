@@ -17,8 +17,10 @@ import OrderListPage from "../pages/admin/OrderListPage";
 import Feedback from "../pages/admin/FeedBack";
 import Order from "../pages/admin/Order";
 import TableStatus from "../pages/admin/TableStatus";
+import Loading from "../utils/Loading/Loading";
 
 const AdminRoutes = () => {
+  const [loading, setLoading] = useState(true);
   const handleSnackbarClose = () =>
     setSnackbarLogin({ ...snackBarLogin, open: false });
   const [user, setUser] = useState(null);
@@ -28,36 +30,81 @@ const AdminRoutes = () => {
     message: "",
     type: "success",
   });
-  const handleLoginSuccess = async () => {
-    setSnackbarLogin({
-      open: true,
-      message: "Login successfully!",
-      type: "success",
-    });
-    setLogin(true);
-  };
 
   useEffect(() => {
     const fetchProfile = async () => {
       const userProfile = await getProfile();
-      console.log(userProfile);
       if (userProfile) {
+        if (localStorage.getItem("login")) {
+          localStorage.removeItem("login");
+          setSnackbarLogin({
+            open: true,
+            message: "Login successfully!",
+            type: "success",
+          });
+        }
         setUser(userProfile.account);
         setLogin(true);
       }
     };
     fetchProfile();
+    setLoading(false);
   }, []);
+  if (loading) return <Loading />;
 
-  if (!isLogin) return <LoginAdmin onLoginSuccess={handleLoginSuccess} />;
-  if (user && user.role === "Employee")
+  if (!isLogin) return <LoginAdmin />;
+  if (user && user.role === "Employee") {
     return (
-      <Routes>
-        {" "}
-        <Route path="/" element={<Navigate to="table" />} />
-        <Route path="table" element={<TableStatus />} />
-      </Routes>
+      <div className="flex absolute w-screen h-screen inset-0">
+        <Routes>
+          {" "}
+          <Route path="/" element={<Navigate to="table" />} />
+          <Route path="table" element={<TableStatus user={user} />} />
+          <Route path="*" element={<Page404 href={"/admin"} />} />
+        </Routes>
+        <Snackbar
+          open={snackBarLogin.open}
+          autoHideDuration={3000}
+          onClose={handleSnackbarClose}
+          anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+        >
+          <Alert
+            onClose={handleSnackbarClose}
+            severity={snackBarLogin.type}
+            variant="filled"
+          >
+            {snackBarLogin.message}
+          </Alert>
+        </Snackbar>
+      </div>
     );
+  }
+  if (user && user.role === "Kitchen") {
+    return (
+      <div className="flex absolute w-screen h-screen inset-0">
+        <Routes>
+          {" "}
+          <Route path="/" element={<Navigate to="kitchen" />} />
+          <Route path="kitchen" element={<OrderListPage />} />
+          <Route path="*" element={<Page404 href={"/admin"} />} />
+        </Routes>
+        <Snackbar
+          open={snackBarLogin.open}
+          autoHideDuration={3000}
+          onClose={handleSnackbarClose}
+          anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+        >
+          <Alert
+            onClose={handleSnackbarClose}
+            severity={snackBarLogin.type}
+            variant="filled"
+          >
+            {snackBarLogin.message}
+          </Alert>
+        </Snackbar>
+      </div>
+    );
+  }
   return (
     <div className="flex absolute w-screen h-screen inset-0">
       <NavBar />
@@ -74,6 +121,7 @@ const AdminRoutes = () => {
           <Route path="statistics" element={<Statistics />} />
           <Route path="/employee" element={<Employee />} />
           <Route path="/orderlistpage" element={<OrderListPage />} />
+          <Route path="table" element={<TableStatus user={user} />} />
           <Route path="/feedback" element={<Feedback />} />
           <Route path="*" element={<Page404 href={"/admin"} />} />
         </Routes>
