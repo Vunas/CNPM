@@ -132,166 +132,161 @@ Feel free to fork this repository, submit issues or pull requests. Contributions
 
 This project is licensed under the MIT License.
 
-📸 Screenshots
-Customer UI - Home
+## Screenshots
+
+### Customer UI - Home
+
 A sleek and intuitive home interface for customers to browse menu options and place orders seamlessly.
 
-<p align="center"><img style="margin: 5px; margin-bottom: 20px; margin-top: 20px" src="frontend/src/assets/projects/customer/img1.png" width="70%" /><img style="margin: 5px; margin-bottom: 20px; margin-top: 20px" src="frontend/src/assets/projects/customer/img2.png" width="70%" /><img style="margin: 5px; margin-bottom: 20px; margin-top: 20px" src="frontend/src/assets/projects/customer/img3.png" width="70%" /><img style="margin: 5px; margin-bottom: 20px; margin-top: 20px" src="frontend/src/assets/projects/customer/img4.png" width="70%" /></p>
+![Customer UI 1](frontend/src/assets/projects/customer/img1.png)
+![Customer UI 2](frontend/src/assets/projects/customer/img2.png)
+![Customer UI 3](frontend/src/assets/projects/customer/img3.png)
+![Customer UI 4](frontend/src/assets/projects/customer/img4.png)
 
-Order UI - Desktop
+### Order UI - Desktop
+
 An efficient desktop interface for placing and managing food orders with clarity.
 
-<p align="center"><img style="margin: 5px; margin-bottom: 20px; margin-top: 20px" src="frontend/src/assets/projects/customer/img5.png" width="70%" /><img style="margin: 5px; margin-bottom: 20px; margin-top: 20px" src="frontend/src/assets/projects/customer/img6.png" width="70%" /><img style="margin: 5px; margin-bottom: 20px; margin-top: 20px" src="frontend/src/assets/projects/customer/img7.png" width="70%" /></p>
+![Order UI 1](frontend/src/assets/projects/customer/img5.png)
+![Order UI 2](frontend/src/assets/projects/customer/img6.png)
+![Order UI 3](frontend/src/assets/projects/customer/img7.png)
 
-Responsive Phone UI
-Optimized for mobile use, ensuring smooth ordering experience on phones.
+### Responsive Phone UI
 
-<p align="center"><img style="margin: 5px; margin-bottom: 20px; margin-top: 20px" src="frontend/src/assets/projects/customer/img8.png" width="40%" /><img style="margin: 5px; margin-bottom: 20px; margin-top: 20px" src="frontend/src/assets/projects/customer/img9.png" width="40%" /></p>
+Optimized for mobile use, ensuring a smooth ordering experience on phones.
 
-QR Code
+![Phone UI 1](frontend/src/assets/projects/customer/img8.png)
+![Phone UI 2](frontend/src/assets/projects/customer/img9.png)
+
+### QR Code
+
 Quick ordering through QR codes placed on restaurant tables.
 
-<p align="center"><img style="margin: 5px; margin-bottom: 20px; margin-top: 20px" src="frontend/src/assets/projects/customer/img10.png" width="50%" /></p>
+![QR Code](frontend/src/assets/projects/customer/img10.png)
 
-💳 Payment System
+## Payment System
+
 Secure and flexible payment processing for customers.
 Supports multiple payment methods including cash, credit card, and digital wallets.
 
-<p align="center" style="display: flex; justify-content: center; gap: 10px;">
-  <img src="frontend/src/assets/projects/customer/img11.png" style="margin: 10px;" width="50%" />
-  <img src="frontend/src/assets/projects/customer/img12.png" style="margin: 10px;" width="50%" />
-</p>
+![Payment 1](frontend/src/assets/projects/customer/img11.png)
+![Payment 2](frontend/src/assets/projects/customer/img12.png)
+
 - Customers can pay using cash, credit card, or e-wallets (VNPay, Momo, PayPal).
 - Transaction details are processed securely to ensure accuracy and prevent fraud.
 - Real-time payment confirmation displays in the system dashboard.
 
-🧾 Invoice System
+## Invoice System
+
 Automated invoice generation for every completed order.
 Invoices ensure transparency and facilitate tracking for both customers and administrators.
 
-<p align="center" style="display: flex; justify-content: center; gap: 10px;">
-  <img src="frontend/src/assets/projects/customer/img13.png" style="margin: 10px;" width="50%" />
-  <img src="frontend/src/assets/projects/customer/img14.png" style="margin: 10px;" width="50%" />
-</p>
+![Invoice 1](frontend/src/assets/projects/customer/img13.png)
+![Invoice 2](frontend/src/assets/projects/customer/img14.png)
+![Invoice Overview](frontend/src/assets/projects/customer/img15.png)
 
-<p align="center">
-<img src="frontend/src/assets/projects/customer/img15.png" style="margin: 5px;" width="50%" />
-</p>
 - Customers receive detailed invoices including order breakdown, payment method, and total amount.
 - Admins can track invoices in the dashboard, ensuring proper financial management.
-- Invoices can be downloaded or printed, allowing for seamless record-keeping.
+- Invoices can be downloaded or printed for seamless record-keeping.
 
-Feedback System
+## Feedback System
+
 Customers can submit reviews and provide ratings for their dining experience.
 
-<p align="center"><img style="margin: 5px; margin-bottom: 20px; margin-top: 20px" src="frontend/src/assets/projects/customer/img16.png" width="60%" /></p>
+![Feedback UI](frontend/src/assets/projects/customer/img16.png)
 
-Admin Dashboard - POS System
-A powerful interface for restaurant owners and staff to manage orders, track revenue, and streamline operations.
-🔐 Login Admin
+## Admin Dashboard - POS System
 
-## 🌐 Admin Dashboard - POS System
+### Login Admin
 
-### 🔐 Login Admin
+![Admin Login](frontend/src/assets/projects/admin/login.png)
 
-<p align="center">
-  <img src="frontend/src/assets/projects/admin/login.png" style="margin: 10px;" width="50%" />
-</p>
+### User Account Management
 
-### 👤 User Account Management
-
-<p align="center" style="display: flex; justify-content: center; gap: 10px;">
-  <img src="frontend/src/assets/projects/admin/img1.png" style="margin: 10px;" width="50%" />
-  <img src="frontend/src/assets/projects/admin/img2.png" style="margin: 10px;" width="50%" />
-</p>
+![User Management 1](frontend/src/assets/projects/admin/img1.png)
+![User Management 2](frontend/src/assets/projects/admin/img2.png)
 
 - Manage user roles (Admin, Staff, Kitchen).
 - Register, log in, and update account information.
 
-### 🍽️ Product Management
+### Product Management
 
-<p align="center" style="display: flex; justify-content: center; gap: 10px;">
-  <img src="frontend/src/assets/projects/admin/img3.png" style="margin: 10px;" width="50%" />
-  <img src="frontend/src/assets/projects/admin/img4.png" style="margin: 10px;" width="50%" />
-</p>
+![Product Management 1](frontend/src/assets/projects/admin/img3.png)
+![Product Management 2](frontend/src/assets/projects/admin/img4.png)
 
 - Add, edit, and delete food items.
 - Categorize products into groups (Burgers, Pizza, Drinks, Rice, etc.).
 
-### 📂 Category Management
+### Category Management
 
-<p align="center" style="display: flex; justify-content: center; gap: 10px;">
-  <img src="frontend/src/assets/projects/admin/img5.png" style="margin: 10px;" width="50%" />
-  <img src="frontend/src/assets/projects/admin/img6.png" style="margin: 10px;" width="50%" />
-</p>
+![Category Management 1](frontend/src/assets/projects/admin/img5.png)
+![Category Management 2](frontend/src/assets/projects/admin/img6.png)
 
 - Create and update food categories.
 - Manage category images and visibility.
 
-### 🏢 Restaurant Management
+### Restaurant Management
 
-<p align="center" style="display: flex; justify-content: center; gap: 10px;">
-  <img src="frontend/src/assets/projects/admin/img7.png" style="margin: 10px;" width="50%" />
-  <img src="frontend/src/assets/projects/admin/img8.png" style="margin: 10px;" width="50%" />
-</p>
+![Restaurant Management 1](frontend/src/assets/projects/admin/img7.png)
+![Restaurant Management 2](frontend/src/assets/projects/admin/img8.png)
 
 - Store restaurant details such as name, address, and contact information.
 - Manage dining areas and seating arrangements.
 
-### 📌 Table Management
+### Table Management
 
-<p align="center" style="display: flex; justify-content: center; gap: 10px;">
-  <img src="frontend/src/assets/projects/admin/img9.png" style="margin: 10px;" width="50%" />
-  <img src="frontend/src/assets/projects/admin/img10.png" style="margin: 10px;" width="50%" />
-</p>
+![Table Management 1](frontend/src/assets/projects/admin/img9.png)
+![Table Management 2](frontend/src/assets/projects/admin/img10.png)
 
 - Track restaurant tables, table numbers, and QR codes for ordering.
 - View table availability (Occupied, Available).
 
-### 🛒 Order Management
+### Order Management
 
-<p align="center" style="display: flex; justify-content: center; gap: 10px;">
-  <img src="frontend/src/assets/projects/admin/img11.png" style="margin: 10px;" width="50%" />
-  <img src="frontend/src/assets/projects/admin/img12.png" style="margin: 10px;" width="50%" />
-</p>
+![Order Management 1](frontend/src/assets/projects/admin/img11.png)
+![Order Management 2](frontend/src/assets/projects/admin/img12.png)
 
 - Process orders and monitor their status (Pending, Confirmed, Processing, Finished, Cancelled).
 - Manage payment methods (Cash, Credit Card, E-wallet).
 
-### 📝 Customer Feedback System
+### Customer Feedback System
 
-<p align="center">
-  <img src="frontend/src/assets/projects/admin/img13.png" style="margin: 10px;" width="50%" />
-</p>
+![Customer Feedback](frontend/src/assets/projects/admin/img13.png)
 
 - Customers can submit reviews and ratings after completing orders.
 - Display customer satisfaction metrics to improve service quality.
 
-### 📊 Revenue & Statistics Dashboard
+### Revenue & Statistics Dashboard
 
-<p align="center" style="display: flex; justify-content: center; gap: 10px;">
-  <img src="frontend/src/assets/projects/admin/img14.png" style="margin: 10px;" width="50%" />
-  <img src="frontend/src/assets/projects/admin/img15.png" style="margin: 10px;" width="50%" />
-</p>
+![Revenue Dashboard 1](frontend/src/assets/projects/admin/img14.png)
+![Revenue Dashboard 2](frontend/src/assets/projects/admin/img15.png)
 
 - Generate sales reports with revenue trends.
 - Identify best-selling products and order patterns (Daily/Weekly/Monthly).
 
-🔹 Navbar Features
-1️⃣ Profile Picture Change 🖼️
+## Navbar Features
 
-<p align="center" style="display: flex; justify-content: center; gap: 10px;">
-  <img src="frontend/src/assets/projects/admin/img16.png" style="margin: 10px;" width="50%" />
-  <img src="frontend/src/assets/projects/admin/img18.png" style="margin: 10px;" width="50%" />
-</p>
-Allows users to update their profile picture directly from the Navbar.
+### Profile Picture Change
+
+![Profile Change 1](frontend/src/assets/projects/admin/img16.png)
+![Profile Change 2](frontend/src/assets/projects/admin/img18.png)
+
+- Allows users to update their profile picture directly from the Navbar.
 - How it works:
-- Click on the Profile Picture Icon in the Navbar.
-- Select Upload Image to replace the current picture.
-- The new profile picture is updated and displayed immediately.
-2️⃣ Logout Functionality 🔐
-<p align="center"><img style="margin: 5px; margin-bottom: 20px; margin-top: 20px" src="frontend/src/assets/projects/admin/img17.png" width="50%" /></p>
-Provides a secure way to log out of the system.
+  - Click on the Profile Picture Icon in the Navbar.
+  - Select Upload Image to replace the current picture.
+  - The new profile picture is updated and displayed immediately.
+
+### Logout Functionality
+
+![Logout UI](frontend/src/assets/projects/admin/img17.png)
+
+- Provides a secure way to log out of the system.
+
+## Employee Management
+
+![Employee Management 1](frontend/src/assets/projects/admin/img19.png)
+![Employee Management 2](frontend/src/assets/projects/admin/img20.png)
 
 🙌 Thank You & Final Thoughts
 Thank you all for your time and interest in this project. We sincerely appreciate your support and engagement.
