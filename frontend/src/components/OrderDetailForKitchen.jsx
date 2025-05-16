@@ -94,7 +94,7 @@ export default function OrderDetailPage({ order, onStatusChange }) {
         <Button
           variant="contained"
           color="success"
-          onClick={() => handleUpdateStatus("Finished")}
+          onClick={() => handleUpdateStatus("Prepared")}
         >
           Xác Nhận
         </Button>

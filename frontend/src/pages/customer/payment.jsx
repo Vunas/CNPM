@@ -64,9 +64,14 @@ function Payment({ setSnackbar }) {
     };
 
     try {
-      const response = await orderApi.createOrder(orderData, orderDetails);
+      const response = await orderApi.createOrder(
+        JSON.parse(localStorage.getItem("currentOrder")) || "",
+        orderData,
+        orderDetails
+      );
       if (response) {
         console.log(response);
+        localStorage.setItem("currentOrder", JSON.stringify(response));
         setSnackbar({
           open: true,
           message: "Order created successfully!",
@@ -80,7 +85,7 @@ function Payment({ setSnackbar }) {
         throw new Error(response?.error || "Unknown error");
       }
     } catch (error) {
-      console.log(error)
+      console.log(error);
       setErrorMessage(error.message || "Unexpected error. Try again.");
       setSnackbar({
         open: true,

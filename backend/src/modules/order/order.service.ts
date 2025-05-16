@@ -30,68 +30,44 @@ export class OrderService {
   ) {}
 
   async create(createOrderDto: CreateOrderDto): Promise<Order> {
-    const order = this.orderRepository.create(createOrderDto);
-    return await this.orderRepository.save(order);
+    return await this.orderRepository.save(
+      this.orderRepository.create(createOrderDto),
+    );
+  }
+
+  async getLatestOrderByTable(tableId: string): Promise<Order | null> {
+    return await this.orderRepository.findOne({
+      where: { tableId },
+      order: { orderDate: 'DESC' },
+    });
   }
 
   async createOrderWithDetails(
+    currentOrder: Order | null,
     createOrderDto: CreateOrderDto,
     createOrderDetailDtos: CreateOrderDetailDto[],
   ): Promise<Order> {
-    const restaurant = await this.restaurantRepository.findOneBy({
-      restaurantId: createOrderDto.restaurantId,
-    });
-    if (!restaurant) {
-      throw new NotFoundException(
-        `Restaurant with ID ${createOrderDto.restaurantId} not found`,
-      );
-    }
+    const restaurant = await this.findRestaurant(createOrderDto.restaurantId);
+    const restaurantTable = await this.findRestaurantTable(
+      createOrderDto?.tableId || '',
+    );
 
-    const restaurantTable = await this.restaurantTableRepository.findOneBy({
-      tableId: createOrderDto.tableId,
-    });
-    if (!restaurantTable) {
-      throw new NotFoundException(
-        `RestaurantTable with ID ${createOrderDto.tableId} not found`,
-      );
-    }
-
-    if (restaurantTable.status == 2 || restaurantTable.status == 4) {
-      throw new BadRequestException(
-        `RestaurantTable with ID ${createOrderDto.tableId} is locked, please contact staff to activate.`,
-      );
-    }
-
-    const order = this.orderRepository.create({
-      ...createOrderDto,
-      restaurant,
+    await this.validateTableStatus(
       restaurantTable,
-    });
+      createOrderDto?.tableId || '',
+      currentOrder,
+    );
 
-    const savedOrder = await this.orderRepository.save(order);
+    const order = await this.orderRepository.save(
+      this.orderRepository.create({
+        ...createOrderDto,
+        restaurant,
+        restaurantTable,
+      }),
+    );
 
-    const orderDetails: OrderDetail[] = [];
-    for (const dto of createOrderDetailDtos) {
-      const product = await this.productRepository.findOneBy({
-        productId: dto.productId,
-      });
-      if (!product) {
-        throw new NotFoundException(
-          `Product with ID ${dto.productId} not found`,
-        );
-      }
-
-      const orderDetail = this.orderDetailRepository.create({
-        ...dto,
-        order: savedOrder,
-        product,
-      });
-      orderDetails.push(orderDetail);
-    }
-
-    await this.orderDetailRepository.save(orderDetails);
-
-    return savedOrder;
+    await this.createOrderDetails(order, createOrderDetailDtos);
+    return order;
   }
 
   async findAll(): Promise<Order[]> {
@@ -102,32 +78,97 @@ export class OrderService {
   }
 
   async findOne(id: string): Promise<Order> {
+    return this.findOrder(id);
+  }
+
+  async update(id: string, updateOrderDto: UpdateOrderDto): Promise<Order> {
+    await this.findOrder(id);
+    await this.orderRepository.update(id, updateOrderDto);
+    return await this.findOrder(id);
+  }
+
+  async softDelete(id: string): Promise<void> {
+    await this.findOrder(id);
+    await this.orderRepository.update(id, { status: 0 });
+  }
+
+  private async findRestaurant(restaurantId: string): Promise<Restaurant> {
+    const restaurant = await this.restaurantRepository.findOneBy({
+      restaurantId,
+    });
+    if (!restaurant)
+      throw new NotFoundException(
+        `Restaurant with ID ${restaurantId} not found`,
+      );
+    return restaurant;
+  }
+
+  private async findRestaurantTable(tableId: string): Promise<RestaurantTable> {
+    const table = await this.restaurantTableRepository.findOneBy({ tableId });
+    if (!table)
+      throw new NotFoundException(
+        `RestaurantTable with ID ${tableId} not found`,
+      );
+    return table;
+  }
+
+  private async validateTableStatus(
+    table: RestaurantTable,
+    tableId: string,
+    currentOrder: Order | null,
+  ): Promise<void> {
+    if ([2, 4].includes(table.status)) {
+      throw new BadRequestException(
+        `Table ID ${tableId} is locked, please contact staff.`,
+      );
+    }
+    if (table.status == 3) await this.validateOrder(currentOrder, tableId);
+  }
+
+  private async validateOrder(
+    currentOrder: Order | null,
+    tableId: string,
+  ): Promise<void> {
+    if (!currentOrder) {
+      throw new BadRequestException(
+        `Table ID ${tableId} is currently in use, please contact staff.`,
+      );
+    }
+    if (
+      currentOrder.orderId !==
+      (await this.getLatestOrderByTable(tableId))?.orderId
+    ) {
+      throw new BadRequestException(
+        `Table ID ${tableId} is currently in use, please contact staff.`,
+      );
+    }
+  }
+
+  private async createOrderDetails(
+    order: Order,
+    detailsDtos: CreateOrderDetailDto[],
+  ): Promise<void> {
+    const orderDetails = await Promise.all(
+      detailsDtos.map(async (dto) => {
+        const product = await this.productRepository.findOneBy({
+          productId: dto.productId,
+        });
+        if (!product)
+          throw new NotFoundException(
+            `Product with ID ${dto.productId} not found`,
+          );
+        return this.orderDetailRepository.create({ ...dto, order, product });
+      }),
+    );
+    await this.orderDetailRepository.save(orderDetails);
+  }
+
+  private async findOrder(id: string): Promise<Order> {
     const order = await this.orderRepository.findOne({
       where: { orderId: id },
       relations: ['restaurantTable', 'restaurant', 'account'],
     });
-    if (!order) {
-      throw new NotFoundException(`Order with ID ${id} not found`);
-    }
+    if (!order) throw new NotFoundException(`Order with ID ${id} not found`);
     return order;
-  }
-
-  async update(id: string, updateOrderDto: UpdateOrderDto): Promise<Order> {
-    const existingOrder = await this.orderRepository.findOneBy({ orderId: id });
-    if (!existingOrder) {
-      throw new NotFoundException(`Order with ID ${id} not found`);
-    }
-
-    await this.orderRepository.update(id, updateOrderDto);
-    return await this.findOne(id);
-  }
-
-  async softDelete(id: string): Promise<void> {
-    const existingOrder = await this.orderRepository.findOneBy({ orderId: id });
-    if (!existingOrder) {
-      throw new NotFoundException(`Order with ID ${id} not found`);
-    }
-
-    await this.orderRepository.update(id, { status: 0 });
   }
 }

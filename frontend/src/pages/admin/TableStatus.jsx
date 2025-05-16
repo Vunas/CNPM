@@ -24,6 +24,7 @@ import {
   CheckCircleOutline,
   CancelOutlined,
   DoneAll,
+  Restaurant,
 } from "@mui/icons-material";
 import {
   Dialog,
@@ -42,7 +43,7 @@ const getOrderStatusColor = (status) => {
   switch (status) {
     case "Pending":
       return "text-yellow-500";
-    case "Processing":
+    case "Confirmed":
       return "text-blue-500";
     case "Delivering":
       return "text-purple-500";
@@ -60,7 +61,7 @@ const getOrderStatusIcon = (status) => {
   switch (status) {
     case "Pending":
       return <HourglassBottom className="mr-1 text-yellow-500" />;
-    case "Processing":
+    case "Confirmed":
       return <Schedule className="mr-1 text-blue-500" />;
     case "Delivering":
       return <TakeoutDining className="mr-1 text-purple-500" />;
@@ -76,9 +77,9 @@ const getOrderStatusIcon = (status) => {
 // Hàm để lấy màu sắc dựa trên orderType
 const getOrderTypeColor = (type) => {
   switch (type) {
-    case "DineIn":
+    case "Dine-in":
       return "text-teal-500";
-    case "TakeAway":
+    case "Takeaway":
       return "text-orange-500";
     default:
       return "text-gray-600";
@@ -157,7 +158,7 @@ const Table = ({ table, status, onTableClick }) => {
       <img
         src={getStatusImage(status)}
         alt={`Table ${table.tableNumber}`}
-        className="w-[60px] h-[60px]"
+        className="w-24"
       />
       <span className="font-bold text-lg">Table {table.tableNumber}</span>
     </div>
@@ -216,7 +217,7 @@ const OrderItem = ({ order, onOrderClick }) => (
   </Paper>
 );
 
-const OrderDetailDialog = ({ open, onClose, order, onConfirm, onCancel }) => {
+const OrderDetailDialog = ({ open, onClose, order, onUpdate }) => {
   if (!order) return null;
 
   return (
@@ -248,18 +249,33 @@ const OrderDetailDialog = ({ open, onClose, order, onConfirm, onCancel }) => {
               Current Status: {order.orderStatus}
             </Typography>
           </Box>
+          {order.orderStatus == "Confirmed" && (
+            <Box className="flex items-center gap-2">
+              <Restaurant />
+              <Typography variant="h6" fontWeight="bold">
+                Awaiting Cooking
+              </Typography>
+            </Box>
+          )}
         </DialogContentText>
       </DialogContent>
       <DialogActions>
         <Button onClick={onClose} color="error">
           Cancel
         </Button>
-        <Button onClick={onCancel} color="error">
+        <Button onClick={() => onUpdate("Cancelled")} color="error">
           Cancel Order
         </Button>
-        <Button onClick={onConfirm} color="success">
-          Confirm
-        </Button>
+        {order.orderStatus == "Pending" && (
+          <Button onClick={() => onUpdate("Confirmed")} color="success">
+            Confirm
+          </Button>
+        )}
+        {order.orderStatus == "Prepared" && (
+          <Button onClick={() => onUpdate("Finished")} color="success">
+            Finished
+          </Button>
+        )}
       </DialogActions>
     </Dialog>
   );
@@ -479,7 +495,7 @@ const RestaurantFilter = ({ restaurants, onRestaurantSelect }) => {
   );
 };
 
-const TableStatus = ({user}) => {
+const TableStatus = ({ user }) => {
   const [tables, setTables] = useState([]);
   const [restaurants, setRestaurants] = useState([]);
   const [selectedRestaurantId, setSelectedRestaurantId] = useState(null);
@@ -625,39 +641,28 @@ const TableStatus = ({user}) => {
     setSelectedOrderForDialog(null);
   };
 
-  const handleConfirmOrder = async () => {
-    if (!confirm("This change cannot be undone. Do you wish to continue?"))
+  const handleUpdateOrderStatus = async (status) => {
+    if (
+      !confirm(
+        `This change cannot be undone. Do you wish to set status to "${status}"?`
+      )
+    )
       return;
+
     if (selectedOrderForDialog) {
       try {
         await orderApi.updateOrder(selectedOrderForDialog.orderId, {
-          orderStatus: "Processing",
+          orderStatus: status,
         });
-        alert(`Order #${selectedOrderForDialog.orderId} has been confirmed!`);
+
+        alert(
+          `Order #${selectedOrderForDialog.orderId} status has been updated to "${status}"!`
+        );
         loadOrders();
         handleCloseDialog();
       } catch (error) {
-        console.error("Error confirming order:", error);
-        alert("Error confirming order!");
-      }
-    }
-  };
-
-  const handleCancelOrder = async () => {
-    if (!confirm("This change cannot be undone. Do you wish to continue?"))
-      return;
-    if (selectedOrderForDialog) {
-      try {
-        await orderApi.updateOrder(selectedOrderForDialog.orderId, {
-          orderStatus: "Cancelled",
-        });
-
-        alert(`Order #${selectedOrderForDialog.orderId} has been cancelled!`);
-        loadOrders();
-        handleCloseDialog();
-      } catch (error) {
-        console.error("Error cancelling order:", error);
-        alert("Error cancelling order!");
+        console.error(`Error updating order status to ${status}:`, error);
+        alert(`Error updating order status to ${status}!`);
       }
     }
   };
@@ -671,21 +676,23 @@ const TableStatus = ({user}) => {
     <div className="min-h-screen w-screen bg-gradient-to-br from-gray-100 to-gray-300 flex items-center justify-center flex-wrap p-4">
       <div className="flex justify-between w-screen p-2 items-center bg-white rounded shadow mb-2 top">
         <div>
-            <>
-              <span className="font-semibold text-gray-800">
-                👤 Hello, {user?.username || ""}
-              </span>
-              <span className="ml-2 text-sm text-gray-500">({user?.role})</span>
-            </>
+          <>
+            <span className="font-semibold text-gray-800">
+              👤 Hello, {user?.username || ""}
+            </span>
+            <span className="ml-2 text-sm text-gray-500">({user?.role})</span>
+          </>
         </div>
         <button
-          onClick={() => {logout()}}
+          onClick={() => {
+            logout();
+          }}
           className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded"
         >
           Logout
         </button>
       </div>
-      <div className="h-screen w-full mx-auto flex flex-col md:flex-row gap-6">
+      <div className="h-full w-full mx-auto flex flex-col md:flex-row gap-6">
         {" "}
         <div
           className=" flex-1 bg-white/95 backdrop-blur-md rounded-2xl p-6 shadow-lg overflow-scroll"
@@ -725,8 +732,7 @@ const TableStatus = ({user}) => {
           open={isDialogOpen}
           onClose={handleCloseDialog}
           order={selectedOrderForDialog}
-          onConfirm={handleConfirmOrder}
-          onCancel={handleCancelOrder}
+          onUpdate={handleUpdateOrderStatus}
         />
       </div>
     </div>

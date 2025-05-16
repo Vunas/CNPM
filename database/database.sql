@@ -29,8 +29,10 @@ CREATE TABLE Account (
 
 INSERT INTO Account (AccountID, Username, PasswordHash, Role, Email, Phone, RestaurantID, Status)
 VALUES
-('a-001', 'admin', '$2b$10$WQgAeG47rWv7Bidzkq1L/ujVLXh41lDbAPG4ZxcirgzYH9yRMzdcC', 'Admin', 'admin@burger.com', '0901122334', 'r-001', 1),
-('a-002', 'staff_pizza', 'staff_pass_hash', 'Employee', 'staff@pizza.com', NULL, 'r-002', 1);
+('a-001', 'admin', '$2b$10$WQgAeG47rWv7Bidzkq1L/ujVLXh41lDbAPG4ZxcirgzYH9yRMzdcC', 'Admin', 'vuh265@gmail.com', '0901122334', 'r-001', 1),
+('a-002', 'emp', '$2b$10$WQgAeG47rWv7Bidzkq1L/ujVLXh41lDbAPG4ZxcirgzYH9yRMzdcC', 'Employee', 'employee@burger.com', '0123456789', 'r-001', 1),
+('a-003', 'kit', '$2b$10$WQgAeG47rWv7Bidzkq1L/ujVLXh41lDbAPG4ZxcirgzYH9yRMzdcC', 'Kitchen', 'kitchen@burger.com', '0987654321', 'r-001', 1),
+('a-004', 'staff_pizza', 'staff_pass_hash', 'Employee', 'staff@pizza.com', NULL, 'r-002', 1);
 
 -- 3. Bảng Category: Danh mục món ăn
 CREATE TABLE Category (
@@ -119,7 +121,7 @@ CREATE TABLE `Order` (
     OrderID CHAR(36) DEFAULT UUID() PRIMARY KEY,
     OrderDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     TotalPrice DECIMAL(10,2) NOT NULL,
-    OrderStatus ENUM('Pending', 'Prepared', 'Finished','Processing', 'Cancelled') DEFAULT 'Pending',
+    OrderStatus ENUM('Pending','Confirmed', 'Prepared', 'Finished', 'Cancelled') DEFAULT 'Pending',
     OrderType ENUM('Dine-in', 'Takeaway', 'Delivery') DEFAULT 'Takeaway',
     PaymentMethod ENUM('Cash', 'Credit Card', 'E-wallet') NULL,
     TableID CHAR(36),
@@ -201,5 +203,5 @@ INSERT INTO Feedback (OrderID, CustomerName, Email, Message, Rating)
 VALUES 
 ( 'o-001', 'John Doe', 'johndoe@example.com', 'I am extremely satisfied with my purchase! The product quality is excellent, and the customer service was outstanding. I will definitely recommend this to my friends and family.', 5),
 
-( 'o-0022', 'Sarah Smith', 'sarahsmith@example.com', 'The product is decent, but the delivery took longer than expected. Overall, it is okay, but there is room for improvement.', 3);
+( 'o-002', 'Sarah Smith', 'sarahsmith@example.com', 'The product is decent, but the delivery took longer than expected. Overall, it is okay, but there is room for improvement.', 3);
 

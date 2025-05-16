@@ -82,7 +82,7 @@ export default function OrderListPage() {
         {loading && <p>Đang tải đơn hàng...</p>}
         {error && <p className="text-red-500">{error}</p>}
         {ordersData
-          .filter((order) => order.orderStatus === "Processing")
+          .filter((order) => order.orderStatus === "Confirmed")
           .map((order) => (
             <Paper
               key={order.orderId}

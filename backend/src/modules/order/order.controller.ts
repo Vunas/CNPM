@@ -12,6 +12,7 @@ import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
 import { CreateOrderDetailDto } from '../orderdetail/dto/create-orderDetail.dto';
 import { Logger } from '@nestjs/common';
+import { Order } from './order.entity';
 
 @Controller('order')
 export class OrderController {
@@ -23,9 +24,11 @@ export class OrderController {
   async createOrderWithDetails(
     @Body()
     {
+      currentOrder,
       order,
       orderDetails,
     }: {
+      currentOrder: Order;
       order: CreateOrderDto;
       orderDetails: CreateOrderDetailDto[];
     },
@@ -35,7 +38,11 @@ export class OrderController {
       'createOrderDetailDtos received:',
       JSON.stringify(orderDetails),
     );
-    return this.orderService.createOrderWithDetails(order, orderDetails);
+    return this.orderService.createOrderWithDetails(
+      currentOrder,
+      order,
+      orderDetails,
+    );
   }
 
   // Get all orders

@@ -22,10 +22,10 @@ export class Order {
 
   @Column({
     type: 'enum',
-    enum: ['Pending', 'Confirmed', 'Processing', 'Finished', 'Cancelled'],
+    enum: ['Pending', 'Confirmed', 'Prepared', 'Finished', 'Cancelled'],
     default: 'Pending',
   })
-  orderStatus: 'Pending' | 'Confirmed' | 'Finished' | 'Cancelled';
+  orderStatus: 'Pending' | 'Confirmed' | 'Prepared' | 'Finished' | 'Cancelled';
 
   @Column({
     type: 'enum',
