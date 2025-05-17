@@ -1,0 +1,30 @@
+import { Repository } from 'typeorm';
+import { Order } from './order.entity';
+import { CreateOrderDto } from './dto/create-order.dto';
+import { UpdateOrderDto } from './dto/update-order.dto';
+import { OrderDetail } from '../orderdetail/orderDetail.entity';
+import { CreateOrderDetailDto } from '../orderdetail/dto/create-orderDetail.dto';
+import { Restaurant } from '../restaurant/restaurant.entity';
+import { RestaurantTable } from '../restauranttable/restaurantTable.entity';
+import { Product } from '../product/product.entity';
+export declare class OrderService {
+    private readonly orderRepository;
+    private readonly orderDetailRepository;
+    private readonly restaurantRepository;
+    private readonly restaurantTableRepository;
+    private readonly productRepository;
+    constructor(orderRepository: Repository<Order>, orderDetailRepository: Repository<OrderDetail>, restaurantRepository: Repository<Restaurant>, restaurantTableRepository: Repository<RestaurantTable>, productRepository: Repository<Product>);
+    create(createOrderDto: CreateOrderDto): Promise<Order>;
+    getLatestOrderByTable(tableId: string): Promise<Order | null>;
+    createOrderWithDetails(currentOrder: Order | null, createOrderDto: CreateOrderDto, createOrderDetailDtos: CreateOrderDetailDto[]): Promise<Order>;
+    findAll(): Promise<Order[]>;
+    findOne(id: string): Promise<Order>;
+    update(id: string, updateOrderDto: UpdateOrderDto): Promise<Order>;
+    softDelete(id: string): Promise<void>;
+    private findRestaurant;
+    private findRestaurantTable;
+    private validateTableStatus;
+    private validateOrder;
+    private createOrderDetails;
+    private findOrder;
+}
