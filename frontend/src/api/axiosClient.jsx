@@ -2,7 +2,7 @@ import axios from "axios";
 import queryString from "query-string";
 
 const axiosClient = axios.create({
-  baseURL: "http://localhost:3000/api",
+  baseURL: "https://cnpm-production-6b4c.up.railway.app/api",
   headers: {
     "content-type": "application/json",
   },
