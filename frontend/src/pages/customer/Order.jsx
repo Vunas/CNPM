@@ -4,7 +4,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import productApi from "../../api/productapi";
+import productApi from "../../api/productApi";
 import categoryApi from "../../api/categoryApi";
 import Loading from "../../utils/Loading/Loading";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
