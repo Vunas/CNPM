@@ -4,7 +4,7 @@ import CreditCardForm from "../../components/payment/CreditCardForm";
 import VNPayInfo from "../../components/payment/VNPayInfor";
 import CashOnDeliveryInfo from "../../components/payment/CashOnDeliveryInfo";
 import { Block } from "@mui/icons-material";
-import orderApi from "../../api/orderApI";
+import orderApi from "../../api/orderApi";
 
 function Payment({ setSnackbar }) {
   const navigate = useNavigate();
