@@ -117,7 +117,7 @@ function QRCodePage() {
             <Grid container spacing={3}>
               {filteredTables.map((table) => {
                 const canvasId = `qr-${restaurant.restaurantId}-${table.tableId}`;
-                const orderUrl = `http://localhost:5173/order?restaurantid=${restaurant.restaurantId}&restauranttableid=${table.tableId}`;
+                const orderUrl = `${window.location.origin}/order?restaurantid=${restaurant.restaurantId}&restauranttableid=${table.tableId}`;
                 const fileName = `${restaurant.name}-Table-${table.tableNumber}.png`;
 
                 return (

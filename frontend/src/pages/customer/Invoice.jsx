@@ -76,7 +76,7 @@ export default function Invoice() {
   };
 
   const feedbackUrl = `${window.location.origin}/feedback?orderid=${orderData.orderId}&tableid=${orderData.tableId}`;
-  const orderUrl = `http://localhost:5173/order?restaurantid=${orderData.restaurant?.restaurantId}&restauranttableid=${orderData.restaurantTable?.tableId}`;
+  const orderUrl = `${window.location.origin}/order?restaurantid=${orderData.restaurant?.restaurantId}&restauranttableid=${orderData.restaurantTable?.tableId}`;
 
   // Helper for currency formatting
   const formatCurrency = (amount) => {

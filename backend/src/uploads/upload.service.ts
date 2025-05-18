@@ -31,7 +31,7 @@ export class UploadService {
     const filePath = path.join(this.uploadDir, fileName);
     fs.writeFileSync(filePath, file.buffer);
 
-    return `http://localhost:3000/api/upload/${fileName}`;
+    return `${process.env.BASE_URL}/api/uploads/${fileName}`;
   }
 
   getFile(fileName: string): Buffer {

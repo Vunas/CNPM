@@ -46,7 +46,7 @@ const Navbar = () => {
     if (savedAvatar) {
       setAvatar(savedAvatar);
     } else {
-      setAvatar("http://localhost:5173/src/assets/svg/avatar.svg");
+      setAvatar("../../../src/assets/svg/avatar.svg");
     }
   }, []);
 

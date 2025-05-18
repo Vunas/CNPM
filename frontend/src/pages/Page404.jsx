@@ -22,7 +22,7 @@ const Page404 = ({ href }) => {
           The page you're looking for can't be found.
         </p>
         <a
-          href={href || "http://localhost:5173"}
+          href={href || "http://st:5173"}
           className="mt-6 inline-block px-6 py-3 bg-pink-100 text-pink-800 rounded-lg hover:bg-pink-200 transition-transform transform hover:scale-105 shadow-lg"
         >
           Go Home

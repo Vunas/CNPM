@@ -5,7 +5,10 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   app.enableCors({
-    origin: ['http://localhost:5173', 'https://cnpm-mu.vercel.app'],
+    origin: [
+      'http://localhost:5173',
+      'https://cnpm-git-main-hoang-vus-projects-0d9b3a2d.vercel.app',
+    ],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
   });
