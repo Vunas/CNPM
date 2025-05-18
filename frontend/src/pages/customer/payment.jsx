@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import orderApi from "../../api/orderApi";
 import CreditCardForm from "../../components/payment/CreditCardForm";
 import VNPayInfo from "../../components/payment/VNPayInfor";
 import CashOnDeliveryInfo from "../../components/payment/CashOnDeliveryInfo";
 import { Block } from "@mui/icons-material";
+import orderApi from "../../api/orderApi";
 
 function Payment({ setSnackbar }) {
   const navigate = useNavigate();
