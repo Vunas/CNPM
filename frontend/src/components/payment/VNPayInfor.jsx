@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import vnpayLogo from "../../assets/VNPAY.png";
-import orderApi from "../../api/orderApi";
+import orderApi from "../../api/orderApI";
 
 
 function VNPayInfo({ cart, returnUrl, resId, tableId, setSnackbar }) {

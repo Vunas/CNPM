@@ -43,13 +43,13 @@ CREATE TABLE Category (
 );
 
 INSERT INTO `Category` (`CategoryID`, `Name`, `ImageURL`, `Status`) VALUES
-('c-001', 'Burger', 'http://localhost:3000/api/upload/BurgerBoNuong.jpg', 1),
-('c-002', 'Pizza', 'http://localhost:3000/api/upload/PizzaHaiSan.png', 1),
-('c-003', 'Coca', 'http://localhost:3000/api/upload/Coca.jpg', 1),
-('c-004', 'Juice', 'http://localhost:3000/api/upload/NuocChanh.jpg', 1),
-('c-005', 'Fried', 'http://localhost:3000/api/upload/KhoaiChien.jpg', 1),
-('c-006', 'Rice', 'http://localhost:3000/api/upload/ComChienDuongChau.jpg', 1),
-('c-007', 'Noodles', 'http://localhost:3000/api/upload/BlackBeanNoodles.jpg', 1);
+('c-001', 'Burger', 'https://cnpm-production-6b4c.up.railway.app/api/upload/BurgerBoNuong.jpg', 1),
+('c-002', 'Pizza', 'https://cnpm-production-6b4c.up.railway.app/api/upload/PizzaHaiSan.png', 1),
+('c-003', 'Coca', 'https://cnpm-production-6b4c.up.railway.app/api/upload/Coca.jpg', 1),
+('c-004', 'Juice', 'https://cnpm-production-6b4c.up.railway.app/api/upload/NuocChanh.jpg', 1),
+('c-005', 'Fried', 'https://cnpm-production-6b4c.up.railway.app/api/upload/KhoaiChien.jpg', 1),
+('c-006', 'Rice', 'https://cnpm-production-6b4c.up.railway.app/api/upload/ComChienDuongChau.jpg', 1),
+('c-007', 'Noodles', 'https://cnpm-production-6b4c.up.railway.app/api/upload/BlackBeanNoodles.jpg', 1);
 
 -- 4. Bảng Product: Món ăn
 CREATE TABLE Product (
@@ -65,20 +65,20 @@ CREATE TABLE Product (
 );
 
 INSERT INTO Product (`ProductID`, `Name`, `Description`, `Price`, `CategoryID`, `ImageURL`, `Status`) VALUES
-('p-001', 'Grilled Beef Burger', 'Savor our juicy grilled beef patty, seasoned to perfection and flame-grilled for a smoky flavor. Served on a freshly toasted bun with crisp lettuce, ripe tomatoes, onions, pickles, and our special house sauce. A hearty and satisfying choice for true burger lovers.', 75.00, 'c-001', 'http://localhost:3000/api/upload/BurgerBoNuong.jpg',  1),
-('p-002', 'Seafood Pizza', 'A delightful mixed seafood pizza topped with shrimp, squid, and melted cheese — perfect for seafood lovers.', 100.00, 'c-002', 'http://localhost:3000/api/upload/PizzaHaiSan.png', 1),
-('p-003', 'Pepsi', 'Refreshing carbonated soft drink to quench your thirst and complement any meal.', 15.00, 'c-003', 'http://localhost:3000/api/upload/Pepsi.jpg',  1),
-('p-004', 'Crispy Fried Chicken', 'Golden-brown, crispy battered chicken, juicy on the inside and perfectly seasoned.', 87.00, 'c-005', 'http://localhost:3000/api/upload/GaRanGion.jpg',  1),
-('p-005', 'Spaghetti Bolognese', 'Classic Italian pasta served with rich, savory minced beef sauce and herbs.', 68.00, 'c-007', 'http://localhost:3000/api/upload/MiY.jpg', 1),
-('p-006', 'Coca-Cola', 'Iconic fizzy cola drink with a bold, refreshing taste.', 15.00, 'c-003', 'http://localhost:3000/api/upload/Coca.jpg', 1),
-('p-007', 'Crispy Chicken Burger', 'Crispy fried chicken filet served in a soft burger bun with lettuce, pickles, and tangy mayo sauce.', 65.00, 'c-001', 'http://localhost:3000/api/upload/BurgerGa.jpg',  1),
-('p-008', 'Beef & Mushroom Pizza', 'Savory beef and fresh mushrooms layered over mozzarella and rich tomato sauce on a crispy crust.', 110.00, 'c-002', 'http://localhost:3000/api/upload/PizzaBoNam.jpg',  1),
-('p-009', 'Sprite', 'Light and lemon-lime flavored soft drink — a perfect choice for a refreshing break.', 10.00, 'c-003', 'http://localhost:3000/api/upload/Sprite.jpg', 1),
-('p-010', 'French Fries', 'Crispy golden fries, fried to perfection — ideal as a side or snack.', 45.00, 'c-005', 'http://localhost:3000/api/upload/KhoaiChien.jpg',  1),
-('p-011', 'Orange Juice', 'Freshly squeezed orange juice, naturally sweet and full of vitamin C.', 16.00, 'c-004', 'http://localhost:3000/api/upload/NuocCam.jpg',  1),
-('p-012', 'Lemonade', 'Cool and zesty lemonade made from fresh lemons — light, tangy, and refreshing.', 10.00, 'c-004', 'http://localhost:3000/api/upload/NuocChanh.jpg',  1),
-('p-013', 'Yangzhou Fried Rice', 'Classic Chinese-style fried rice with a colorful mix of vegetables, egg, and meat — satisfying and flavorful.', 62.00, 'c-006', 'http://localhost:3000/api/upload/ComChienDuongChau.jpg',  1),
-('p-014', 'Black Bean Noodles', 'Black Bean Noodles, also known as Jajangmyeon, are a Korean dish made with thick, savory black bean sauce and diced pork or vegetables.', 72.00, 'c-007', 'http://localhost:3000/api/upload/BlackBeanNoodles.jpg',  1);
+('p-001', 'Grilled Beef Burger', 'Savor our juicy grilled beef patty, seasoned to perfection and flame-grilled for a smoky flavor. Served on a freshly toasted bun with crisp lettuce, ripe tomatoes, onions, pickles, and our special house sauce. A hearty and satisfying choice for true burger lovers.', 75.00, 'c-001', 'https://cnpm-production-6b4c.up.railway.app/api/upload/BurgerBoNuong.jpg',  1),
+('p-002', 'Seafood Pizza', 'A delightful mixed seafood pizza topped with shrimp, squid, and melted cheese — perfect for seafood lovers.', 100.00, 'c-002', 'https://cnpm-production-6b4c.up.railway.app/api/upload/PizzaHaiSan.png', 1),
+('p-003', 'Pepsi', 'Refreshing carbonated soft drink to quench your thirst and complement any meal.', 15.00, 'c-003', 'https://cnpm-production-6b4c.up.railway.app/api/upload/Pepsi.jpg',  1),
+('p-004', 'Crispy Fried Chicken', 'Golden-brown, crispy battered chicken, juicy on the inside and perfectly seasoned.', 87.00, 'c-005', 'https://cnpm-production-6b4c.up.railway.app/api/upload/GaRanGion.jpg',  1),
+('p-005', 'Spaghetti Bolognese', 'Classic Italian pasta served with rich, savory minced beef sauce and herbs.', 68.00, 'c-007', 'https://cnpm-production-6b4c.up.railway.app/api/upload/MiY.jpg', 1),
+('p-006', 'Coca-Cola', 'Iconic fizzy cola drink with a bold, refreshing taste.', 15.00, 'c-003', 'https://cnpm-production-6b4c.up.railway.app/api/upload/Coca.jpg', 1),
+('p-007', 'Crispy Chicken Burger', 'Crispy fried chicken filet served in a soft burger bun with lettuce, pickles, and tangy mayo sauce.', 65.00, 'c-001', 'https://cnpm-production-6b4c.up.railway.app/api/upload/BurgerGa.jpg',  1),
+('p-008', 'Beef & Mushroom Pizza', 'Savory beef and fresh mushrooms layered over mozzarella and rich tomato sauce on a crispy crust.', 110.00, 'c-002', 'https://cnpm-production-6b4c.up.railway.app/api/upload/PizzaBoNam.jpg',  1),
+('p-009', 'Sprite', 'Light and lemon-lime flavored soft drink — a perfect choice for a refreshing break.', 10.00, 'c-003', 'https://cnpm-production-6b4c.up.railway.app/api/upload/Sprite.jpg', 1),
+('p-010', 'French Fries', 'Crispy golden fries, fried to perfection — ideal as a side or snack.', 45.00, 'c-005', 'https://cnpm-production-6b4c.up.railway.app/api/upload/KhoaiChien.jpg',  1),
+('p-011', 'Orange Juice', 'Freshly squeezed orange juice, naturally sweet and full of vitamin C.', 16.00, 'c-004', 'https://cnpm-production-6b4c.up.railway.app/api/upload/NuocCam.jpg',  1),
+('p-012', 'Lemonade', 'Cool and zesty lemonade made from fresh lemons — light, tangy, and refreshing.', 10.00, 'c-004', 'https://cnpm-production-6b4c.up.railway.app/api/upload/NuocChanh.jpg',  1),
+('p-013', 'Yangzhou Fried Rice', 'Classic Chinese-style fried rice with a colorful mix of vegetables, egg, and meat — satisfying and flavorful.', 62.00, 'c-006', 'https://cnpm-production-6b4c.up.railway.app/api/upload/ComChienDuongChau.jpg',  1),
+('p-014', 'Black Bean Noodles', 'Black Bean Noodles, also known as Jajangmyeon, are a Korean dish made with thick, savory black bean sauce and diced pork or vegetables.', 72.00, 'c-007', 'https://cnpm-production-6b4c.up.railway.app/api/upload/BlackBeanNoodles.jpg',  1);
 
 CREATE TABLE Restaurant_Product (
     RestaurantID CHAR(36),
