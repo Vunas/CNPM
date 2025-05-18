@@ -1,6 +1,6 @@
 -- 1. Bảng Restaurant: Thông tin cửa hàng đồ ăn nhanh
 CREATE TABLE Restaurant (
-  RestaurantID CHAR(36) DEFAULT UUID() PRIMARY KEY,
+  RestaurantID CHAR(36) DEFAULT (UUID()) PRIMARY KEY,
   Name VARCHAR(100) NOT NULL,
   Address VARCHAR(255) NOT NULL,
   Phone VARCHAR(15),
@@ -15,7 +15,7 @@ VALUES
 
 -- 2. Bảng Account: Tài khoản người dùng
 CREATE TABLE Account (
-  AccountID CHAR(36) DEFAULT UUID() PRIMARY KEY,
+  AccountID CHAR(36) DEFAULT (UUID()) PRIMARY KEY,
   Username VARCHAR(50) UNIQUE NOT NULL,
   PasswordHash VARCHAR(255) NOT NULL,
   Role ENUM('Admin', 'Employee', 'Kitchen') NOT NULL,
@@ -36,13 +36,13 @@ VALUES
 
 -- 3. Bảng Category: Danh mục món ăn
 CREATE TABLE Category (
-  CategoryID CHAR(36) DEFAULT UUID() PRIMARY KEY,
+  CategoryID CHAR(36) DEFAULT (UUID()) PRIMARY KEY,
   Name VARCHAR(50) UNIQUE NOT NULL,
   ImageURL TEXT,
   Status INT DEFAULT 1
 );
 
-INSERT INTO `category` (`CategoryID`, `Name`, `ImageURL`, `Status`) VALUES
+INSERT INTO `Category` (`CategoryID`, `Name`, `ImageURL`, `Status`) VALUES
 ('c-001', 'Burger', 'http://localhost:3000/api/upload/BurgerBoNuong.jpg', 1),
 ('c-002', 'Pizza', 'http://localhost:3000/api/upload/PizzaHaiSan.png', 1),
 ('c-003', 'Coca', 'http://localhost:3000/api/upload/Coca.jpg', 1),
@@ -53,7 +53,7 @@ INSERT INTO `category` (`CategoryID`, `Name`, `ImageURL`, `Status`) VALUES
 
 -- 4. Bảng Product: Món ăn
 CREATE TABLE Product (
-  ProductID CHAR(36) DEFAULT UUID() PRIMARY KEY,
+  ProductID CHAR(36) DEFAULT (UUID()) PRIMARY KEY,
   Name VARCHAR(100) NOT NULL,
   Description TEXT,
   Price DECIMAL(10,2) NOT NULL,
@@ -64,7 +64,7 @@ CREATE TABLE Product (
   Status INT DEFAULT 1
 );
 
-INSERT INTO `product` (`ProductID`, `Name`, `Description`, `Price`, `CategoryID`, `ImageURL`, `Status`) VALUES
+INSERT INTO Product (`ProductID`, `Name`, `Description`, `Price`, `CategoryID`, `ImageURL`, `Status`) VALUES
 ('p-001', 'Grilled Beef Burger', 'Savor our juicy grilled beef patty, seasoned to perfection and flame-grilled for a smoky flavor. Served on a freshly toasted bun with crisp lettuce, ripe tomatoes, onions, pickles, and our special house sauce. A hearty and satisfying choice for true burger lovers.', 75.00, 'c-001', 'http://localhost:3000/api/upload/BurgerBoNuong.jpg',  1),
 ('p-002', 'Seafood Pizza', 'A delightful mixed seafood pizza topped with shrimp, squid, and melted cheese — perfect for seafood lovers.', 100.00, 'c-002', 'http://localhost:3000/api/upload/PizzaHaiSan.png', 1),
 ('p-003', 'Pepsi', 'Refreshing carbonated soft drink to quench your thirst and complement any meal.', 15.00, 'c-003', 'http://localhost:3000/api/upload/Pepsi.jpg',  1),
@@ -92,7 +92,7 @@ CREATE TABLE Restaurant_Product (
 
 -- 5. Bảng RestaurantTable: Bàn ăn
 CREATE TABLE RestaurantTable (
-  TableID CHAR(36) DEFAULT UUID() PRIMARY KEY,
+  TableID CHAR(36) DEFAULT (UUID()) PRIMARY KEY,
   TableNumber INT NOT NULL,
   QRCode VARCHAR(255) NOT NULL,
   RestaurantID CHAR(36) NOT NULL,
@@ -118,7 +118,7 @@ VALUES
 
 -- 6. Bảng Order: Đơn hàng
 CREATE TABLE `Order` (
-    OrderID CHAR(36) DEFAULT UUID() PRIMARY KEY,
+    OrderID CHAR(36) DEFAULT (UUID()) PRIMARY KEY,
     OrderDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     TotalPrice DECIMAL(10,2) NOT NULL,
     OrderStatus ENUM('Pending','Confirmed', 'Prepared', 'Finished', 'Cancelled') DEFAULT 'Pending',
@@ -141,7 +141,7 @@ VALUES
 
 -- 7. Bảng OrderDetail: Chi tiết đơn hàng
 CREATE TABLE OrderDetail (
-  OrderDetailID CHAR(36) DEFAULT UUID() PRIMARY KEY,
+  OrderDetailID CHAR(36) DEFAULT (UUID()) PRIMARY KEY,
   OrderID CHAR(36) NOT NULL,
   ProductID CHAR(36) NOT NULL,
   Quantity INT NOT NULL,
@@ -162,7 +162,7 @@ VALUES
 
 /*-- 8. Bảng SideDish: món ăn kèm
 CREATE TABLE SideDish (
-  SideDishID CHAR(36) DEFAULT UUID() PRIMARY KEY,
+  SideDishID CHAR(36) DEFAULT (UUID()) PRIMARY KEY,
   Name VARCHAR(100) NOT NULL,
   Price DECIMAL(10,2) NOT NULL,
   -- Thêm cột Status cho xóa mềm (INT, default 1)
@@ -188,7 +188,7 @@ INSERT INTO `extrapair` (`SideDishID`, `ProductID`, `IsActive`) VALUES
 
 -- 8. Bảng Feedback: Đánh giá của khách hàng
 CREATE TABLE Feedback (
-  FeedbackID CHAR(36) DEFAULT UUID() PRIMARY KEY,
+  FeedbackID CHAR(36) DEFAULT (UUID()) PRIMARY KEY,
   OrderID CHAR(36) NOT NULL,
   CustomerName VARCHAR(100) NOT NULL,
   Email VARCHAR(255) NOT NULL,
