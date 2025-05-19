@@ -239,9 +239,9 @@ const Order = () => {
             <span className="text-lg font-bold ">Back to Home</span>
           </Link>
         </div>
-        <div className="py-4 px-2 sm:px-6">
+        <div className="py-4 px-2 sm:px-6 ">
           {/* Categories */}
-          <div className="flex items-center justify-center space-x-2 sm:space-x-5 mb-6 p-2 h-auto sm:h-28 overflow-x-auto no-scrollbar">
+          <div className="flex items-center justify-start sm:justify-center space-x-2 sm:space-x-5 mb-6 p-2 h-auto sm:h-28 overflow-x-auto no-scrollbar">
             <button
               onClick={() => handleCatePage(currentPage - 1)}
               disabled={currentPage === 1}
@@ -306,8 +306,8 @@ const Order = () => {
                 key={item.productId}
                 className="bg-white rounded-xl shadow-lg flex flex-col items-center overflow-hidden h-auto min-h-64 hover:scale-102 transition duration-300 cursor-pointer transform hover:shadow-xl"
                 onClick={() => handleOpenProductDetail(item)}
-                data-aos="fade-up"
-                data-aos-delay={50 * index}
+                // data-aos="fade-up"
+                // data-aos-delay={50 * index}
               >
                 <img
                   src={
@@ -398,7 +398,7 @@ const Order = () => {
             <span className="hidden sm:inline">
               {isDineIn ? "DINE IN" : "TAKE AWAY"}
             </span>
-            <span className="inline sm:hidden">{isDineIn ? "IN" : "AWAY"}</span>
+            <span className="inline sm:hidden">{isDineIn ? "DINE IN" : "TAKE AWAY"}</span>
           </button>
         </div>
         <div className="space-y-4 flex-1 overflow-y-auto pr-2">

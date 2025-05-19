@@ -43,12 +43,13 @@ import { Line, Pie } from "react-chartjs-2";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
-import orderApi from "../../api/orderApi"; 
+import orderApi from "../../api/orderApi";
 import { AttachMoney, MonetizationOn, ShoppingCart } from "@mui/icons-material";
+import Loading from "../../utils/Loading/Loading";
 
 const isDateInRange = (date, startDate, endDate) => {
   const orderDate = new Date(date);
-  orderDate.setHours(0, 0, 0, 0); 
+  orderDate.setHours(0, 0, 0, 0);
 
   if (startDate && orderDate < startDate) {
     return false;
@@ -60,11 +61,11 @@ const isDateInRange = (date, startDate, endDate) => {
 };
 
 const Statistics = () => {
-  const [allOrders, setAllOrders] = useState([]); 
+  const [allOrders, setAllOrders] = useState([]);
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null); 
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchOrders = async () => {
@@ -150,21 +151,7 @@ const Statistics = () => {
   };
 
   if (loading) {
-    return (
-      <Container
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "80vh",
-        }}
-      >
-        <CircularProgress />
-        <Typography variant="h6" sx={{ ml: 2 }}>
-          Loading data...
-        </Typography>
-      </Container>
-    );
+    return <Loading />;
   }
 
   if (error) {

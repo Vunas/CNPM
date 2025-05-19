@@ -123,7 +123,7 @@ function Payment({ setSnackbar }) {
           </div>
         </div>
 
-        <div className="bg-white rounded shadow p-4">
+        <div className="bg-white rounded p-4">
           <div className="mb-4 flex justify-between">
             <div>
               <div className="font-semibold">Business Name</div>
@@ -171,8 +171,8 @@ function Payment({ setSnackbar }) {
               <input
                 type="radio"
                 name="paymentMethod"
-                value="cashOnDelivery"
-                checked={paymentMethod === "cashOnDelivery"}
+                value="Cash"
+                checked={paymentMethod === "Cash"}
                 onChange={(e) => setPaymentMethod(e.target.value)}
                 className="mr-2"
               />
@@ -199,7 +199,7 @@ function Payment({ setSnackbar }) {
             />
           )}
 
-          {paymentMethod === "cashOnDelivery" && <CashOnDeliveryInfo />}
+          {paymentMethod === "Cash" && <CashOnDeliveryInfo />}
 
           <button
             onClick={handlePay}
