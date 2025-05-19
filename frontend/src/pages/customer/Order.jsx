@@ -40,7 +40,8 @@ const Order = () => {
       mirror: false,
       easing: "ease-in-out",
     });
-  }, []);
+    AOS.refresh();
+  }, [products]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -310,7 +311,7 @@ const Order = () => {
                 className="bg-white rounded-xl shadow-lg flex flex-col items-center overflow-hidden h-auto min-h-64 hover:scale-102 transition duration-300 cursor-pointer transform hover:shadow-xl"
                 onClick={() => handleOpenProductDetail(item)}
                 // data-aos="fade-up"
-                // data-aos-delay={50 * index}
+                // data-aos-delay={index}
               >
                 <img
                   src={

@@ -318,14 +318,14 @@ const Footer = () => {
 const Contact = () => {
   React.useEffect(() => {
     AOS.init({
-      duration: 1000,
+      duration: 400,
       easing: "ease-in-out",
       once: true,
     });
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen w-screen flex flex-col">
       <Header />
       <ContactHeroSection />
       <ContactInfoSection />
