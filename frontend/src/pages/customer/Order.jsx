@@ -250,7 +250,7 @@ const Order = () => {
               data-aos="fade-right"
             >
               <img
-                src="/src/assets/leftArrow.png"
+                src="/assets/leftArrow.png"
                 alt="Left Arrow"
                 className="w-4 h-16 sm:h-20 object-contain"
               />
@@ -292,7 +292,7 @@ const Order = () => {
               data-aos="fade-left"
             >
               <img
-                src="/src/assets/rightArrow.png"
+                src="/assets/rightArrow.png"
                 alt="Right Arrow"
                 className="w-4 h-16 sm:h-20 object-contain"
               />
@@ -408,7 +408,7 @@ const Order = () => {
                 Your cart is empty. Add some delicious items!
               </p>
               <img
-                src="/src/assets/empty_cart.jpg"
+                src="/assets/empty_cart.jpg"
                 alt="Empty Cart"
                 className="w-72 h-72 mx-auto mt-4 opacity-70"
               />

@@ -27,7 +27,7 @@ import { logout } from "../../../api/auth";
 import { useState } from "react";
 
 const Navbar = () => {
-  const [avatar, setAvatar] = useState("/src/assets/svg/avatar.svg");
+  const [avatar, setAvatar] = useState("/assets/svg/avatar.svg");
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];
@@ -46,7 +46,7 @@ const Navbar = () => {
     if (savedAvatar) {
       setAvatar(savedAvatar);
     } else {
-      setAvatar("../../../src/assets/svg/avatar.svg");
+      setAvatar("/assets/svg/avatar.svg");
     }
   }, []);
 

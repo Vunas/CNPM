@@ -70,7 +70,7 @@ const ContactHeroSection = () => {
     <div
       className="relative -top-20 flex flex-col items-center justify-center w-screen h-[80vh] text-center bg-cover bg-center"
       style={{
-        backgroundImage: "url('src/assets/img/contact.jpg')",
+        backgroundImage: "url('/assets/img/contact.jpg')",
       }}
     >
       <div className="absolute inset-0 bg-black opacity-50"></div>
@@ -135,7 +135,7 @@ const ContactInfoSection = () => {
           </div>
         </div>
         <img
-          src="src/assets/img/about.jpg"
+          src="/assets/img/about.jpg"
           alt="Restaurant exterior"
           className="rounded-2xl shadow-lg w-full h-[400px] object-cover"
           data-aos="fade-right"
@@ -247,7 +247,7 @@ const MapSection = () => {
       </h2>
       <div className="max-w-7xl mx-auto">
         <img
-          src="src/assets/img/yummy.jpg"
+          src="/assets/img/yummy.jpg"
           alt="Map placeholder"
           className="w-full h-[400px] object-cover rounded-2xl shadow-lg"
           data-aos="fade-up"

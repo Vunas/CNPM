@@ -70,7 +70,7 @@ const AboutHeroSection = () => {
     <div
       className="relative -top-20 flex flex-col items-center justify-center w-screen h-[80vh] text-center bg-cover bg-center"
       style={{
-        backgroundImage: "url('src/assets/img/about.jpg')",
+        backgroundImage: "url('/assets/img/about.jpg')",
       }}
     >
       <div className="absolute inset-0 bg-black opacity-50"></div>
@@ -124,7 +124,7 @@ const OurStorySection = () => {
           </button>
         </div>
         <img
-          src="src/assets/img/kitchen.jpg"
+          src="/assets/img/kitchen.jpg"
           alt="Restaurant team preparing food"
           className="rounded-2xl shadow-lg w-full h-[400px] object-cover"
           data-aos="fade-right"
@@ -158,7 +158,7 @@ const OurMissionSection = () => {
           celebration of flavor and connection.
         </p>
         <img
-          src="src/assets/img/table.jpg"
+          src="/assets/img/table.jpg"
           alt="Restaurant dining area"
           className="rounded-2xl shadow-lg w-full max-w-4xl mx-auto h-[500px] object-cover"
           data-aos="fade-up"
@@ -175,21 +175,21 @@ const OurTeamSection = () => {
     {
       name: "Chef Anna Lee",
       role: "Head Chef",
-      image: "src/assets/img/photo3.jpg",
+      image: "/assets/img/photo3.jpg",
       description:
         "With over 20 years of culinary expertise, Anna crafts dishes that blend tradition with innovation.",
     },
     {
       name: "Michael Tran",
       role: "Restaurant Manager",
-      image: "src/assets/img/photo2.jpg",
+      image: "/assets/img/photo2.jpg",
       description:
         "Michael ensures every guest leaves with a smile, overseeing operations with passion and precision.",
     },
     {
       name: "Sophie Nguyen",
       role: "Pastry Chef",
-      image: "src/assets/img/photo1.jpg",
+      image: "/assets/img/photo1.jpg",
       description:
         "Sophie’s desserts are a sweet finale to every meal, created with love and creativity.",
     },

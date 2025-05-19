@@ -71,7 +71,7 @@ const HeroSection = () => {
       className="relative -top-20 flex flex-col items-center justify-center w-screen h-[110vh] text-center bg-cover bg-center"
       style={{
         backgroundImage:
-          "url('src/assets/img/restaurant.jpg')",
+          "url('/assets/img/restaurant.jpg')",
       }}
     >
       <div className="absolute inset-0 bg-black opacity-50"></div>
@@ -133,7 +133,7 @@ const AboutSection = () => {
           </button>
         </div>
         <img
-          src="src/assets/img/food.jpg"
+          src="/assets/img/food.jpg"
           alt="Restaurant interior with delicious food"
           className="rounded-2xl shadow-lg w-full h-[400px] object-cover"
           data-aos="fade-right"
@@ -150,19 +150,19 @@ const FeaturedDishes = () => {
       name: "Classic Margherita Pizza",
       description:
         "Fresh mozzarella, basil, and house-made tomato sauce on a crispy artisan crust.",
-      image: "src/assets/PizzaHaiSan.png",
+      image: "/assets/PizzaHaiSan.png",
     },
     {
       name: "Grilled Salmon Delight",
       description:
         "Succulent salmon fillet with lemon herb sauce, served with roasted seasonal vegetables.",
-      image: "src/assets/BlackBeanNoodles.jpg",
+      image: "/assets/BlackBeanNoodles.jpg",
     },
     {
       name: "Chocolate Lava Cake",
       description:
         "Warm, gooey chocolate cake with a scoop of creamy vanilla ice cream.",
-      image: "src/assets/BurgerGa.jpg",
+      image: "/assets/BurgerGa.jpg",
     },
   ];
 
@@ -211,19 +211,19 @@ const CustomerReviews = () => {
       name: "Jane Doe",
       review:
         "The food was absolutely divine! The cozy ambiance and friendly staff made our evening unforgettable.",
-      image: "src/assets/img/photo1.jpg",
+      image: "/assets/img/photo1.jpg",
     },
     {
       name: "John Smith",
       review:
         "Best pizza I’ve ever had! The delivery was lightning-fast, and the flavors were spot on.",
-      image: "src/assets/img/photo2.jpg",
+      image: "/assets/img/photo2.jpg",
     },
     {
       name: "Emily Chen",
       review:
         "The desserts are to die for! Highly recommend the chocolate lava cake.",
-      image: "src/assets/img/photo3.jpg",
+      image: "/assets/img/photo3.jpg",
     },
   ];
 

@@ -117,15 +117,15 @@ const Table = ({ table, status, onTableClick }) => {
   const getStatusImage = (status) => {
     switch (status) {
       case 1:
-        return "../../src/assets/img/active-table.png";
+        return "/assets/img/active-table.png";
       case 2:
-        return "../../src/assets/img/lock-table.png";
+        return "/assets/img/lock-table.png";
       case 3:
-        return "../../src/assets/img/using-table.png";
+        return "/assets/img/using-table.png";
       case 4:
-        return "../../src/assets/img/reserved-table.png";
+        return "/assets/img/reserved-table.png";
       default:
-        return "../../src/assets/img/dining-table.png";
+        return "/assets/img/dining-table.png";
     }
   };
 

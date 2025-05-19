@@ -45,14 +45,14 @@ export default function Homepage() {
     <div className="p-6 bg-gray-50 h-screen flex gap-4 w-[90vw]">
       <div className="w-[60%] bg-white p-4 rounded shadow flex flex-col relative">
         <img
-          src="src/assets/Restaurant.jpg"
+          src="/assets/Restaurant.jpg"
           alt="Cart"
           className="w-96 h-96 mx-auto border-b-4 border-black"
         />
 
         <div className="w-full text-center text-2xl font-bold mt-4">
            <img
-            src="src/assets/table.png"
+            src="/assets/table.png"
             alt="Cart"
             className="w-8 h-8 inline-block mr-2 mb-1"
           />
