@@ -228,15 +228,18 @@ const Order = () => {
         <div className="mb-4" data-aos="fade-right">
           <Link
             to={`/home?restaurantid=${restaurantId}&restauranttableid=${restaurantTableId}`}
-            className="inline-flex items-center space-x-2 px-4 py-2 transition duration-300"
+            className="inline-flex items-center space-x-1 sm:space-x-2 px-2 py-1 sm:px-4 sm:py-2 transition duration-300"
           >
             <div
+              className="p-1.5 sm:p-2 rounded-lg flex items-center justify-center shadow-sm hover:scale-105"
               style={{ backgroundColor: "rgb(47, 58, 85)" }}
-              className="p-2 rounded-xl flex items-center justify-center shadow-sm hover:scale-105"
             >
-              <Home style={{ color: "white", width: "28px", height: "28px" }} />
+              <Home
+                style={{ color: "white", width: "20px", height: "20px" }}
+                className="sm:w-7 sm:h-7"
+              />
             </div>
-            <span className="text-lg font-bold ">Back to Home</span>
+            <span className="text-sm sm:text-lg font-bold">Back to Home</span>
           </Link>
         </div>
         <div className="py-4 px-2 sm:px-6 ">
@@ -263,7 +266,7 @@ const Order = () => {
                     : handleGetProductByCategory(categoryItem.categoryId);
                 }}
                 key={categoryItem.categoryId}
-                className={`w-28 h-28 min-w-28 min-h-28 flex flex-col items-center justify-center p-2 rounded-xl shadow-md transition duration-300 transform hover:scale-105 text-gray-800 font-semibold text-center ${
+                className={`w-20 h-20 min-w-20 min-h-20 sm:w-28 sm:h-28 flex flex-col items-center justify-center p-1 rounded-2xl shadow-md transition duration-300 transform hover:scale-105 text-gray-800 font-semibold text-center ${
                   categoryItem.categoryId === lastClick
                     ? "bg-red-500 text-white shadow-lg"
                     : "bg-gray-300 hover:bg-gray-400"
@@ -277,7 +280,7 @@ const Order = () => {
                     "https://via.placeholder.com/80x60?text=Category"
                   }
                   alt={categoryItem.name}
-                  className="w-20 h-16 object-cover rounded-full mb-1 border-2 border-white shadow-sm"
+                  className="w-auto h-12 sm:h-20 object-cover rounded-full mb-1 border-2 border-white shadow-sm"
                 />
                 <span className="text-base font-bold truncate">
                   {categoryItem.name}
@@ -398,7 +401,9 @@ const Order = () => {
             <span className="hidden sm:inline">
               {isDineIn ? "DINE IN" : "TAKE AWAY"}
             </span>
-            <span className="inline sm:hidden">{isDineIn ? "DINE IN" : "TAKE AWAY"}</span>
+            <span className="inline sm:hidden">
+              {isDineIn ? "DINE IN" : "TAKE AWAY"}
+            </span>
           </button>
         </div>
         <div className="space-y-4 flex-1 overflow-y-auto pr-2">
