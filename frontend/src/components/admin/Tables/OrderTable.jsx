@@ -16,7 +16,7 @@ import {
   DoneAll,
   Cancel,
 } from "@mui/icons-material";
-import { exportExcel } from "../../../utils/Exceljs";
+import { exportExcel } from "../../../utils/ExcelJS";
 
 const OrderTable = ({ orders, onDelete, tables, restaurants }) => {
   const [searchTerm, setSearchTerm] = useState("");

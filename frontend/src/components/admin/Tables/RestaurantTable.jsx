@@ -3,7 +3,7 @@ import React, { useMemo, useState } from "react";
 import CommonToolbar from "../../CommonToolbar";
 import { usePagination } from "../../../utils/Pagination/Paginations";
 import PaginationControls from "../../../utils/Pagination/PaginationControl";
-import { exportExcel } from "../../../utils/Exceljs";
+import { exportExcel } from "../../../utils/ExcelJS";
 
 const RestaurantTable = ({ restaurants, onAdd, onEdit, onDelete }) => {
   const [searchTerm, setSearchTerm] = useState("");
