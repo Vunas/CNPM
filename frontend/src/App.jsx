@@ -12,15 +12,13 @@ import Page404 from "./pages/Page404";
 export default function App() {
   return (
     <div className="w-screen h-screen">
-      <Router>
-        <Routes>
-          <Route path="/" element={<Navigate to="/qrcodepage" />} />
-          <Route path="/*" element={<CustomerRouter />} />
-          <Route path="/admin/*" element={<AdminRouter />} />
+      <Routes>
+        <Route path="/" element={<Navigate to="/qrcodepage" />} />
+        <Route path="/*" element={<CustomerRouter />} />
+        <Route path="/admin/*" element={<AdminRouter />} />
 
-          <Route path="*" element={<Page404 href={"/admin"} />} />
-        </Routes>
-      </Router>
+        <Route path="*" element={<Page404 href={"/admin"} />} />
+      </Routes>
     </div>
   );
 }
