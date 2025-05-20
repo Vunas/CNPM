@@ -342,14 +342,14 @@ const NewsletterSignup = () => {
         events. Subscribe now!
       </p>
       <div
-        className="max-w-md mx-auto flex"
+        className="max-w-screen mx-auto flex"
         data-aos="fade-up"
         data-aos-duration="1000"
         data-aos-delay="400"
       >
         <input
           type="email"
-          className="flex-1 p-3 rounded-l-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-red-500 max-w-screen"
+          className="flex-1 p-3 rounded-l-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-red-500"
           placeholder="Enter your email"
         />
         <button className="bg-red-500 text-white px-6 py-3 rounded-r-lg hover:bg-red-600">

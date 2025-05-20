@@ -18,7 +18,7 @@ const OrderSuccess = ({ response }) => {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen p-4 max-w-screen">
-      <div className=" rounded-lg p-6 sm:p-8 md:p-10 text-center max-w-md w-screen">
+      <div className="rounded-lg p-6 sm:p-8 md:p-10 text-center max-w-md w-full">
         <div className="w-72 h-72 mx-auto mb-6">
           <Lottie animationData={orderSucceed} play={true} loop={false} />
         </div>
