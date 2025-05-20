@@ -105,8 +105,8 @@ function Payment({ setSnackbar }) {
   };
 
   return (
-    <div className="flex justify-center items-center h-screen">
-      <div className="mx-auto p-6 w-full max-w-[500px] min-h-[450px] bg-white shadow rounded grid place-items-center">
+    <div className="flex justify-center items-center h-screen sm:w-screen lg:w-auto">
+      <div className="h-screen lg:h-auto mx-auto p-6 w-full max-w-[500px] min-h-[450px] bg-white shadow rounded grid place-items-center">
         <div className="flex items-center justify-between mb-4 w-full">
           <button
             onClick={() =>
@@ -194,7 +194,7 @@ function Payment({ setSnackbar }) {
               cart={cart}
               returnUrl={`${window.location.origin}/order?restaurantid=${restaurantId}&restauranttableid=${restaurantTableId}`}
               resId={restaurantId}
-              TableId={restaurantId}
+              tableId={restaurantTableId}
               setSnackbar={setSnackbar}
             />
           )}

@@ -12,6 +12,7 @@ import FeedbackSender from "../pages/customer/Feedback";
 import Order from "../pages/customer/Order";
 import Invoice from "../pages/customer/Invoice";
 import FeedbackForm from "../pages/customer/FeedBackForm";
+import Page404 from "../pages/Page404";
 
 const CustomerRouter = () => {
   const [snackBar, setSnackbar] = useState({
@@ -39,6 +40,7 @@ const CustomerRouter = () => {
           {/* <Route path="/feedback" element={<FeedbackSender />} /> */}
           <Route path="/invoice" element={<Invoice />} />
           <Route path="/feedback" element={<FeedbackForm />} />
+          <Route path="*" element={<Page404 href={"/order"} />} />
         </Routes>
       </div>
 

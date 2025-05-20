@@ -13,6 +13,7 @@ function CreditCardForm({ cardNumber, expiryDate, cvv, onChange }) {
           value={cardNumber}
           onChange={onChange}
           className="shadow border rounded w-full py-2 px-3"
+          placeholder="XXXX XXXX XXXX XXXX"
         />
       </div>
       <div className="flex">
@@ -39,6 +40,7 @@ function CreditCardForm({ cardNumber, expiryDate, cvv, onChange }) {
             value={cvv}
             onChange={onChange}
             className="shadow border rounded w-full py-2 px-3"
+            placeholder="XXX"
           />
         </div>
       </div>

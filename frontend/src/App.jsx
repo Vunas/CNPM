@@ -13,7 +13,7 @@ export default function App() {
   return (
     <div className="w-screen h-screen">
       <Routes>
-        <Route path="/" element={<Navigate to="/qrcodepage" />} />
+        <Route path="/" element={<Navigate to="/home" />} />
         <Route path="/*" element={<CustomerRouter />} />
         <Route path="/admin/*" element={<AdminRouter />} />
 

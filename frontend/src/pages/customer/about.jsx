@@ -27,7 +27,7 @@ const Header = () => {
           : "bg-transparent text-white"
       }`}
     >
-      <div className="text-3xl font-semibold">
+      <div className=" xl:text-2xl sm:text-lg font-semibold">
         <Link to="/" className="hover:text-red-500 transition-colors">
           My Restaurant
         </Link>
