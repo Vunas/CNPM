@@ -13,7 +13,6 @@ export default function Invoice() {
   const [orderDetails, setOrderDetails] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  console.log(orderData);
 
   useEffect(() => {
     const fetchData = async () => {

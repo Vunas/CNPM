@@ -192,7 +192,7 @@ function Payment({ setSnackbar }) {
           {paymentMethod === "vnpay" && (
             <VNPayInfo
               cart={cart}
-              returnUrl={`${window.location.origin}/order?restaurantid=${restaurantId}&restauranttableid=${restaurantTableId}`}
+              isDineIn={isDineIn}
               resId={restaurantId}
               tableId={restaurantTableId}
               setSnackbar={setSnackbar}

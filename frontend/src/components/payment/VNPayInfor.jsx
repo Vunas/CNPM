@@ -4,7 +4,7 @@ import orderApi from "../../api/orderApi";
 import { QRCodeCanvas } from "qrcode.react";
 import { useNavigate } from "react-router-dom";
 
-const VNPayInfo = ({ cart, returnUrl, resId, tableId, setSnackbar }) => {
+const VNPayInfo = ({ cart, isDineIn, resId, tableId, setSnackbar }) => {
   const [isGeneratingQr, setIsGeneratingQr] = useState(false);
   const [isSubmittingOrder, setIsSubmittingOrder] = useState(false);
   const [qrCodeData, setQrCodeData] = useState("");
@@ -54,13 +54,13 @@ const VNPayInfo = ({ cart, returnUrl, resId, tableId, setSnackbar }) => {
 
     const orderData = {
       totalPrice: totalPrice,
-      paymentMethod: "Vnpay",
+      paymentMethod: "Credit Card",
       customerContact: "user@example.com",
       restaurantId: resId,
       tableId: tableId,
+      orderType: isDineIn ? "Dine-in" : "Takeaway",
     };
 
-    console.log(orderData);
 
     try {
       const response = await orderApi.createOrder(
@@ -69,7 +69,6 @@ const VNPayInfo = ({ cart, returnUrl, resId, tableId, setSnackbar }) => {
         orderDetails
       );
       if (response) {
-        console.log("Order created successfully after scan:", response);
         setSnackbar({
           open: true,
           message: "Payment confirmed! Your order is placed.",
