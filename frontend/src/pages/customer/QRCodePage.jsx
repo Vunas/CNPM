@@ -16,6 +16,8 @@ import restaurantApi from "../../api/restaurantApi";
 import restaurantTableApi from "../../api/restaurantTableApi";
 import Download from "@mui/icons-material/Download";
 import Loading from "../../utils/Loading/Loading";
+import AOS from "aos";
+import "aos/dist/aos.css"; // Import CSS của AOS
 
 function QRCodePage() {
   const [restaurants, setRestaurants] = useState([]);
@@ -33,6 +35,11 @@ function QRCodePage() {
     };
 
     fetchData();
+    AOS.init({
+      duration: 600, // Thời gian animation (ms)
+      once: true, // Chỉ chạy animation một lần khi scroll xuống
+      // Các tùy chọn khác của AOS có thể được cấu hình tại đây
+    });
   }, []);
 
   const handleRestaurantChange = (event) => {
@@ -53,7 +60,7 @@ function QRCodePage() {
   const filteredRestaurants = selectedRestaurantId
     ? restaurants.filter((r) => r.restaurantId === selectedRestaurantId)
     : restaurants;
-    
+
   if (loading) return <Loading />;
 
   return (
@@ -63,11 +70,12 @@ function QRCodePage() {
         gutterBottom
         fontWeight="bold"
         sx={{ textAlign: "center", marginBottom: "5rem" }}
+        data-aos="fade-right"
       >
         QR Code Generator
       </Typography>
 
-      <FormControl fullWidth sx={{ mb: 4 }}>
+      <FormControl fullWidth sx={{ mb: 4 }} data-aos="zoom-in-up">
         <InputLabel>Filter by Restaurant</InputLabel>
         <Select
           value={selectedRestaurantId}
@@ -90,7 +98,6 @@ function QRCodePage() {
         const filteredTables = restaurantTables.filter(
           (table) => table.restaurantId === restaurant.restaurantId
         );
-        console.log(filteredTables);
         if (!filteredTables || filteredTables.length === 0)
           return (
             <div
@@ -115,18 +122,31 @@ function QRCodePage() {
           );
 
         return (
-          <div key={restaurant.restaurantId}>
+          <div
+            key={restaurant.restaurantId}
+            className="flex flex-col items-center mb-6"
+          >
             <Typography variant="h5" fontWeight="bold" sx={{ mt: 4, mb: 2 }}>
               {restaurant.name}
             </Typography>
-            <Grid container spacing={3}>
+            <Grid container spacing={3} justifyContent="center">
+              {" "}
+              {/* Thêm justifyContent="center" */}
               {filteredTables.map((table) => {
                 const canvasId = `qr-${restaurant.restaurantId}-${table.tableId}`;
                 const orderUrl = `${window.location.origin}/order?restaurantid=${restaurant.restaurantId}&restauranttableid=${table.tableId}`;
                 const fileName = `${restaurant.name}-Table-${table.tableNumber}.png`;
 
                 return (
-                  <Grid item xs={12} sm={6} md={4} key={canvasId}>
+                  <Grid
+                    item
+                    xs={12}
+                    sm={6}
+                    md={4}
+                    key={canvasId}
+                    data-aos="fade-up"
+                    data-aos-delay={table.tableId * 50}
+                  >
                     <Card
                       sx={{
                         p: 2,
@@ -157,7 +177,6 @@ function QRCodePage() {
 
                         <Button
                           variant="contained"
-                          // size="small"
                           sx={{
                             mt: 2,
                             bgcolor: "success.main",

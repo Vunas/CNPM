@@ -70,8 +70,7 @@ const HeroSection = () => {
     <div
       className="relative -top-20 flex flex-col items-center justify-center w-screen h-[110vh] text-center bg-cover bg-center"
       style={{
-        backgroundImage:
-          "url('/assets/img/restaurant.jpg')",
+        backgroundImage: "url('/assets/img/restaurant.jpg')",
       }}
     >
       <div className="absolute inset-0 bg-black opacity-50"></div>
@@ -350,7 +349,7 @@ const NewsletterSignup = () => {
       >
         <input
           type="email"
-          className="flex-1 p-3 rounded-l-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-red-500"
+          className="flex-1 p-3 rounded-l-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-red-500 max-w-screen"
           placeholder="Enter your email"
         />
         <button className="bg-red-500 text-white px-6 py-3 rounded-r-lg hover:bg-red-600">
