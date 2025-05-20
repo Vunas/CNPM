@@ -15,11 +15,13 @@ import { QRCodeCanvas } from "qrcode.react";
 import restaurantApi from "../../api/restaurantApi";
 import restaurantTableApi from "../../api/restaurantTableApi";
 import Download from "@mui/icons-material/Download";
+import Loading from "../../utils/Loading/Loading";
 
 function QRCodePage() {
   const [restaurants, setRestaurants] = useState([]);
   const [restaurantTables, setRestaurantTables] = useState([]);
   const [selectedRestaurantId, setSelectedRestaurantId] = useState("");
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -27,6 +29,7 @@ function QRCodePage() {
       const tableData = await restaurantTableApi.getTables();
       setRestaurants(restaurantData);
       setRestaurantTables(tableData);
+      setLoading(false);
     };
 
     fetchData();
@@ -50,6 +53,8 @@ function QRCodePage() {
   const filteredRestaurants = selectedRestaurantId
     ? restaurants.filter((r) => r.restaurantId === selectedRestaurantId)
     : restaurants;
+    
+  if (loading) return <Loading />;
 
   return (
     <Container maxWidth="lg" sx={{ py: 4 }}>

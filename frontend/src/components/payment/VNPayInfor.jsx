@@ -2,14 +2,12 @@ import React, { useState, useEffect } from "react";
 import vnpayLogo from "../../assets/VNPAY.png";
 import orderApi from "../../api/orderApi";
 import { QRCodeCanvas } from "qrcode.react";
-import { useNavigate } from "react-router-dom";
 
-const VNPayInfo = ({ cart, isDineIn, resId, tableId, setSnackbar }) => {
+const VNPayInfo = ({ cart, isDineIn, resId, tableId, setSnackbar, setOrderSuccess }) => {
   const [isGeneratingQr, setIsGeneratingQr] = useState(false);
   const [isSubmittingOrder, setIsSubmittingOrder] = useState(false);
   const [qrCodeData, setQrCodeData] = useState("");
   const [paymentStatus, setPaymentStatus] = useState("idle");
-  const navigate = useNavigate();
 
   const totalPrice = cart.reduce(
     (sum, item) => sum + item.price * item.quantity,
@@ -75,9 +73,10 @@ const VNPayInfo = ({ cart, isDineIn, resId, tableId, setSnackbar }) => {
           type: "success",
         });
         setPaymentStatus("success");
-        setTimeout(() => {
-          navigate(`/invoice`, { state: { orderData: response } });
-        }, 1500);
+        setOrderSuccess(response);
+        // setTimeout(() => {
+        //   navigate(`/invoice`, { state: { orderData: response } });
+        // }, 1500);
       } else {
         throw new Error(
           response?.error || "Unknown error during order creation"

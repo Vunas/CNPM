@@ -3,8 +3,8 @@ import { useNavigate, useLocation } from "react-router-dom";
 import CreditCardForm from "../../components/payment/CreditCardForm";
 import VNPayInfo from "../../components/payment/VNPayInfor";
 import CashOnDeliveryInfo from "../../components/payment/CashOnDeliveryInfo";
-import { Block } from "@mui/icons-material";
 import orderApi from "../../api/orderApi";
+import OrderSuccess from "../../utils/OrderSuccess";
 
 function Payment({ setSnackbar }) {
   const navigate = useNavigate();
@@ -16,6 +16,7 @@ function Payment({ setSnackbar }) {
   const [cvv, setCvv] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [orderSuccess, setOrderSuccess] = useState();
 
   const { cart, restaurantId, restaurantTableId, isDineIn } =
     location.state || {};
@@ -77,10 +78,11 @@ function Payment({ setSnackbar }) {
           message: "Order created successfully!",
           type: "success",
         });
+        setOrderSuccess(response);
         // navigate(
         //   `/order?restaurantid=${restaurantId}&restauranttableid=${restaurantTableId}`
         // );
-        navigate(`/invoice`, { state: { orderData: response } });
+        // navigate(`/invoice`, { state: { orderData: response } });
       } else {
         throw new Error(response?.error || "Unknown error");
       }
@@ -104,10 +106,12 @@ function Payment({ setSnackbar }) {
     else if (name === "cvv") setCvv(value);
   };
 
+  if (orderSuccess) return <OrderSuccess response={orderSuccess} />;
+
   return (
     <div className="flex justify-center items-center h-screen sm:w-screen lg:w-auto">
       <div className="h-screen lg:h-auto mx-auto p-6 w-full max-w-[500px] min-h-[450px] bg-white shadow rounded grid place-items-center">
-        <div className="flex items-center justify-between mb-4 w-full">
+        <div className="flex items-center justify-between mb-4 w-full p-5 py-6 relative top-0 left-0 right-0 z-50 sm:static sm:mb-0 ">
           <button
             onClick={() =>
               navigate(
@@ -196,6 +200,7 @@ function Payment({ setSnackbar }) {
               resId={restaurantId}
               tableId={restaurantTableId}
               setSnackbar={setSnackbar}
+              setOrderSuccess={setOrderSuccess}
             />
           )}
 

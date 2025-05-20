@@ -44,7 +44,7 @@ export default function Invoice() {
 
   if (error) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-100 p-4 sm:p-6">
+      <div className="h-screen w-screen flex items-center justify-center bg-gray-100 p-4 sm:p-6">
         <div className="bg-white p-6 sm:p-8 rounded-lg shadow-lg text-center">
           <h2 className="text-xl sm:text-2xl font-semibold text-red-600 mb-2 sm:mb-4">
             Error
@@ -87,10 +87,10 @@ export default function Invoice() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center p-2 sm:p-4 print:block print:p-0">
+    <div className="w-screen bg-gray-100 flex  justify-center sm:p-4 print:block print:p-0 overflow-scroll">
       <div
         id="invoice"
-        className="max-w-md sm:max-w-2xl w-full bg-white shadow-xl rounded-lg p-4 sm:p-8 print:shadow-none print:rounded-none print:border-0"
+        className="max-w-screen sm:max-w-2xl w-full bg-white shadow-xl rounded-lg p-4 print:shadow-none print:rounded-none print:border-0"
       >
         {/* Header */}
         <div className="text-center mb-4 sm:mb-8 border-b pb-2 sm:pb-4 border-gray-200">
