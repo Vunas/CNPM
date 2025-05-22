@@ -5,6 +5,7 @@ import VNPayInfo from "../../components/payment/VNPayInfor";
 import CashOnDeliveryInfo from "../../components/payment/CashOnDeliveryInfo";
 import orderApi from "../../api/orderApi";
 import OrderSuccess from "../../utils/OrderSuccess";
+import Error from "../../utils/Error";
 
 function Payment({ setSnackbar }) {
   const navigate = useNavigate();
@@ -23,9 +24,9 @@ function Payment({ setSnackbar }) {
 
   if (!cart || !restaurantId || !restaurantTableId) {
     return (
-      <div className="text-center text-red-600 mt-10">
-        Missing required order data. Please return to the order page.
-      </div>
+      <Error
+        error={"Missing required order data. Please return to the order page."}
+      />
     );
   }
 

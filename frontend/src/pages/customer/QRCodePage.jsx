@@ -17,28 +17,36 @@ import restaurantTableApi from "../../api/restaurantTableApi";
 import Download from "@mui/icons-material/Download";
 import Loading from "../../utils/Loading/Loading";
 import AOS from "aos";
-import "aos/dist/aos.css"; // Import CSS của AOS
+import "aos/dist/aos.css";
+import Error from "../../utils/Error";
 
 function QRCodePage() {
   const [restaurants, setRestaurants] = useState([]);
   const [restaurantTables, setRestaurantTables] = useState([]);
   const [selectedRestaurantId, setSelectedRestaurantId] = useState("");
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
-      const restaurantData = await restaurantApi.getRestaurants();
-      const tableData = await restaurantTableApi.getTables();
-      setRestaurants(restaurantData);
-      setRestaurantTables(tableData);
-      setLoading(false);
+      try {
+        const restaurantData = await restaurantApi.getRestaurants();
+        const tableData = await restaurantTableApi.getTables();
+        setRestaurants(restaurantData);
+        setRestaurantTables(tableData);
+        setLoading(false);
+      } catch (e) {
+        console.error("Failed to fetch order details:", e);
+        setError(e);
+      } finally {
+        setLoading(false);
+      }
     };
 
     fetchData();
     AOS.init({
-      duration: 600, // Thời gian animation (ms)
-      once: true, // Chỉ chạy animation một lần khi scroll xuống
-      // Các tùy chọn khác của AOS có thể được cấu hình tại đây
+      duration: 600,
+      once: true,
     });
   }, []);
 
@@ -62,6 +70,7 @@ function QRCodePage() {
     : restaurants;
 
   if (loading) return <Loading />;
+  if (error) return <Error error={error.message} />;
 
   return (
     <Container maxWidth="lg" sx={{ py: 4 }}>

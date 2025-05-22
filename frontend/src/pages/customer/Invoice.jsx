@@ -18,7 +18,7 @@ export default function Invoice() {
   useEffect(() => {
     const fetchData = async () => {
       if (!orderData?.orderId) {
-        setError(new Error("Order ID is missing."));
+        setError("Order ID is missing.");
         setLoading(false);
         return;
       }
@@ -44,7 +44,7 @@ export default function Invoice() {
   }
 
   if (error) {
-    return <Error error={`Failed to load invoice data: ${error.message}`} />;
+    return <Error error={`Failed to load invoice data: ${error}`} />;
   }
 
   if (!orderData) {

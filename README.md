@@ -2,6 +2,19 @@
 
 This is a full-stack Point of Sale (POS) management system built with **ReactJS + Vite** for the frontend and **NestJS** for the backend. The system provides a complete solution for managing sales, restaurants, user accounts, products, and inventory in a modern and scalable architecture.
 
+## Reference Website Links:
+- User Page: https://cnpm-rose.vercel.app
+- QRCodePage: https://cnpm-rose.vercel.app/qrcodepage
+- Admin Page: https://cnpm-rose.vercel.app/admin
+- Sample Accounts: To facilitate testing and demonstration, the system includes the following sample accounts:
+  - Administrator: admin  (Full access to manage all operations)
+  - Staff: emp (Handles table and order management)
+  - Chef: kit (Manages kitchen orders and preparation status) 
+  - Common password for all accounts: 123456
+  
+  Staff members can utilize these accounts to navigate different system functionalities and ensure seamless coordination across departments.
+
+
 ## Features
 
 ### Frontend (React + Vite)
@@ -287,6 +300,17 @@ Customers can submit reviews and provide ratings for their dining experience.
 
 ![Employee Management 1](frontend/src/assets/projects/admin/img19.png)
 ![Employee Management 2](frontend/src/assets/projects/admin/img20.png)
+
+- Staff Management Page Overview
+Our staff management page is designed to efficiently handle both order processing and table management. With an intuitive interface, employees can oversee customer orders and monitor table statuses in real time.
+Table Statuses:
+The system categorizes tables into four distinct statuses:
+- Active – The table is currently in use.
+- Locked – The table is temporarily unavailable.
+- In-use – The table is occupied with an ongoing order.
+- Reserved – The table has been booked in advance.
+Order Management:
+Staff members can easily track and manage orders for each table, ensuring smooth service and optimized workflow.
 
 🙌 Thank You & Final Thoughts
 Thank you all for your time and interest in this project. We sincerely appreciate your support and engagement.

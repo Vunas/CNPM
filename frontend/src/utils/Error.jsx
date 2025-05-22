@@ -4,7 +4,6 @@ import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 import "aos/dist/aos.css";
 
 const Error = ({ error }) => {
-
   return (
     <div className="flex flex-col items-center justify-center min-h-screen font-arvo fixed inset-0 z-50">
       <div
@@ -20,7 +19,7 @@ const Error = ({ error }) => {
         data-aos="zoom-in"
         data-aos-delay="900"
       >
-        <h2 className="text-xl sm:text-4xl font-bold text-red-600 flex gap-2">
+        <h2 className="text-xl sm:text-4xl font-bold text-red-600 flex gap-2 justify-center items-center">
           {" "}
           <ErrorOutlineIcon
             sx={{ fontSize: { xs: 40, sm: 50, md: 60 } }}
@@ -28,7 +27,7 @@ const Error = ({ error }) => {
           />
           Oops! An error has occurred
         </h2>
-        <p className="text-lg text-gray-600 mt-3">
+        <p className="text-lg text-gray-600 mt-3 text-wrap">
           {error || "An unexpected error has occurred on the website."}
         </p>
       </div>
