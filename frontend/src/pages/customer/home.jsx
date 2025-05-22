@@ -349,7 +349,7 @@ const NewsletterSignup = () => {
       >
         <input
           type="email"
-          className="flex-1 p-3 rounded-l-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-red-500"
+          className="flex-1 p-3 max-w-[90vw] rounded-l-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-red-500"
           placeholder="Enter your email"
         />
         <button className="bg-red-500 text-white px-6 py-3 rounded-r-lg hover:bg-red-600">

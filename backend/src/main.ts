@@ -6,9 +6,10 @@ async function bootstrap() {
 
   app.enableCors({
     origin: [
-      'http://localhost:5173',
-      'https://cnpm-git-main-hoang-vus-projects-0d9b3a2d.vercel.app',
-    ],
+      process.env.URL_ACCEPT_1,
+      process.env.URL_ACCEPT_2,
+      process.env.URL_ACCEPT_3,
+    ].filter(Boolean),
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
   });
