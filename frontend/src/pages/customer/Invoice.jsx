@@ -6,6 +6,7 @@ import Loading from "../../utils/Loading/Loading";
 import { QRCodeCanvas } from "qrcode.react";
 import { Print, ShoppingCart } from "@mui/icons-material";
 import { format } from "date-fns";
+import Error from "../../utils/Error";
 
 export default function Invoice() {
   const location = useLocation();
@@ -43,18 +44,7 @@ export default function Invoice() {
   }
 
   if (error) {
-    return (
-      <div className="h-screen w-screen flex items-center justify-center bg-gray-100 p-4 sm:p-6">
-        <div className="bg-white p-6 sm:p-8 rounded-lg shadow-lg text-center">
-          <h2 className="text-xl sm:text-2xl font-semibold text-red-600 mb-2 sm:mb-4">
-            Error
-          </h2>
-          <p className="text-gray-700 text-sm sm:text-base">
-            Failed to load invoice data: {error.message}
-          </p>
-        </div>
-      </div>
-    );
+    return <Error error={`Failed to load invoice data: ${error.message}`} />;
   }
 
   if (!orderData) {

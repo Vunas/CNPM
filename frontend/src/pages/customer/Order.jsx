@@ -11,6 +11,8 @@ import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import ProductDetail from "../../components/Details/ProductDetail";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import ErrorComponent from "../../utils/Error";
+import Error from "../../utils/Error";
 
 const Order = () => {
   const [cart, setCart] = useState([]);
@@ -192,9 +194,10 @@ const Order = () => {
 
   if (error) {
     return (
-      <div className="text-center text-red-600 text-xl mt-10">
-        Lỗi khi tải dữ liệu sản phẩm: {error.message}
-      </div>
+      // <div className="text-center text-red-600 text-xl mt-10">
+      //   Lỗi khi tải dữ liệu sản phẩm: {error.message}
+      // </div>
+      <Error error={error.message} />
     );
   }
 
