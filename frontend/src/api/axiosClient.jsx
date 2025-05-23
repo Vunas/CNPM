@@ -2,7 +2,7 @@ import axios from "axios";
 import queryString from "query-string";
 
 const axiosClient = axios.create({
-  baseURL: "https://cnpm-production-6b4c.up.railway.app/api",
+  baseURL: import.meta.env.VITE_API_URL,
   headers: {
     "content-type": "application/json",
   },

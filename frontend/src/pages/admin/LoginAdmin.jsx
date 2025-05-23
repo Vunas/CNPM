@@ -3,8 +3,7 @@ import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
 import { Snackbar, Alert } from "@mui/material";
 import { login, loginWithGoogle } from "../../api/auth";
 
-const clientId =
-  "1041605160701-9q21rn06djjtsdlck5ks2mur96eckti0.apps.googleusercontent.com";
+const clientId = import.meta.env.GOOGLE_CLIENT_ID;
 
 const LoginAdmin = () => {
   const [username, setUsername] = useState("");
