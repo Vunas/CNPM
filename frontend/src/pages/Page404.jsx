@@ -24,8 +24,6 @@ const Page404 = ({ href }) => {
         <a
           href={href || "/"}
           className="mt-6 inline-block px-6 py-3 rounded-lg hover:bg-green-200 transition-transform transform hover:scale-105 shadow-lg"
-          data-aos="fade-up"
-          data-aos-delay="800"
         >
           Go Home
         </a>

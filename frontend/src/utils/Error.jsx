@@ -23,7 +23,7 @@ const Error = ({ error }) => {
           {" "}
           <ErrorOutlineIcon
             sx={{ fontSize: { xs: 40, sm: 50, md: 60 } }}
-            className="relative -top-2"
+            className="relative"
           />
           Oops! An error has occurred
         </h2>

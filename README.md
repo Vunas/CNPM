@@ -3,15 +3,16 @@
 This is a full-stack Point of Sale (POS) management system built with **ReactJS + Vite** for the frontend and **NestJS** for the backend. The system provides a complete solution for managing sales, restaurants, user accounts, products, and inventory in a modern and scalable architecture.
 
 ## Reference Website Links:
+
 - User Page: https://cnpm-rose.vercel.app
 - QRCodePage: https://cnpm-rose.vercel.app/qrcodepage
 - Admin Page: https://cnpm-rose.vercel.app/admin
 - Sample Accounts: To facilitate testing and demonstration, the system includes the following sample accounts:
-  - Administrator: admin  (Full access to manage all operations)
+  - Administrator: admin (Full access to manage all operations)
   - Staff: emp (Handles table and order management)
-  - Chef: kit (Manages kitchen orders and preparation status) 
+  - Chef: kit (Manages kitchen orders and preparation status)
   - Common password for all accounts: 12345
-  
+
 ## Features
 
 ### Frontend (React + Vite)
@@ -50,6 +51,8 @@ This is a full-stack Point of Sale (POS) management system built with **ReactJS 
 - Docker (optional but recommended)
 
 ### Installation
+
+**Note:** You need to create a .env file containing the appropriate information for the application, including DB_HOST=localhost, DB_PORT, DB_USER, DB_PASS, DB_NAME, URL_ACCEPT, and more.
 
 ```bash
 # Clone the repository
@@ -299,15 +302,15 @@ Customers can submit reviews and provide ratings for their dining experience.
 ![Employee Management 2](frontend/src/assets/projects/admin/img20.png)
 
 - Staff Management Page Overview
-Our staff management page is designed to efficiently handle both order processing and table management. With an intuitive interface, employees can oversee customer orders and monitor table statuses in real time.
-Table Statuses:
-The system categorizes tables into four distinct statuses:
+  Our staff management page is designed to efficiently handle both order processing and table management. With an intuitive interface, employees can oversee customer orders and monitor table statuses in real time.
+  Table Statuses:
+  The system categorizes tables into four distinct statuses:
 - Active – The table is currently in use.
 - Locked – The table is temporarily unavailable.
 - In-use – The table is occupied with an ongoing order.
 - Reserved – The table has been booked in advance.
-Order Management:
-Staff members can easily track and manage orders for each table, ensuring smooth service and optimized workflow.
+  Order Management:
+  Staff members can easily track and manage orders for each table, ensuring smooth service and optimized workflow.
 
 🙌 Thank You & Final Thoughts
 Thank you all for your time and interest in this project. We sincerely appreciate your support and engagement.
