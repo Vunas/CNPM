@@ -10,11 +10,8 @@ This is a full-stack Point of Sale (POS) management system built with **ReactJS 
   - Administrator: admin  (Full access to manage all operations)
   - Staff: emp (Handles table and order management)
   - Chef: kit (Manages kitchen orders and preparation status) 
-  - Common password for all accounts: 123456
+  - Common password for all accounts: 12345
   
-  Staff members can utilize these accounts to navigate different system functionalities and ensure seamless coordination across departments.
-
-
 ## Features
 
 ### Frontend (React + Vite)
